@@ -1,0 +1,136 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "AgriCommerce",
+  "@appTitle": {"description": "Title of the application"},
+
+  "login": "Login",
+  "@login": {"description": "Button label for login"},
+
+  "register": "Register",
+  "@register": {"description": "Button label for register"},
+
+  "email": "Email",
+  "@email": {"description": "Field label for email"},
+
+  "password": "Password",
+  "@password": {"description": "Field label for password"},
+
+  "logout": "Logout",
+  "@logout": {"description": "Button label for logout"},
+
+  "welcome": "Welcome",
+  "@welcome": {"description": "Welcome message"},
+
+  "catalogue": "Catalogue",
+  "@catalogue": {"description": "Label for product catalogue"},
+
+  "cart": "Cart",
+  "@cart": {"description": "Label for shopping cart"},
+
+  "promos": "Promotions",
+  "@promos": {"description": "Label for promotions screen"},
+
+  "recentOrders": "Recent Orders",
+  "@recentOrders": {"description": "Section title for recent orders"},
+
+  "fidelityPoints": "My Loyalty Points",
+  "@fidelityPoints": {"description": "Label for loyalty points card"},
+
+  "screenHome": "Home",
+  "@screenHome": {"description": "Title of home screen"},
+
+  "orders": "Orders",
+  "@orders": {"description": "Label for orders list"},
+
+  "orderDelivered": "Delivered",
+  "@orderDelivered": {"description": "Status delivered"},
+
+  "orderInProgress": "In Progress",
+  "@orderInProgress": {"description": "Status in progress"},
+
+  "stock": "Stock",
+  "@stock": {"description": "Label for stock"},
+
+  "alerts": "Alerts",
+  "@alerts": {"description": "Label for alerts"},
+
+  "addProduct": "Add Product",
+  "@addProduct": {"description": "Button to add product"},
+
+  "scanQR": "Scan QR",
+  "@scanQR": {"description": "Button to scan QR code"},
+
+  "createWarehouse": "New Warehouse",
+  "@createWarehouse": {"description": "Title for new warehouse screen"},
+
+  "editWarehouse": "Edit Warehouse",
+  "@editWarehouse": {"description": "Title for edit warehouse screen"},
+
+  "warehouseName": "Warehouse Name",
+  "@warehouseName": {"description": "Label for warehouse name field"},
+
+  "warehouseAddress": "Address",
+  "@warehouseAddress": {"description": "Label for warehouse address field"},
+
+  "save": "Save",
+  "@save": {"description": "Button label for save"},
+
+  "createBatch": "Create Batch",
+  "@createBatch": {"description": "Title for batch creation screen"},
+
+  "product": "Product",
+  "@product": {"description": "Label for product dropdown"},
+
+  "warehouse": "Warehouse",
+  "@warehouse": {"description": "Label for warehouse dropdown"},
+
+  "quantity": "Quantity",
+  "@quantity": {"description": "Label for quantity field"},
+
+  "selectDate": "Choose Date",
+  "@selectDate": {"description": "Label for date picker"},
+
+  "notifications": "Notifications",
+  "@notifications": {"description": "Title for notifications screen"},
+
+  "promotionAvailable": "New promotion available",
+  "@promotionAvailable": {"description": "Notification title"},
+
+  "notificationMessagePromo": "Enjoy 10% off cereal products.",
+  "@notificationMessagePromo": {"description": "Notification subtitle"},
+
+  "notificationOrder": "New order received",
+  "@notificationOrder": {"description": "Notification title"},
+
+  "notificationMessageOrder": "You have a new order from client.",
+  "@notificationMessageOrder": {"description": "Notification subtitle"},
+
+  "promotionCode": "Promo Code",
+  "@promotionCode": {"description": "Label for promo code"},
+
+  "validUntil": "Valid until",
+  "@validUntil": {"description": "Label for promo validity"},
+
+  "applyCode": "Apply Code",
+  "@applyCode": {"description": "Button to apply promo code"},
+
+  "loyaltyProgram": "Loyalty Program",
+  "@loyaltyProgram": {"description": "Title for loyalty screen"},
+
+  "history": "History",
+  "@history": {"description": "Section title for history"},
+
+  "feedback": "Leave a Review",
+  "@feedback": {"description": "Button to leave product review"},
+
+  "profile": "Profile",
+  "@profile": {"description": "Title for profile screen"},
+
+  "notificationsAllRead": "Mark all as read",
+  "@notificationsAllRead": {"description": "Button to mark notifications as read"},
+
+  "welcomeMessage": "Hello, {name}!",
+  "@welcomeMessage": {"description": "Welcome greeting with user name",
+    "placeholders": {"name": {"type": "Object"}}}
+}

@@ -1,0 +1,138 @@
+{
+  "@@locale": "fr",
+
+  "appTitle": "AgriCommerce",
+  "@appTitle": {"description": "Titre de l’application"},
+
+  "login": "Connexion",
+  "@login": {"description": "Libellé du bouton de connexion"},
+
+  "register": "Inscription",
+  "@register": {"description": "Libellé du bouton d’inscription"},
+
+  "email": "Email",
+  "@email": {"description": "Libellé du champ email"},
+
+  "password": "Mot de passe",
+  "@password": {"description": "Libellé du champ mot de passe"},
+
+  "logout": "Déconnexion",
+  "@logout": {"description": "Libellé du bouton déconnexion"},
+
+  "welcome": "Bienvenue",
+  "@welcome": {"description": "Message de bienvenue"},
+
+  "catalogue": "Catalogue",
+  "@catalogue": {"description": "Label pour le catalogue produits"},
+
+  "cart": "Panier",
+  "@cart": {"description": "Label pour le panier"},
+
+  "promos": "Promotions",
+  "@promos": {"description": "Label pour l’écran promotions"},
+
+  "recentOrders": "Commandes récentes",
+  "@recentOrders": {"description": "Titre de la section commandes récentes"},
+
+  "fidelityPoints": "Mes points fidélité",
+  "@fidelityPoints": {"description": "Label pour les points de fidélité"},
+
+  "screenHome": "Accueil",
+  "@screenHome": {"description": "Titre de l’écran accueil"},
+
+  "orders": "Commandes",
+  "@orders": {"description": "Label pour la liste des commandes"},
+
+  "orderDelivered": "Livrée",
+  "@orderDelivered": {"description": "Statut livrée"},
+
+  "orderInProgress": "En cours",
+  "@orderInProgress": {"description": "Statut en cours"},
+
+  "stock": "Stock",
+  "@stock": {"description": "Label pour stock"},
+
+  "alerts": "Alertes",
+  "@alerts": {"description": "Label pour alertes"},
+
+  "addProduct": "Ajouter un produit",
+  "@addProduct": {"description": "Bouton ajouter produit"},
+
+  "scanQR": "Scanner QR",
+  "@scanQR": {"description": "Bouton scanner QR"},
+
+  "createWarehouse": "Nouvel entrepôt",
+  "@createWarehouse": {"description": "Titre pour nouvel entrepôt"},
+
+  "editWarehouse": "Modifier l’entrepôt",
+  "@editWarehouse": {"description": "Titre pour modifier entrepôt"},
+
+  "warehouseName": "Nom de l’entrepôt",
+  "@warehouseName": {"description": "Label nom entrepôt"},
+
+  "warehouseAddress": "Adresse",
+  "@warehouseAddress": {"description": "Label adresse entrepôt"},
+
+  "save": "Enregistrer",
+  "@save": {"description": "Bouton enregistrer"},
+
+  "createBatch": "Créer un lot",
+  "@createBatch": {"description": "Titre pour création de lot"},
+
+  "product": "Produit",
+  "@product": {"description": "Label produit"},
+
+  "warehouse": "Entrepôt",
+  "@warehouse": {"description": "Label entrepôt"},
+
+  "quantity": "Quantité",
+  "@quantity": {"description": "Label quantité"},
+
+  "selectDate": "Choisir la date",
+  "@selectDate": {"description": "Label pour date picker"},
+
+  "notifications": "Notifications",
+  "@notifications": {"description": "Titre écran notifications"},
+
+  "promotionAvailable": "Nouvelle promotion disponible",
+  "@promotionAvailable": {"description": "Titre notification promotion"},
+
+  "notificationMessagePromo": "Profitez de 10% de réduction sur les céréales.",
+  "@notificationMessagePromo": {"description": "Message notification promotion"},
+
+  "notificationOrder": "Nouvelle commande reçue",
+  "@notificationOrder": {"description": "Titre notification commande"},
+
+  "notificationMessageOrder": "Vous avez reçu une nouvelle commande.",
+  "@notificationMessageOrder": {"description": "Message notification commande"},
+
+  "promotionCode": "Code promo",
+  "@promotionCode": {"description": "Label code promo"},
+
+  "validUntil": "Valable jusqu’au",
+  "@validUntil": {"description": "Label validité promo"},
+
+  "applyCode": "Appliquer le code",
+  "@applyCode": {"description": "Bouton appliquer code promo"},
+
+  "loyaltyProgram": "Programme de fidélité",
+  "@loyaltyProgram": {"description": "Titre programme fidélité"},
+
+  "history": "Historique",
+  "@history": {"description": "Titre section historique"},
+
+  "feedback": "Laisser un avis",
+  "@feedback": {"description": "Bouton laisser un avis"},
+
+  "profile": "Profil",
+  "@profile": {"description": "Titre écran profil"},
+
+  "notificationsAllRead": "Tout marquer comme lu",
+  "@notificationsAllRead": {"description": "Bouton marquer tout lu"},
+
+  "welcomeMessage": "Bonjour, {name} !",
+  "@welcomeMessage": {
+    "description": "Message de bienvenue avec nom",
+    "placeholders": {"name": { "type": "Object"}}
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "@@locale": "bm",
+
+  "appTitle": "AgriCommerce",
+  "@appTitle": {"description": "Kalan yɛrɛw ka fɛ"},
+
+  "login": "Sogoma",
+  "@login": {"description": "Bolokɔli ka sogoma"},
+
+  "register": "Saregina",
+  "@register": {"description": "Bolokɔli ka saregina"},
+
+  "email": "Email",
+  "@email": {"description": "Fere ka email"},
+
+  "password": "Passwole",
+  "@password": {"description": "Fere ka passwole"},
+
+  "logout": "Bɔ barika",
+  "@logout": {"description": "Bolokɔli ka bɔ barika"},
+
+  "welcome": "I ni ce",
+  "@welcome": {"description": "Tile i ni ce"},
+
+  "catalogue": "Katalogu",
+  "@catalogue": {"description": "Label katalogu"},
+
+  "cart": "Panela",
+  "@cart": {"description": "Label panela"},
+
+  "promos": "Kɔ̀mpɔnɛni",
+  "@promos": {"description": "Label kɔ̀mpɔnɛni"},
+
+  "recentOrders": "Foli foyi",
+  "@recentOrders": {"description": "Tile foli foyi"},
+
+  "fidelityPoints": "N bɔ points",
+  "@fidelityPoints": {"description": "Label bɔ points"},
+
+  "screenHome": "Furu",
+  "@screenHome": {"description": "Tile furu"},
+
+  "orders": "Foli",
+  "@orders": {"description": "Label foli"},
+
+  "orderDelivered": "Wɛrɛw",
+  "@orderDelivered": {"description": "Statut wɛrɛw"},
+
+  "orderInProgress": "Diɲɛlɔ",
+  "@orderInProgress": {"description": "Statut diɲɛlɔ"},
+
+  "stock": "Stock",
+  "@stock": {"description": "Label stock"},
+
+  "alerts": "Sigɛsɛgɛ",
+  "@alerts": {"description": "Label sigɛsɛgɛ"},
+
+  "addProduct": "Ka fo guro",
+  "@addProduct": {"description": "Bolokɔli ka fo guro"},
+
+  "scanQR": "Fasi QR",
+  "@scanQR": {"description": "Bolokɔli ka fasi QR"},
+
+  "createWarehouse": "Entrepot Kɛ",
+  "@createWarehouse": {"description": "Tile entrepot kɛ"},
+
+  "editWarehouse": "Entrepot Sogu",
+  "@editWarehouse": {"description": "Tile entrepot sogu"},
+
+  "warehouseName": "Entrepot Nɛn",
+  "@warehouseName": {"description": "Label entrepot nɛn"},
+
+  "warehouseAddress": "Adresa",
+  "@warehouseAddress": {"description": "Label adresa"},
+
+  "save": "Saron",
+  "@save": {"description": "Bolokɔli saron"},
+
+  "createBatch": "Ka lot kɛ",
+  "@createBatch": {"description": "Tile lot ka kɛ"},
+
+  "product": "Guro",
+  "@product": {"description": "Label guro"},
+
+  "warehouse": "Entrepot",
+  "@warehouse": {"description": "Label entrepot"},
+
+  "quantity": "Gbɛn",
+  "@quantity": {"description": "Label gbɛn"},
+
+  "selectDate": "Tɛnbɛ sikiro",
+  "@selectDate": {"description": "Label tɛnbɛ sikiro"},
+
+  "notifications": "Sigɛsɛgɛ",
+  "@notifications": {"description": "Tile sigɛsɛgɛ"},
+
+  "promotionAvailable": "Kɔ̀mpɔnɛni kan ka don",
+  "@promotionAvailable": {"description": "Tile promotion"},
+
+  "notificationMessagePromo": "Kɔ̀mpɔnɛni 10% ka fɛ dala.",
+  "@notificationMessagePromo": {"description": "Message promotion"},
+
+  "notificationOrder": "Foli kan don",
+  "@notificationOrder": {"description": "Tile nouvelle commande"},
+
+  "notificationMessageOrder": "Fili ka foli kan don.",
+  "@notificationMessageOrder": {"description": "Message nouvelle commande"},
+
+  "promotionCode": "Code Promo",
+  "@promotionCode": {"description": "Label code promo"},
+
+  "validUntil": "Ka dɔɔnin",
+  "@validUntil": {"description": "Label date d'expiration"},
+
+  "applyCode": "Fasi code",
+  "@applyCode": {"description": "Bolokɔli ka fasi code"},
+
+  "loyaltyProgram": "Loyalty Program",
+  "@loyaltyProgram": {"description": "Tile loyalty program"},
+
+  "history": "History",
+  "@history": {"description": "Tile historique"},
+
+  "feedback": "Sariya aw",
+  "@feedback": {"description": "Bolokɔli ka sariya aw"},
+
+  "profile": "Profile",
+  "@profile": {"description": "Tile profile"},
+
+  "notificationsAllRead": "Ka sigɛsɛgɛ ɲɛgɛn",
+  "@notificationsAllRead": {"description": "Bolokɔli ka marquer tout lu"},
+
+  "welcomeMessage": "I ni ce, {name}!",
+  "@welcomeMessage": {
+    "description": "Tile i ni ce ni nɔgɔfɛ",
+    "placeholders": {"name": { "type": "Object"}}
+  }
+}
