@@ -1,23 +1,70 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../models/user.dart';
+import '../../services/auth_service.dart';
 
-import '../../donnees/utilisateur.dart';
-
-
-final authRepositoryProvider = Provider((_) => AuthRepository());
 
 class AuthRepository {
-  final Dio _dio = Dio(BaseOptions(baseUrl: 'https://ton-backend/api'));
-  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+  final AuthService _service;
+  AuthRepository(this._service);
 
-  Future<Utilisateur> login(String email, String mdp) async {
-    final resp = await _dio.post('/auth/login/', data: {'email': email, 'password': mdp});
-    final json = resp.data;
-    await _storage.write(key: 'token', value: json['token']);
-    return Utilisateur.fromJson(json['user']);
+  /// Retourne true si l'inscription réussit (201 Created)
+  Future<bool> register({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final Response resp = await _service.register(
+        firstName: firstName,
+        lastName:  lastName,
+        email:     email,
+        password:  password,
+      );
+      return resp.statusCode == 201;
+    } on DioException {
+      // Vous pouvez logger e.response?.data si besoin
+      return false;
+    }
   }
 
-  Future<void> logout() async {
-    await _storage.delete(key: 'token');
+  /// Retourne true si la connexion réussit (200 OK)
+  Future<bool> login({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final Response resp = await _service.login(
+        email: email,
+        password: password,
+      );
+
+      if (resp.statusCode == 200) {
+        final data = resp.data;
+        final access = data['access'];
+        final refresh = data['refresh'];
+
+        if (access != null && refresh != null) {
+          var storage = FlutterSecureStorage();
+          await storage.write(key: 'access_token', value: access);
+          await storage.write(key: 'refresh_token', value: refresh);
+          return true;
+        }
+      }
+      return false;
+    } on DioException catch (e) {
+      print('[AuthRepository] Login failed: ${e.response?.data}');
+      return false;
+    }
   }
+
+  Future<void> logout() => _service.logout();
+
+  Future<bool> verifyToken(String token) => _service.verifyToken(token);
+
+  Future<User> getCurrentUser() => _service.getCurrentUser();
+
+// Ajoutez ici les wrappers pour resetPassword, setPassword, etc.
 }

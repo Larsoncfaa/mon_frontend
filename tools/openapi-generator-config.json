@@ -1,0 +1,7 @@
+{
+  "pubName": "openapi",
+  "pubVersion": "1.0.0",
+  "useEnumExtension": true,
+  "serializationLibrary": "built_value",
+  "hideGenerationTimestamp": true
+}

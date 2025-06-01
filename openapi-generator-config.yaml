@@ -1,0 +1,12 @@
+{
+  "generatorName": "dart-dio",
+  "inputSpec": "openapi.yaml",
+  "output": "lib/api/openapi",
+  "additionalProperties": {
+    "pubName": "openapi",
+    "serializationLibrary": "built_value",
+    "useEnumExtension": true,
+    "dateLibrary": "core",
+    "browserClient": false
+  }
+}

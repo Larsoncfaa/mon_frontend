@@ -1,17 +1,31 @@
-// lib/fournisseurs/repositories/notification_repository.dart
-import 'package:dio/dio.dart';
-import '../../donnees/notifications.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final notificationRepositoryProvider = Provider((_) => NotificationRepository());
+
+import '../../models/notification.dart';
+import '../../pagination/paginated_notification_list.dart';
+import '../../services/notification_service.dart';
+
 class NotificationRepository {
-  final Dio _dio = Dio(BaseOptions(baseUrl: 'https://ton-backend/api'));
-  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+  final NotificationService service;
 
-  Future<List<NotificationSysteme>> fetchAll() async {
-    final token = await _storage.read(key: 'token');
-    final resp = await _dio.get('/notifications/', options: Options(headers: {'Authorization': 'Token $token'}));
-    return (resp.data as List).map((e) => NotificationSysteme.fromJson(e)).toList();
+  NotificationRepository(this.service);
+
+  Future<PaginatedNotificationList> getAll({int page = 1}) {
+    return service.fetchNotifications(page: page);
+  }
+
+  Future<Notification> getOne(int id) {
+    return service.fetchNotification(id);
+  }
+
+  Future<Notification> create(Notification notification) {
+    return service.createNotification(notification);
+  }
+
+  Future<Notification> update(int id, Notification notification) {
+    return service.updateNotification(id, notification);
+  }
+
+  Future<void> delete(int id) {
+    return service.deleteNotification(id);
   }
 }

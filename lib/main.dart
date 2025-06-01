@@ -1,60 +1,70 @@
-// lib/main.dart
-
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:maliag/models/user.dart';
+import 'package:maliag/vues/agriculteur/dashboard_screen.dart';
+import 'package:maliag/vues/auth/login_screen.dart';
+import 'package:maliag/vues/auth/register_screen.dart';
+import 'package:maliag/vues/client/home_screen.dart';
+import 'package:maliag/vues/livreur/livreur_dashboard_screen.dart';
 
-import 'app/router.dart';
-import 'app/theme.dart';
-import 'app/localisations.dart';
-import 'app/audio.dart';
+import 'fournisseurs/provider/auth_provider.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // Initialise le service audio globalement si nécessaire
-  final audio = AudioService();
-  await audio.init(locale: 'fr-FR');
-
-  runApp(
-    ProviderScope(
-      child: MyApp(audioService: audio),
-    ),
-  );
+void main() {
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  final AudioService audioService;
-  const MyApp({super.key, required this.audioService});
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final _appRouter = AppRouter();
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
+    );
+  }
+}
 
-    return MaterialApp.router(
-      title: 'AgriCommerce',
-      routerConfig: _appRouter,
-      theme: appTheme,
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authNotifierProvider);
+
+    return MaterialApp(
+      title: 'MaliAg',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
-
-      // Localisation
-      supportedLocales: LocalisationConfig.supportedLocales,
-      localizationsDelegates: LocalisationConfig.localizationsDelegates,
-      localeResolutionCallback: (locale, supportedLocales) {
-        if (locale != null) {
-          for (var supported in supportedLocales) {
-            if (supported.languageCode == locale.languageCode) {
-              return supported;
-            }
+      home: authState.when(
+        initial: () => const LoginScreen(),    // état initial : pas d'utilisateur
+        loading: () => const SplashScreen(),
+        error:   (_) => const LoginScreen(),
+        data:    (user) {
+          if (user == null) return const LoginScreen();
+          switch (user.role) {
+            case UserRole.agriculteur:
+              return const DashboardAgriculteurScreen();
+            case UserRole.client:
+              return const HomeScreen();
+            case UserRole.livreur:
+              return const LivreurDashboardScreen();
+            default:
+              return const LoginScreen();
           }
-        }
-        return supportedLocales.first;
-      },
-
-      // Aide à l'accessibilité : synthèse vocale au changement de routes
-      builder: (context, router) {
-        // Par exemple, lire un message générique à chaque nouvelle page
-        return router!;
+        },
+      ),
+      routes: {
+        '/register':   (context) => const RegisterScreen(),
+        '/login':      (context) => const LoginScreen(),
+        '/client':     (context) => const HomeScreen(),
+        '/livreur':    (context) => const LivreurDashboardScreen(),
+        '/agriculteur':(context) => const DashboardAgriculteurScreen(),
       },
     );
   }
