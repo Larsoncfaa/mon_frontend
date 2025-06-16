@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../models/stock_level.dart';
 import '../../pagination/paginated_stock_level.dart';
 import '../repositories/stock_level_repository.dart';
 
@@ -26,6 +27,16 @@ class StockLevelNotifier extends StateNotifier<AsyncValue<PaginatedStockLevel>> 
   Future<void> deleteStockLevel(int id) async {
     try {
       await repository.deleteStockLevel(id);
+      await fetchStockLevels();
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  /// Création d’un nouveau niveau de stock, puis recharge la liste
+  Future<void> createLevel(StockLevel newLevel) async {
+    try {
+      await repository.createStockLevel(newLevel);
       await fetchStockLevels();
     } catch (e, st) {
       state = AsyncError(e, st);

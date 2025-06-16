@@ -23,7 +23,6 @@ mixin _$Proof {
   int get id => throw _privateConstructorUsedError;
   int get delivery => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
-  @JsonKey(name: 'uploaded_at')
   DateTime get uploadedAt => throw _privateConstructorUsedError;
 
   /// Serializes this Proof to a JSON map.
@@ -40,11 +39,7 @@ abstract class $ProofCopyWith<$Res> {
   factory $ProofCopyWith(Proof value, $Res Function(Proof) then) =
       _$ProofCopyWithImpl<$Res, Proof>;
   @useResult
-  $Res call(
-      {int id,
-      int delivery,
-      String image,
-      @JsonKey(name: 'uploaded_at') DateTime uploadedAt});
+  $Res call({int id, int delivery, String image, DateTime uploadedAt});
 }
 
 /// @nodoc
@@ -95,11 +90,7 @@ abstract class _$$ProofImplCopyWith<$Res> implements $ProofCopyWith<$Res> {
       __$$ProofImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      int delivery,
-      String image,
-      @JsonKey(name: 'uploaded_at') DateTime uploadedAt});
+  $Res call({int id, int delivery, String image, DateTime uploadedAt});
 }
 
 /// @nodoc
@@ -148,7 +139,7 @@ class _$ProofImpl implements _Proof {
       {required this.id,
       required this.delivery,
       required this.image,
-      @JsonKey(name: 'uploaded_at') required this.uploadedAt});
+      required this.uploadedAt});
 
   factory _$ProofImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProofImplFromJson(json);
@@ -160,7 +151,6 @@ class _$ProofImpl implements _Proof {
   @override
   final String image;
   @override
-  @JsonKey(name: 'uploaded_at')
   final DateTime uploadedAt;
 
   @override
@@ -203,11 +193,10 @@ class _$ProofImpl implements _Proof {
 
 abstract class _Proof implements Proof {
   const factory _Proof(
-          {required final int id,
-          required final int delivery,
-          required final String image,
-          @JsonKey(name: 'uploaded_at') required final DateTime uploadedAt}) =
-      _$ProofImpl;
+      {required final int id,
+      required final int delivery,
+      required final String image,
+      required final DateTime uploadedAt}) = _$ProofImpl;
 
   factory _Proof.fromJson(Map<String, dynamic> json) = _$ProofImpl.fromJson;
 
@@ -218,7 +207,6 @@ abstract class _Proof implements Proof {
   @override
   String get image;
   @override
-  @JsonKey(name: 'uploaded_at')
   DateTime get uploadedAt;
 
   /// Create a copy of Proof

@@ -1,20 +1,19 @@
-
-
+import 'package:flutter/cupertino.dart';
 import '../../models/delivery_predict.dart';
 import '../../services/delivery_predict_service.dart';
 
 class DeliveryPredictRepository {
-  final DeliveryPredictService _service;
+  final DeliveryPredictService service;
 
-  DeliveryPredictRepository(this._service);
+  DeliveryPredictRepository(this.service);
 
-  Future<DeliveryPredict> predictDelivery({
-    required int productId,
-    required int quantity,
-  }) {
-    return _service.predictDelivery(
-      productId: productId,
-      quantity: quantity,
-    );
+  /// Récupère toutes les prédictions de livraison pour un produit
+  Future<List<DeliveryPredict>> fetchAll(int productId) async {
+    debugPrint("Repository: Fetching all delivery predictions for productId: $productId");
+
+    final predictions = await service.fetchDeliveryPredictions(productId: productId);
+
+    debugPrint("Repository: Fetched ${predictions.length} delivery predictions.");
+    return predictions;
   }
 }

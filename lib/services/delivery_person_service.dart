@@ -11,7 +11,7 @@ class DeliveryPersonService {
   /// Récupère une page de livraisons. Si [url] est fourni, l'utilise directement,
   /// sinon utilise '/delivery-persons/'.
   Future<PaginatedDeliveryPersonList> fetchPage({String? url}) async {
-    final response = await _dio.get(url ?? '/v1/livreurs/');
+    final response = await _dio.get(url ?? '/livreurs/');
     return PaginatedDeliveryPersonList.fromJson(response.data as Map<String, dynamic>);
   }
 

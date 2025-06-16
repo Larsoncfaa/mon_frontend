@@ -11,6 +11,7 @@ class SalesPredictNotifier extends StateNotifier<AsyncValue<List<SalesPredict>>>
     loadPredictions();
   }
 
+  // Charger toutes les prévisions de vente
   Future<void> loadPredictions() async {
     try {
       final data = await repository.fetchAll();
@@ -20,28 +21,31 @@ class SalesPredictNotifier extends StateNotifier<AsyncValue<List<SalesPredict>>>
     }
   }
 
+  // Ajouter une nouvelle prévision de vente
   Future<void> addPrediction(SalesPredict prediction) async {
     try {
       await repository.create(prediction);
-      await loadPredictions();
+      await loadPredictions();  // Recharger après l'ajout
     } catch (e, st) {
       state = AsyncError(e, st);
     }
   }
 
+  // Mettre à jour une prévision de vente
   Future<void> updatePrediction(int id, SalesPredict updated) async {
     try {
       await repository.update(id, updated);
-      await loadPredictions();
+      await loadPredictions();  // Recharger après la mise à jour
     } catch (e, st) {
       state = AsyncError(e, st);
     }
   }
 
+  // Supprimer une prévision de vente
   Future<void> deletePrediction(int id) async {
     try {
       await repository.delete(id);
-      await loadPredictions();
+      await loadPredictions();  // Recharger après la suppression
     } catch (e, st) {
       state = AsyncError(e, st);
     }

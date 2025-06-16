@@ -1,7 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:dio/dio.dart';
-
-
 
 import '../../core/network/dio_provider.dart';
 import '../../models/batch.dart';
@@ -9,20 +6,33 @@ import '../../services/batch_service.dart';
 import '../notifications/batch_notifier.dart';
 import '../repositories/batch_repository.dart';
 
-
-
-
-/// Fournisseur du service
+/// Fournisseur du service Dio
 final batchServiceProvider = Provider<BatchService>((ref) {
-  return BatchService(ref.watch(dioProvider));
+  final dio = ref.watch(dioProvider);
+  return BatchService(dio);
 });
 
-/// Fournisseur du repository
+/// Fournisseur du repository, dépend du service
 final batchRepositoryProvider = Provider<BatchRepository>((ref) {
-  return BatchRepository(ref.watch(batchServiceProvider as ProviderListenable<Dio>));
+  final service = ref.watch(batchServiceProvider);
+  return BatchRepository(service); // ✅ correction ici
 });
 
-/// Fournisseur du notifier
-final batchNotifierProvider = StateNotifierProvider<BatchNotifier, AsyncValue<List<Batch>>>((ref) {
-  return BatchNotifier(ref.watch(batchRepositoryProvider));
+
+/// Fournisseur du notifier (StateNotifier)
+final batchNotifierProvider =
+StateNotifierProvider<BatchNotifier, AsyncValue<List<Batch>>>((ref) {
+  final repository = ref.watch(batchRepositoryProvider);
+  return BatchNotifier(repository);
 });
+final selectedBatchProvider = FutureProvider.family<Batch, int>((ref, id) async {
+  final service = ref.watch(batchServiceProvider);
+  return service.getBatch(id);
+});
+
+final batchProvider = StateNotifierProvider<BatchNotifier, AsyncValue<List<Batch>>>(
+      (ref) {
+    final repository = ref.read(batchRepositoryProvider);
+    return BatchNotifier(repository);
+  },
+);

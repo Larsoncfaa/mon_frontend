@@ -23,8 +23,11 @@ mixin _$Payment {
   int? get id => throw _privateConstructorUsedError;
   int get order => throw _privateConstructorUsedError;
   MethodEnum get method => throw _privateConstructorUsedError;
+  @StringToDoubleConverter()
   double get amount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'payment_status')
   PaymentStatusEnum? get paymentStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: 'paid_at')
   DateTime? get paidAt => throw _privateConstructorUsedError;
 
   /// Serializes this Payment to a JSON map.
@@ -45,9 +48,9 @@ abstract class $PaymentCopyWith<$Res> {
       {int? id,
       int order,
       MethodEnum method,
-      double amount,
-      PaymentStatusEnum? paymentStatus,
-      DateTime? paidAt});
+      @StringToDoubleConverter() double amount,
+      @JsonKey(name: 'payment_status') PaymentStatusEnum? paymentStatus,
+      @JsonKey(name: 'paid_at') DateTime? paidAt});
 }
 
 /// @nodoc
@@ -112,9 +115,9 @@ abstract class _$$PaymentImplCopyWith<$Res> implements $PaymentCopyWith<$Res> {
       {int? id,
       int order,
       MethodEnum method,
-      double amount,
-      PaymentStatusEnum? paymentStatus,
-      DateTime? paidAt});
+      @StringToDoubleConverter() double amount,
+      @JsonKey(name: 'payment_status') PaymentStatusEnum? paymentStatus,
+      @JsonKey(name: 'paid_at') DateTime? paidAt});
 }
 
 /// @nodoc
@@ -173,9 +176,9 @@ class _$PaymentImpl implements _Payment {
       {required this.id,
       required this.order,
       required this.method,
-      required this.amount,
-      this.paymentStatus,
-      this.paidAt});
+      @StringToDoubleConverter() required this.amount,
+      @JsonKey(name: 'payment_status') this.paymentStatus,
+      @JsonKey(name: 'paid_at') this.paidAt});
 
   factory _$PaymentImpl.fromJson(Map<String, dynamic> json) =>
       _$$PaymentImplFromJson(json);
@@ -187,10 +190,13 @@ class _$PaymentImpl implements _Payment {
   @override
   final MethodEnum method;
   @override
+  @StringToDoubleConverter()
   final double amount;
   @override
+  @JsonKey(name: 'payment_status')
   final PaymentStatusEnum? paymentStatus;
   @override
+  @JsonKey(name: 'paid_at')
   final DateTime? paidAt;
 
   @override
@@ -238,9 +244,9 @@ abstract class _Payment implements Payment {
       {required final int? id,
       required final int order,
       required final MethodEnum method,
-      required final double amount,
-      final PaymentStatusEnum? paymentStatus,
-      final DateTime? paidAt}) = _$PaymentImpl;
+      @StringToDoubleConverter() required final double amount,
+      @JsonKey(name: 'payment_status') final PaymentStatusEnum? paymentStatus,
+      @JsonKey(name: 'paid_at') final DateTime? paidAt}) = _$PaymentImpl;
 
   factory _Payment.fromJson(Map<String, dynamic> json) = _$PaymentImpl.fromJson;
 
@@ -251,10 +257,13 @@ abstract class _Payment implements Payment {
   @override
   MethodEnum get method;
   @override
+  @StringToDoubleConverter()
   double get amount;
   @override
+  @JsonKey(name: 'payment_status')
   PaymentStatusEnum? get paymentStatus;
   @override
+  @JsonKey(name: 'paid_at')
   DateTime? get paidAt;
 
   /// Create a copy of Payment

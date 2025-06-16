@@ -9,6 +9,6 @@ class SalesInputService {
 
   /// Envoie une requête POST pour générer une prédiction des ventes.
   Future<void> sendSalesInput(SalesInput input) async {
-    await dio.post('/v1/ai/predict-sales/', data: input.toJson());
+    await dio.post('/ai/predict-sales/', data: input.toJson());
   }
 }

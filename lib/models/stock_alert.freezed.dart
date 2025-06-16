@@ -21,10 +21,12 @@ StockAlert _$StockAlertFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$StockAlert {
   int get id => throw _privateConstructorUsedError;
-  int get product => throw _privateConstructorUsedError;
+  Product get product =>
+      throw _privateConstructorUsedError; // ← Maintenant un objet Product complet
   int get threshold => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_active')
   bool? get isActive => throw _privateConstructorUsedError;
+  Warehouse? get warehouse => throw _privateConstructorUsedError;
 
   /// Serializes this StockAlert to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,9 +46,13 @@ abstract class $StockAlertCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      int product,
+      Product product,
       int threshold,
-      @JsonKey(name: 'is_active') bool? isActive});
+      @JsonKey(name: 'is_active') bool? isActive,
+      Warehouse? warehouse});
+
+  $ProductCopyWith<$Res> get product;
+  $WarehouseCopyWith<$Res>? get warehouse;
 }
 
 /// @nodoc
@@ -68,6 +74,7 @@ class _$StockAlertCopyWithImpl<$Res, $Val extends StockAlert>
     Object? product = null,
     Object? threshold = null,
     Object? isActive = freezed,
+    Object? warehouse = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -77,7 +84,7 @@ class _$StockAlertCopyWithImpl<$Res, $Val extends StockAlert>
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Product,
       threshold: null == threshold
           ? _value.threshold
           : threshold // ignore: cast_nullable_to_non_nullable
@@ -86,7 +93,35 @@ class _$StockAlertCopyWithImpl<$Res, $Val extends StockAlert>
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool?,
+      warehouse: freezed == warehouse
+          ? _value.warehouse
+          : warehouse // ignore: cast_nullable_to_non_nullable
+              as Warehouse?,
     ) as $Val);
+  }
+
+  /// Create a copy of StockAlert
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProductCopyWith<$Res> get product {
+    return $ProductCopyWith<$Res>(_value.product, (value) {
+      return _then(_value.copyWith(product: value) as $Val);
+    });
+  }
+
+  /// Create a copy of StockAlert
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $WarehouseCopyWith<$Res>? get warehouse {
+    if (_value.warehouse == null) {
+      return null;
+    }
+
+    return $WarehouseCopyWith<$Res>(_value.warehouse!, (value) {
+      return _then(_value.copyWith(warehouse: value) as $Val);
+    });
   }
 }
 
@@ -100,9 +135,15 @@ abstract class _$$StockAlertImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      int product,
+      Product product,
       int threshold,
-      @JsonKey(name: 'is_active') bool? isActive});
+      @JsonKey(name: 'is_active') bool? isActive,
+      Warehouse? warehouse});
+
+  @override
+  $ProductCopyWith<$Res> get product;
+  @override
+  $WarehouseCopyWith<$Res>? get warehouse;
 }
 
 /// @nodoc
@@ -122,6 +163,7 @@ class __$$StockAlertImplCopyWithImpl<$Res>
     Object? product = null,
     Object? threshold = null,
     Object? isActive = freezed,
+    Object? warehouse = freezed,
   }) {
     return _then(_$StockAlertImpl(
       id: null == id
@@ -131,7 +173,7 @@ class __$$StockAlertImplCopyWithImpl<$Res>
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
-              as int,
+              as Product,
       threshold: null == threshold
           ? _value.threshold
           : threshold // ignore: cast_nullable_to_non_nullable
@@ -140,18 +182,24 @@ class __$$StockAlertImplCopyWithImpl<$Res>
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool?,
+      warehouse: freezed == warehouse
+          ? _value.warehouse
+          : warehouse // ignore: cast_nullable_to_non_nullable
+              as Warehouse?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _$StockAlertImpl implements _StockAlert {
   const _$StockAlertImpl(
       {required this.id,
       required this.product,
       required this.threshold,
-      @JsonKey(name: 'is_active') this.isActive});
+      @JsonKey(name: 'is_active') this.isActive,
+      this.warehouse});
 
   factory _$StockAlertImpl.fromJson(Map<String, dynamic> json) =>
       _$$StockAlertImplFromJson(json);
@@ -159,16 +207,19 @@ class _$StockAlertImpl implements _StockAlert {
   @override
   final int id;
   @override
-  final int product;
+  final Product product;
+// ← Maintenant un objet Product complet
   @override
   final int threshold;
   @override
   @JsonKey(name: 'is_active')
   final bool? isActive;
+  @override
+  final Warehouse? warehouse;
 
   @override
   String toString() {
-    return 'StockAlert(id: $id, product: $product, threshold: $threshold, isActive: $isActive)';
+    return 'StockAlert(id: $id, product: $product, threshold: $threshold, isActive: $isActive, warehouse: $warehouse)';
   }
 
   @override
@@ -181,13 +232,15 @@ class _$StockAlertImpl implements _StockAlert {
             (identical(other.threshold, threshold) ||
                 other.threshold == threshold) &&
             (identical(other.isActive, isActive) ||
-                other.isActive == isActive));
+                other.isActive == isActive) &&
+            (identical(other.warehouse, warehouse) ||
+                other.warehouse == warehouse));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, product, threshold, isActive);
+      Object.hash(runtimeType, id, product, threshold, isActive, warehouse);
 
   /// Create a copy of StockAlert
   /// with the given fields replaced by the non-null parameter values.
@@ -208,9 +261,10 @@ class _$StockAlertImpl implements _StockAlert {
 abstract class _StockAlert implements StockAlert {
   const factory _StockAlert(
       {required final int id,
-      required final int product,
+      required final Product product,
       required final int threshold,
-      @JsonKey(name: 'is_active') final bool? isActive}) = _$StockAlertImpl;
+      @JsonKey(name: 'is_active') final bool? isActive,
+      final Warehouse? warehouse}) = _$StockAlertImpl;
 
   factory _StockAlert.fromJson(Map<String, dynamic> json) =
       _$StockAlertImpl.fromJson;
@@ -218,12 +272,14 @@ abstract class _StockAlert implements StockAlert {
   @override
   int get id;
   @override
-  int get product;
+  Product get product; // ← Maintenant un objet Product complet
   @override
   int get threshold;
   @override
   @JsonKey(name: 'is_active')
   bool? get isActive;
+  @override
+  Warehouse? get warehouse;
 
   /// Create a copy of StockAlert
   /// with the given fields replaced by the non-null parameter values.

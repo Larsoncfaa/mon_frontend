@@ -10,26 +10,26 @@ class DeliveryService {
   DeliveryService(this._dio);
 
   Future<PaginatedDelivery> fetchDeliveries({int page = 1}) async {
-    final response = await _dio.get('/v1/deliveries/', queryParameters: {'page': page});
+    final response = await _dio.get('/deliveries/', queryParameters: {'page': page});
     return PaginatedDelivery.fromJson(response.data);
   }
 
   Future<Delivery> fetchDelivery(int id) async {
-    final response = await _dio.get('/v1/deliveries/$id/');
+    final response = await _dio.get('/deliveries/$id/');
     return Delivery.fromJson(response.data);
   }
 
   Future<Delivery> createDelivery(Delivery delivery) async {
-    final response = await _dio.post('/v1/deliveries/', data: delivery.toJson());
+    final response = await _dio.post('/deliveries/', data: delivery.toJson());
     return Delivery.fromJson(response.data);
   }
 
   Future<Delivery> updateDelivery(int id, Delivery delivery) async {
-    final response = await _dio.put('/v1/deliveries/$id/', data: delivery.toJson());
+    final response = await _dio.put('/deliveries/$id/', data: delivery.toJson());
     return Delivery.fromJson(response.data);
   }
 
   Future<void> deleteDelivery(int id) async {
-    await _dio.delete('/v1/deliveries/$id/');
+    await _dio.delete('/deliveries/$id/');
   }
 }

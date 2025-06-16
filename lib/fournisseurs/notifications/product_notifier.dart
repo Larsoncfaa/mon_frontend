@@ -1,115 +1,177 @@
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:maliag/models/product.dart';
+import 'package:flutter/foundation.dart';
+
 import '../../pagination/paginated_product_list.dart';
 import '../repositories/product_repository.dart';
+import '../../models/product.dart';
 
+/// Notifier qui gère la liste paginée des produits, avec recherche et filtre.
 class ProductNotifier extends StateNotifier<AsyncValue<PaginatedProductList>> {
   final ProductRepository repository;
+
   bool _isFetchingMore = false;
+  final List<Product> _allProducts = [];
 
   ProductNotifier(this.repository) : super(const AsyncLoading()) {
-    fetchProducts(); // Charger la première page
+    // Au démarrage, on charge la page 1
+    fetchProducts(page: 1);
   }
 
   bool get isFetchingMore => _isFetchingMore;
 
+  /// Charge la première page ou une page spécifique
   Future<void> fetchProducts({int page = 1}) async {
+    debugPrint('[ProductNotifier] fetchProducts(page: $page)');
     state = const AsyncLoading();
     try {
       final result = await repository.fetchProducts(page: page);
-      state = AsyncData(result);
+      _allProducts.clear();
+      _allProducts.addAll(result.results);
+      debugPrint('[ProductNotifier] Fetched ${result.results.length} products');
+      state = AsyncValue.data(result);
+      for (final p in result.results) {
+        debugPrint('→ Produit reçu du backend: '
+            'id=${p.id}, '
+            'name=${p.name}, '
+            'stock=${p.quantityInStock}, '
+            'sellingPrice=${p.sellingPrice}');
+      }
     } catch (e, st) {
-      state = AsyncError(e, st);
+      debugPrint('[ProductNotifier] Error in fetchProducts: $e');
+      state = AsyncValue.error(e, st);
     }
   }
 
+  /// Scroll infini : charge la page suivante
   Future<void> fetchNextPage() async {
-    if (state.value?.next == null || _isFetchingMore) return;
+    final current = state.value;
+    if (current == null || current.next == null || _isFetchingMore) return;
 
     _isFetchingMore = true;
+    debugPrint('[ProductNotifier] fetchNextPage');
+
     try {
-      final nextPage = await repository.fetchNextUrl(state.value!.next!);
-      final current = state.value!;
-      final merged = current.copyWith(
-        results: [...current.results, ...nextPage.results],
-        next: nextPage.next,
+      final uri = Uri.parse(current.next!);
+      final nextPage = int.tryParse(uri.queryParameters['page'] ?? '1') ?? 1;
+      final nextPageResult = await repository.fetchProducts(page: nextPage);
+
+      final newResults = nextPageResult.results.where(
+            (product) => !_allProducts.any((p) => p.id == product.id),
       );
-      state = AsyncData(merged);
-// Optionnel : utile si besoin de savoir la page actuelle
+
+      _allProducts.addAll(newResults);
+
+      final merged = current.copyWith(
+        results: [...current.results, ...newResults],
+        next: nextPageResult.next,
+      );
+
+      debugPrint('[ProductNotifier] Appended ${newResults.length} products');
+      state = AsyncValue.data(merged);
     } catch (e, st) {
-      state = AsyncError(e, st);
+      debugPrint('[ProductNotifier] Error in fetchNextPage: $e');
+      state = AsyncValue.error(e, st);
     } finally {
       _isFetchingMore = false;
     }
   }
 
+  /// Recharge depuis la première page
   Future<void> refresh() async {
-    await fetchProducts(page: 1); // ou _currentPage si tu veux recharger la page actuelle
+    debugPrint('[ProductNotifier] refresh()');
+    // On appelle fetchProducts(page: 1) pour recharger la page 1
+    await fetchProducts(page: 1);
   }
 
+  /// Recherche locale par nom
+  void search(String query) {
+    debugPrint('[ProductNotifier] search("$query")');
+    final q = query.toLowerCase();
+    final results = _allProducts.where((p) => p.name.toLowerCase().contains(q)).toList();
+
+    state = AsyncValue.data(
+      PaginatedProductList(
+        count: results.length,
+        next: null,
+        previous: null,
+        results: results,
+      ),
+    );
+  }
+
+  /// Filtrage local par nom de catégorie
+  void filterByCategory(String? categoryName) {
+    debugPrint('[ProductNotifier] filterByCategory("$categoryName")');
+
+    if (categoryName == null || categoryName.trim().isEmpty) {
+      state = AsyncValue.data(
+        PaginatedProductList(
+          count: _allProducts.length,
+          next: null,
+          previous: null,
+          results: _allProducts,
+        ),
+      );
+      return;
+    }
+
+    final results = _allProducts
+        .where((p) => p.category.toLowerCase() == categoryName.toLowerCase())
+        .toList();
+    debugPrint('[ProductNotifier] Found ${results.length} products for category "$categoryName"');
+
+    state = AsyncValue.data(
+      PaginatedProductList(
+        count: results.length,
+        next: null,
+        previous: null,
+        results: results,
+      ),
+    );
+  }
+
+  /// Ajout d’un produit (avec image facultative)
+  Future<void> addProduct(Product product, {File? imageFile}) async {
+    try {
+      await repository.createProduct(product, imageFile: imageFile);
+      debugPrint('[ProductNotifier] addProduct: ${product.name}');
+      // Recharge immédiatement la page 1 du notifier existant
+      await fetchProducts(page: 1);
+    } catch (e) {
+      debugPrint('[ProductNotifier] Error in addProduct: $e');
+    }
+  }
+
+  /// Mise à jour d’un produit (avec image facultative)
+  Future<void> updateProduct(Product product, {File? imageFile}) async {
+    try {
+      await repository.updateProduct(product, imageFile: imageFile);
+      debugPrint('[ProductNotifier] updateProduct: ${product.id}');
+      // Recharge immédiatement la page 1
+      await fetchProducts(page: 1);
+    } catch (e) {
+      debugPrint('[ProductNotifier] Error in updateProduct: $e');
+    }
+  }
+
+  /// Suppression d’un produit
   Future<void> deleteProduct(int id) async {
     try {
       await repository.deleteProduct(id);
-      // Supprime localement pour éviter de tout recharger
-      final current = state.value!;
-      final updatedList = current.results.where((p) => p.id != id).toList();
-      state = AsyncData(current.copyWith(results: updatedList));
-    } catch (e, st) {
-      state = AsyncError(e, st);
+      debugPrint('[ProductNotifier] deleteProduct: $id');
+      // Recharge immédiatement la page 1
+      await fetchProducts(page: 1);
+    } catch (e) {
+      debugPrint('[ProductNotifier] Error in deleteProduct: $e');
     }
   }
-
-  Future<void> addProduct(Product newProduct) async {
+  Future<bool> checkProductExists(String name, String category, {int? excludeId}) async {
     try {
-      final created = await repository.createProduct(newProduct);
-      final current = state.value;
-      if (current != null) {
-        final updatedList = [created, ...current.results];
-        final updated = current.copyWith(results: updatedList);
-        state = AsyncData(updated);
-      } else {
-        await fetchProducts();
-      }
-    } catch (e, st) {
-      state = AsyncError(e, st);
-    }
-  }
-  Future<void> updateProduct(int id, Product updatedProduct) async {
-    try {
-      final result = await repository.updateProduct(id as Product, updatedProduct);
-      final current = state.value;
-      if (current != null) {
-        final updatedList = current.results.map((p) {
-          return p.id == id ? result : p;
-        }).toList();
-        final updated = current.copyWith(results: updatedList);
-        state = AsyncData(updated);
-      }
-    } catch (e, st) {
-      state = AsyncError(e, st);
-    }
-  }
-  Future<void> filterByCategory(String? category) async {
-    state = const AsyncLoading();
-    try {
-      final result = await repository.fetchProductsFilteredByCategory(category);
-      state = AsyncData(result);
-    } catch (e, st) {
-      state = AsyncError(e, st);
-    }
-  }
-
-  Future<void> search(String query) async {
-    if (query.trim().isEmpty) {
-      return fetchProducts(); // recharge la liste si champ vide
-    }
-
-    state = const AsyncLoading();
-    try {
-      final result = await repository.searchProducts(query);
-      state = AsyncData(result);
-    } catch (e, st) {
-      state = AsyncError(e, st);
+      return await repository.checkProductExists(name, category, excludeId: excludeId);
+    } catch (e) {
+      debugPrint('[ProductNotifier] checkProductExists error: $e');
+      return false;
     }
   }
 }

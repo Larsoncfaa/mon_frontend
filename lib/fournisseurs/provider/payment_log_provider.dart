@@ -5,21 +5,32 @@ import '../../services/payment_log_service.dart';
 import '../notifications/payment_log_notifier.dart';
 import '../repositories/payment_log_repository.dart';
 
-
-
-
-
-// Fournisseur de service
+/// Fournisseur de service avec gestion d'erreur
 final paymentLogServiceProvider = Provider<PaymentLogService>((ref) {
-  return PaymentLogService(ref.watch(dioProvider));
+  try {
+    return PaymentLogService(ref.watch(dioProvider));
+  } catch (e, st) {
+    // Log ou rethrow si nécessaire
+    throw Exception('Erreur lors de la création du PaymentLogService: $e');
+  }
 });
 
-// Fournisseur de repository
+/// Fournisseur de repository avec gestion d'erreur
 final paymentLogRepositoryProvider = Provider<PaymentLogRepository>((ref) {
-  return PaymentLogRepository(ref.watch(paymentLogServiceProvider));
+  try {
+    return PaymentLogRepository(ref.watch(paymentLogServiceProvider));
+  } catch (e, st) {
+    throw Exception('Erreur lors de la création du PaymentLogRepository: $e');
+  }
 });
 
-// Fournisseur de notifier
+/// Fournisseur de notifier avec gestion d'erreur
 final paymentLogNotifierProvider = StateNotifierProvider<PaymentLogNotifier, AsyncValue<PaginatedPaymentLogList>>(
-      (ref) => PaymentLogNotifier(ref.watch(paymentLogRepositoryProvider)),
+      (ref) {
+    try {
+      return PaymentLogNotifier(ref.watch(paymentLogRepositoryProvider));
+    } catch (e, st) {
+      throw Exception('Erreur lors de la création du PaymentLogNotifier: $e');
+    }
+  },
 );

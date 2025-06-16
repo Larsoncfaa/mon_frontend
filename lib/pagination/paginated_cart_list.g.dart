@@ -9,12 +9,13 @@ part of 'paginated_cart_list.dart';
 _$PaginatedCartListImpl _$$PaginatedCartListImplFromJson(
         Map<String, dynamic> json) =>
     _$PaginatedCartListImpl(
-      count: (json['count'] as num).toInt(),
+      count: (json['count'] as num?)?.toInt() ?? 0,
       next: json['next'] as String?,
       previous: json['previous'] as String?,
-      results: (json['results'] as List<dynamic>)
-          .map((e) => Cart.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      results: (json['results'] as List<dynamic>?)
+              ?.map((e) => Cart.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$PaginatedCartListImplToJson(

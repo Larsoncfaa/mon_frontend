@@ -1,33 +1,30 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../models/cart.dart';
-import '../../pagination/paginated_cart_list.dart';
 import '../repositories/cart_repository.dart';
 
-
-/// Notifier pour gérer l'état des paniers
-class CartNotifier extends StateNotifier<AsyncValue<PaginatedCartList>> {
+class CartStateNotifier extends StateNotifier<AsyncValue<Cart?>> {
   final CartRepository repository;
 
-  CartNotifier(this.repository) : super(const AsyncLoading()) {
-    fetchCarts();
+  CartStateNotifier(this.repository) : super(const AsyncLoading()) {
+    loadCart();
   }
 
-  Future<void> fetchCarts({int page = 1}) async {
+  Future<void> loadCart() async {
     state = const AsyncLoading();
     try {
-      final result = await repository.fetchCarts(page: page);
-      state = AsyncData(result);
+      final cart = await repository.getCart();
+      if (cart == null) {
+        state = AsyncError('Aucun panier disponible', StackTrace.current);
+      } else {
+        state = AsyncData(cart);
+      }
     } catch (e, st) {
-      state = AsyncError(e, st);
-    }
-  }
-
-  Future<void> deleteCart(int id) async {
-    try {
-      await repository.deleteCart(id);
-      await fetchCarts();
-    } catch (e, st) {
+      debugPrint('[CartStateNotifier][ERROR] $e');
+      debugPrintStack(stackTrace: st);
       state = AsyncError(e, st);
     }
   }
 }
+

@@ -9,26 +9,26 @@ class InvoiceService {
   InvoiceService(this.dio);
 
   Future<PaginatedInvoiceList> getInvoices({int page = 1}) async {
-    final response = await dio.get('/v1/invoices/', queryParameters: {'page': page});
+    final response = await dio.get('/invoices/', queryParameters: {'page': page});
     return PaginatedInvoiceList.fromJson(response.data);
   }
 
   Future<Invoice> getInvoice(int id) async {
-    final response = await dio.get('/v1/invoices/$id/');
+    final response = await dio.get('/invoices/$id/');
     return Invoice.fromJson(response.data);
   }
 
   Future<Invoice> createInvoice(Invoice invoice) async {
-    final response = await dio.post('/v1/invoices/', data: invoice.toJson());
+    final response = await dio.post('/invoices/', data: invoice.toJson());
     return Invoice.fromJson(response.data);
   }
 
   Future<Invoice> updateInvoice(int id, Invoice invoice) async {
-    final response = await dio.put('/v1/invoices/$id/', data: invoice.toJson());
+    final response = await dio.put('/invoices/$id/', data: invoice.toJson());
     return Invoice.fromJson(response.data);
   }
 
   Future<void> deleteInvoice(int id) async {
-    await dio.delete('/v1/invoices/$id/');
+    await dio.delete('/invoices/$id/');
   }
 }

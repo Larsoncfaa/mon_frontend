@@ -9,7 +9,7 @@ class InventoryInputService {
   /// Envoie une requête POST pour obtenir la prédiction de stock
   Future<Response> predictInventory(InventoryInput input) async {
     final response = await dio.post(
-      'v1/predict/inventory/',
+      '/predict/inventory/',
       data: input.toJson(),
     );
     return response;

@@ -5,19 +5,32 @@ import '../../services/proof_service.dart';
 import '../notifications/proof_notifier.dart';
 import '../repositories/proof_repository.dart';
 
+/// Service avec gestion d’erreur
+final proofServiceProvider = Provider<ProofService>((ref) {
+  try {
+    return ProofService(ref.read(dioProvider));
+  } catch (e) {
+    throw Exception('Erreur lors de la création de ProofService: $e');
+  }
+});
 
+/// Repository avec gestion d’erreur
+final proofRepositoryProvider = Provider<ProofRepository>((ref) {
+  try {
+    return ProofRepository(ref.read(proofServiceProvider));
+  } catch (e) {
+    throw Exception('Erreur lors de la création de ProofRepository: $e');
+  }
+});
 
-// Service
-final proofServiceProvider = Provider<ProofService>(
-      (ref) => ProofService(ref.read(dioProvider)),
-);
-
-// Repository
-final proofRepositoryProvider = Provider<ProofRepository>(
-      (ref) => ProofRepository(ref.read(proofServiceProvider)),
-);
-
-// Notifier
-final proofNotifierProvider = StateNotifierProvider<ProofNotifier, AsyncValue<PaginatedProofList>>(
-      (ref) => ProofNotifier(ref.read(proofRepositoryProvider)),
+/// Notifier avec gestion d’erreur
+final proofNotifierProvider =
+StateNotifierProvider<ProofNotifier, AsyncValue<PaginatedProofList>>(
+      (ref) {
+    try {
+      return ProofNotifier(ref.read(proofRepositoryProvider));
+    } catch (e) {
+      throw Exception('Erreur lors de la création de ProofNotifier: $e');
+    }
+  },
 );

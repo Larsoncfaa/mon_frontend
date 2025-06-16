@@ -10,9 +10,9 @@ _$ClientProfileImpl _$$ClientProfileImplFromJson(Map<String, dynamic> json) =>
     _$ClientProfileImpl(
       id: (json['id'] as num).toInt(),
       user: (json['user'] as num).toInt(),
-      location: json['location'] as String,
-      balance: (json['balance'] as num).toDouble(),
-      points: (json['points'] as num).toInt(),
+      location: json['location'] as String?,
+      balance: const StringToDoubleConverter().fromJson(json['balance']),
+      points: (json['points'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ClientProfileImplToJson(_$ClientProfileImpl instance) =>
@@ -20,6 +20,6 @@ Map<String, dynamic> _$$ClientProfileImplToJson(_$ClientProfileImpl instance) =>
       'id': instance.id,
       'user': instance.user,
       'location': instance.location,
-      'balance': instance.balance,
+      'balance': const StringToDoubleConverter().toJson(instance.balance),
       'points': instance.points,
     };

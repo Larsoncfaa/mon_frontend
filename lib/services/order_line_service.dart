@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import '../models/order_line.dart';
 import '../pagination/paginated_order_line_list.dart';
-
 
 class OrderLineService {
   final Dio _dio;
@@ -10,26 +10,51 @@ class OrderLineService {
   OrderLineService(this._dio);
 
   Future<PaginatedOrderLineList> fetchOrderLines({int page = 1}) async {
-    final response = await _dio.get('/v1/order-lines/', queryParameters: {'page': page});
-    return PaginatedOrderLineList.fromJson(response.data);
+    try {
+      final response = await _dio.get('/order-lines/', queryParameters: {'page': page});
+      return PaginatedOrderLineList.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint("Erreur fetchOrderLines : ${e.response?.data}");
+      rethrow;
+    }
   }
 
   Future<OrderLine> fetchOrderLine(int id) async {
-    final response = await _dio.get('/v1/order-lines/$id/');
-    return OrderLine.fromJson(response.data);
+    try {
+      final response = await _dio.get('/order-lines/$id/');
+      return OrderLine.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint("Erreur fetchOrderLine : ${e.response?.data}");
+      rethrow;
+    }
   }
 
   Future<OrderLine> createOrderLine(Map<String, dynamic> data) async {
-    final response = await _dio.post('/v1/order-lines/', data: data);
-    return OrderLine.fromJson(response.data);
+    try {
+      final response = await _dio.post('/order-lines/', data: data);
+      return OrderLine.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint("Erreur createOrderLine : ${e.response?.data}");
+      rethrow;
+    }
   }
 
   Future<OrderLine> updateOrderLine(int id, Map<String, dynamic> data) async {
-    final response = await _dio.put('/v1/order-lines/$id/', data: data);
-    return OrderLine.fromJson(response.data);
+    try {
+      final response = await _dio.put('/order-lines/$id/', data: data);
+      return OrderLine.fromJson(response.data);
+    } on DioError catch (e) {
+      debugPrint("Erreur updateOrderLine : ${e.response?.data}");
+      rethrow;
+    }
   }
 
   Future<void> deleteOrderLine(int id) async {
-    await _dio.delete('/v1/order-lines/$id/');
+    try {
+      await _dio.delete('/order-lines/$id/');
+    } on DioError catch (e) {
+      debugPrint("Erreur deleteOrderLine : ${e.response?.data}");
+      rethrow;
+    }
   }
 }

@@ -38,4 +38,8 @@ const _$RefundStatusEnumEnumMap = {
   RefundStatusEnum.approved: 'APPROVED',
   RefundStatusEnum.rejected: 'REJECTED',
   RefundStatusEnum.PENDING: 'PENDING',
+  RefundStatusEnum.accepted: 'accepted',
+  RefundStatusEnum.refused: 'refused',
+  RefundStatusEnum.APPROVED: 'APPROVED',
+  RefundStatusEnum.REJECTED: 'REJECTED',
 };

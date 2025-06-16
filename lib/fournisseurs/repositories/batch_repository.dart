@@ -1,28 +1,18 @@
-import 'package:dio/dio.dart';
+// lib/fournisseurs/repositories/batch_repository.dart
 import '../../models/batch.dart';
+import '../../services/batch_service.dart';
 
 class BatchRepository {
-  final Dio dio;
+  final BatchService service;
 
-  BatchRepository(this.dio);
+  BatchRepository(this.service);
 
-  Future<List<Batch>> fetchBatches() async {
-    final response = await dio.get('/batches/');
-    final List data = response.data['results'];
-    return data.map((e) => Batch.fromJson(e)).toList();
-  }
+  Future<List<Batch>> fetchBatches() => service.getBatches();
 
-  Future<Batch> createBatch(Batch batch) async {
-    final response = await dio.post('/batches/', data: batch.toJson());
-    return Batch.fromJson(response.data);
-  }
+  Future<Batch> createBatch(Batch batch) => service.createBatch(batch);
 
-  Future<Batch> updateBatch(int id, Batch batch) async {
-    final response = await dio.put('/batches/$id/', data: batch.toJson());
-    return Batch.fromJson(response.data);
-  }
+  Future<Batch> updateBatch(int id, Batch batch) =>
+      service.updateBatch(id, batch);
 
-  Future<void> deleteBatch(int id) async {
-    await dio.delete('/batches/$id/');
-  }
+  Future<void> deleteBatch(int id) => service.deleteBatch(id);
 }

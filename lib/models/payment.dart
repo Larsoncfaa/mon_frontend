@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'double_converter.dart';
 import 'method_enum.dart';
 import 'payment_status_enum.dart';
 
@@ -11,8 +12,14 @@ class Payment with _$Payment {
     required int? id,
     required int order,
     required MethodEnum method,
+
+    @StringToDoubleConverter()
     required double amount,
+
+    @JsonKey(name: 'payment_status')
     PaymentStatusEnum? paymentStatus,
+
+    @JsonKey(name: 'paid_at')
     DateTime? paidAt,
   }) = _Payment;
 

@@ -20,7 +20,9 @@ PaginatedCartList _$PaginatedCartListFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PaginatedCartList {
-  int get count => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 0)
+  int get count =>
+      throw _privateConstructorUsedError; // ✅ Protection contre null
   String? get next => throw _privateConstructorUsedError;
   String? get previous => throw _privateConstructorUsedError;
   List<Cart> get results => throw _privateConstructorUsedError;
@@ -41,7 +43,11 @@ abstract class $PaginatedCartListCopyWith<$Res> {
           PaginatedCartList value, $Res Function(PaginatedCartList) then) =
       _$PaginatedCartListCopyWithImpl<$Res, PaginatedCartList>;
   @useResult
-  $Res call({int count, String? next, String? previous, List<Cart> results});
+  $Res call(
+      {@JsonKey(defaultValue: 0) int count,
+      String? next,
+      String? previous,
+      List<Cart> results});
 }
 
 /// @nodoc
@@ -93,7 +99,11 @@ abstract class _$$PaginatedCartListImplCopyWith<$Res>
       __$$PaginatedCartListImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int count, String? next, String? previous, List<Cart> results});
+  $Res call(
+      {@JsonKey(defaultValue: 0) int count,
+      String? next,
+      String? previous,
+      List<Cart> results});
 }
 
 /// @nodoc
@@ -139,23 +149,26 @@ class __$$PaginatedCartListImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PaginatedCartListImpl implements _PaginatedCartList {
   const _$PaginatedCartListImpl(
-      {required this.count,
+      {@JsonKey(defaultValue: 0) required this.count,
       this.next,
       this.previous,
-      required final List<Cart> results})
+      final List<Cart> results = const []})
       : _results = results;
 
   factory _$PaginatedCartListImpl.fromJson(Map<String, dynamic> json) =>
       _$$PaginatedCartListImplFromJson(json);
 
   @override
+  @JsonKey(defaultValue: 0)
   final int count;
+// ✅ Protection contre null
   @override
   final String? next;
   @override
   final String? previous;
   final List<Cart> _results;
   @override
+  @JsonKey()
   List<Cart> get results {
     if (_results is EqualUnmodifiableListView) return _results;
     // ignore: implicit_dynamic_type
@@ -203,16 +216,17 @@ class _$PaginatedCartListImpl implements _PaginatedCartList {
 
 abstract class _PaginatedCartList implements PaginatedCartList {
   const factory _PaginatedCartList(
-      {required final int count,
+      {@JsonKey(defaultValue: 0) required final int count,
       final String? next,
       final String? previous,
-      required final List<Cart> results}) = _$PaginatedCartListImpl;
+      final List<Cart> results}) = _$PaginatedCartListImpl;
 
   factory _PaginatedCartList.fromJson(Map<String, dynamic> json) =
       _$PaginatedCartListImpl.fromJson;
 
   @override
-  int get count;
+  @JsonKey(defaultValue: 0)
+  int get count; // ✅ Protection contre null
   @override
   String? get next;
   @override

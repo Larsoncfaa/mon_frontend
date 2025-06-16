@@ -42,7 +42,7 @@ class OrderDetailScreen extends ConsumerWidget {
                       children: filtered.map((l) => ListTile(
                         title: Text(l.product.name),
                         subtitle: Text('Quantité: ${l.quantity}'),
-                        trailing: Text('${l.unitPrice.toStringAsFixed(2)} €'),
+                        trailing: Text('${(l.unitPrice ?? 0).toStringAsFixed(2)} f'),
                       )).toList(),
                     );
                   },

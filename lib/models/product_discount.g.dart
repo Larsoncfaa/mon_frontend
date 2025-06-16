@@ -11,7 +11,7 @@ _$ProductDiscountImpl _$$ProductDiscountImplFromJson(
     _$ProductDiscountImpl(
       id: (json['id'] as num).toInt(),
       product: (json['product'] as num).toInt(),
-      discountPercent: (json['discount_percent'] as num).toDouble(),
+      discountPercent: _stringToDouble(json['discount_percent']),
     );
 
 Map<String, dynamic> _$$ProductDiscountImplToJson(
@@ -19,5 +19,5 @@ Map<String, dynamic> _$$ProductDiscountImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'product': instance.product,
-      'discount_percent': instance.discountPercent,
+      'discount_percent': _doubleToString(instance.discountPercent),
     };

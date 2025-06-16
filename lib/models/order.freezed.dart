@@ -22,9 +22,13 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
 mixin _$Order {
   int get id => throw _privateConstructorUsedError;
   ClientProfile get client => throw _privateConstructorUsedError;
+  @JsonKey(name: 'date_ordered')
   DateTime get dateOrdered => throw _privateConstructorUsedError;
+  @JsonKey(name: 'order_status')
   OrderStatusEnum? get orderStatus => throw _privateConstructorUsedError;
+  @StringToDoubleConverter()
   double get total => throw _privateConstructorUsedError;
+  @JsonKey(name: 'lignes_commandes')
   List<OrderLine> get lines => throw _privateConstructorUsedError;
 
   /// Serializes this Order to a JSON map.
@@ -44,10 +48,10 @@ abstract class $OrderCopyWith<$Res> {
   $Res call(
       {int id,
       ClientProfile client,
-      DateTime dateOrdered,
-      OrderStatusEnum? orderStatus,
-      double total,
-      List<OrderLine> lines});
+      @JsonKey(name: 'date_ordered') DateTime dateOrdered,
+      @JsonKey(name: 'order_status') OrderStatusEnum? orderStatus,
+      @StringToDoubleConverter() double total,
+      @JsonKey(name: 'lignes_commandes') List<OrderLine> lines});
 
   $ClientProfileCopyWith<$Res> get client;
 }
@@ -123,10 +127,10 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
   $Res call(
       {int id,
       ClientProfile client,
-      DateTime dateOrdered,
-      OrderStatusEnum? orderStatus,
-      double total,
-      List<OrderLine> lines});
+      @JsonKey(name: 'date_ordered') DateTime dateOrdered,
+      @JsonKey(name: 'order_status') OrderStatusEnum? orderStatus,
+      @StringToDoubleConverter() double total,
+      @JsonKey(name: 'lignes_commandes') List<OrderLine> lines});
 
   @override
   $ClientProfileCopyWith<$Res> get client;
@@ -187,9 +191,10 @@ class _$OrderImpl implements _Order {
   const _$OrderImpl(
       {required this.id,
       required this.client,
-      required this.dateOrdered,
-      this.orderStatus,
-      required this.total,
+      @JsonKey(name: 'date_ordered') required this.dateOrdered,
+      @JsonKey(name: 'order_status') this.orderStatus,
+      @StringToDoubleConverter() required this.total,
+      @JsonKey(name: 'lignes_commandes')
       final List<OrderLine> lines = const []})
       : _lines = lines;
 
@@ -201,14 +206,17 @@ class _$OrderImpl implements _Order {
   @override
   final ClientProfile client;
   @override
+  @JsonKey(name: 'date_ordered')
   final DateTime dateOrdered;
   @override
+  @JsonKey(name: 'order_status')
   final OrderStatusEnum? orderStatus;
   @override
+  @StringToDoubleConverter()
   final double total;
   final List<OrderLine> _lines;
   @override
-  @JsonKey()
+  @JsonKey(name: 'lignes_commandes')
   List<OrderLine> get lines {
     if (_lines is EqualUnmodifiableListView) return _lines;
     // ignore: implicit_dynamic_type
@@ -258,12 +266,13 @@ class _$OrderImpl implements _Order {
 
 abstract class _Order implements Order {
   const factory _Order(
-      {required final int id,
-      required final ClientProfile client,
-      required final DateTime dateOrdered,
-      final OrderStatusEnum? orderStatus,
-      required final double total,
-      final List<OrderLine> lines}) = _$OrderImpl;
+          {required final int id,
+          required final ClientProfile client,
+          @JsonKey(name: 'date_ordered') required final DateTime dateOrdered,
+          @JsonKey(name: 'order_status') final OrderStatusEnum? orderStatus,
+          @StringToDoubleConverter() required final double total,
+          @JsonKey(name: 'lignes_commandes') final List<OrderLine> lines}) =
+      _$OrderImpl;
 
   factory _Order.fromJson(Map<String, dynamic> json) = _$OrderImpl.fromJson;
 
@@ -272,12 +281,16 @@ abstract class _Order implements Order {
   @override
   ClientProfile get client;
   @override
+  @JsonKey(name: 'date_ordered')
   DateTime get dateOrdered;
   @override
+  @JsonKey(name: 'order_status')
   OrderStatusEnum? get orderStatus;
   @override
+  @StringToDoubleConverter()
   double get total;
   @override
+  @JsonKey(name: 'lignes_commandes')
   List<OrderLine> get lines;
 
   /// Create a copy of Order

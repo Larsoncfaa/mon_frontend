@@ -7,24 +7,16 @@ part of 'user.dart';
 // **************************************************************************
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      email: json['email'] as String,
-      firstName: json['firstName'] as String?,
-      lastName: json['lastName'] as String?,
       id: (json['id'] as num).toInt(),
-      role: $enumDecodeNullable(_$UserRoleEnumMap, json['role']),
+      username: json['username'] as String,
+      email: json['email'] as String,
+      role: const UserRoleConverter().fromJson(json['role'] as String),
     );
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
     <String, dynamic>{
-      'email': instance.email,
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
       'id': instance.id,
-      'role': _$UserRoleEnumMap[instance.role],
+      'username': instance.username,
+      'email': instance.email,
+      'role': const UserRoleConverter().toJson(instance.role),
     };
-
-const _$UserRoleEnumMap = {
-  UserRole.agriculteur: 'agriculteur',
-  UserRole.client: 'client',
-  UserRole.livreur: 'livreur',
-};

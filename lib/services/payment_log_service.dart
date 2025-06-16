@@ -1,7 +1,8 @@
+import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart'; // pour debugPrint
 import '../models/payment_log.dart';
 import '../pagination/paginated_payment_log_list.dart';
-
 
 class PaymentLogService {
   final Dio _dio;
@@ -9,26 +10,61 @@ class PaymentLogService {
   PaymentLogService(this._dio);
 
   Future<PaginatedPaymentLogList> fetchAll({int page = 1}) async {
-    final response = await _dio.get('/v1/payment-logs/', queryParameters: {'page': page});
-    return PaginatedPaymentLogList.fromJson(response.data);
+    try {
+      final response = await _dio.get('/payment-logs/', queryParameters: {'page': page});
+      debugPrint('✔️ Payment logs page $page fetched');
+      return PaginatedPaymentLogList.fromJson(response.data);
+    } on DioException catch (e, stackTrace) {
+      debugPrint('❌ Erreur lors du chargement des paiements : ${e.message}');
+      log('fetchAll payment logs failed', error: e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 
   Future<PaymentLog> fetchById(int id) async {
-    final response = await _dio.get('/v1/payment-logs/$id/');
-    return PaymentLog.fromJson(response.data);
+    try {
+      final response = await _dio.get('/payment-logs/$id/');
+      debugPrint('✔️ Payment log $id fetched');
+      return PaymentLog.fromJson(response.data);
+    } on DioException catch (e, stackTrace) {
+      debugPrint('❌ Erreur lors de la récupération du paiement $id : ${e.message}');
+      log('fetchById failed for $id', error: e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 
-  Future<PaymentLog> create(PaymentLog log) async {
-    final response = await _dio.post('/v1/payment-logs/', data: log.toJson());
-    return PaymentLog.fromJson(response.data);
+  Future<PaymentLog> create(PaymentLog logData) async {
+    try {
+      final response = await _dio.post('/payment-logs/', data: logData.toJson());
+      debugPrint('✔️ Payment log created');
+      return PaymentLog.fromJson(response.data);
+    } on DioException catch (e, stackTrace) {
+      debugPrint('❌ Erreur lors de la création d\'un paiement : ${e.message}');
+      log('create payment log failed', error: e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 
-  Future<PaymentLog> update(int id, PaymentLog log) async {
-    final response = await _dio.put('/v1/payment-logs/$id/', data: log.toJson());
-    return PaymentLog.fromJson(response.data);
+  Future<PaymentLog> update(int id, PaymentLog logData) async {
+    try {
+      final response = await _dio.put('/payment-logs/$id/', data: logData.toJson());
+      debugPrint('✔️ Payment log $id updated');
+      return PaymentLog.fromJson(response.data);
+    } on DioException catch (e, stackTrace) {
+      debugPrint('❌ Erreur lors de la mise à jour du paiement $id : ${e.message}');
+      log('update payment log $id failed', error: e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 
   Future<void> delete(int id) async {
-    await _dio.delete('/v1/payment-logs/$id/');
+    try {
+      await _dio.delete('/payment-logs/$id/');
+      debugPrint('🗑️ Payment log $id deleted');
+    } on DioException catch (e, stackTrace) {
+      debugPrint('❌ Erreur lors de la suppression du paiement $id : ${e.message}');
+      log('delete payment log $id failed', error: e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 }

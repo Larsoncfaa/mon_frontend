@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../fournisseurs/provider/warehouse_provider.dart';
 import '../../../models/warehouse.dart';
 
-
 class WarehouseFormScreen extends ConsumerStatefulWidget {
   final Warehouse? warehouse;
 
@@ -32,7 +31,7 @@ class _WarehouseFormScreenState extends ConsumerState<WarehouseFormScreen> {
     super.dispose();
   }
 
-  void _submit() async {
+  Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       final notifier = ref.read(warehouseNotifierProvider.notifier);
       final name = _nameController.text.trim();
@@ -54,7 +53,7 @@ class _WarehouseFormScreenState extends ConsumerState<WarehouseFormScreen> {
   Widget build(BuildContext context) {
     final isEditing = widget.warehouse != null;
     return Scaffold(
-      appBar: AppBar(title: Text(isEditing ? 'Modifier' : 'Créer un entrepôt')),
+      appBar: AppBar(title: Text(isEditing ? 'Modifier l\'entrepôt' : 'Créer un entrepôt')),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(

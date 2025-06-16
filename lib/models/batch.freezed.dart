@@ -21,9 +21,15 @@ Batch _$BatchFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Batch {
   int get id => throw _privateConstructorUsedError;
+
+  /// Identifiant du produit (clé JSON = "product", OK en camelCase)
   int get product => throw _privateConstructorUsedError;
+
+  /// Numéro de lot (clé JSON = "lot_number" : CHARFIELD dans Django)
   @JsonKey(name: 'lot_number')
   String get lotNumber => throw _privateConstructorUsedError;
+
+  /// Date d'expiration (clé JSON = "expiration_date" : DATEFIELD dans Django)
   @JsonKey(name: 'expiration_date')
   DateTime get expirationDate => throw _privateConstructorUsedError;
 
@@ -156,11 +162,17 @@ class _$BatchImpl implements _Batch {
 
   @override
   final int id;
+
+  /// Identifiant du produit (clé JSON = "product", OK en camelCase)
   @override
   final int product;
+
+  /// Numéro de lot (clé JSON = "lot_number" : CHARFIELD dans Django)
   @override
   @JsonKey(name: 'lot_number')
   final String lotNumber;
+
+  /// Date d'expiration (clé JSON = "expiration_date" : DATEFIELD dans Django)
   @override
   @JsonKey(name: 'expiration_date')
   final DateTime expirationDate;
@@ -216,11 +228,17 @@ abstract class _Batch implements Batch {
 
   @override
   int get id;
+
+  /// Identifiant du produit (clé JSON = "product", OK en camelCase)
   @override
   int get product;
+
+  /// Numéro de lot (clé JSON = "lot_number" : CHARFIELD dans Django)
   @override
   @JsonKey(name: 'lot_number')
   String get lotNumber;
+
+  /// Date d'expiration (clé JSON = "expiration_date" : DATEFIELD dans Django)
   @override
   @JsonKey(name: 'expiration_date')
   DateTime get expirationDate;

@@ -20,13 +20,13 @@ class _ProductManagementScreenState extends ConsumerState<ProductManagementScree
   }
 
   void _onScroll() {
-    final notifier = ref.read(productNotifierProvider.notifier);
-    final state = ref.read(productNotifierProvider);
+    final notifier = ref.read(productProvider.notifier);
+    final state = ref.read(productProvider);
 
     if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200 &&
         state is AsyncData &&
         state.value?.next != null) {
-      // Implémentation future pour le scroll infini si besoin
+      notifier.fetchNextPage(); // ← tu peux implémenter cette méthode dans le notifier si ce n’est pas encore fait
     }
   }
 
@@ -45,7 +45,7 @@ class _ProductManagementScreenState extends ConsumerState<ProductManagementScree
 
   @override
   Widget build(BuildContext context) {
-    final productsAsync = ref.watch(productNotifierProvider);
+    final productsAsync = ref.watch(productProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +53,7 @@ class _ProductManagementScreenState extends ConsumerState<ProductManagementScree
       ),
       body: productsAsync.when(
         data: (paginated) => RefreshIndicator(
-          onRefresh: () async => ref.read(productNotifierProvider.notifier).refresh(),
+          onRefresh: () async => ref.read(productProvider.notifier).refresh(),
           child: ListView.separated(
             controller: _scrollController,
             itemCount: paginated.results.length,
@@ -66,7 +66,11 @@ class _ProductManagementScreenState extends ConsumerState<ProductManagementScree
                   child: product.image == null ? const Icon(Icons.image_not_supported) : null,
                 ),
                 title: Text(product.name),
-                subtitle: Text('Prix : ${product.sellingPrice.toStringAsFixed(2)} | Stock : ${product.quantityInStock ?? 0} ${product.unit.name}'),
+                subtitle: Text(
+                  'Prix : ${product.sellingPrice != null ? product.sellingPrice!.toStringAsFixed(2) : 'N/A'}'
+
+                      'Stock : ${product.quantityInStock ?? 0} ${product.unit.name}',
+                ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -89,8 +93,8 @@ class _ProductManagementScreenState extends ConsumerState<ProductManagementScree
                           ),
                         );
                         if (confirmed == true) {
-                          await ref.read(productNotifierProvider.notifier).repository.deleteProduct(product.id);
-                          ref.invalidate(productNotifierProvider);
+                          await ref.read(productProvider.notifier).repository.deleteProduct(product.id);
+                          ref.invalidate(productProvider);
                         }
                       },
                     ),
@@ -105,8 +109,8 @@ class _ProductManagementScreenState extends ConsumerState<ProductManagementScree
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showProductForm(context),
-        child: const Icon(Icons.add),
         tooltip: "Ajouter un produit",
+        child: const Icon(Icons.add),
       ),
     );
   }

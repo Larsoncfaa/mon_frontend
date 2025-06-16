@@ -8,30 +8,40 @@ class SalesPredictService {
 
   SalesPredictService(this._dio);
 
+  // Récupérer toutes les prévisions de ventes
   Future<List<SalesPredict>> getAllSalesPredictions() async {
-    final response = await _dio.get('/v1/sales-predict/');
+    final response = await _dio.get('/sales-predict/');
     return (response.data as List)
         .map((json) => SalesPredict.fromJson(json))
         .toList();
   }
 
+  // Récupérer une prévision de vente par ID
   Future<SalesPredict> getSalesPrediction(int id) async {
-    final response = await _dio.get('/v1/sales-predict/$id/');
+    final response = await _dio.get('/sales-predict/$id/');
     return SalesPredict.fromJson(response.data);
   }
 
+  // Créer une prévision de vente
   Future<SalesPredict> createSalesPrediction(SalesPredict data) async {
-    final response = await _dio.post('/v1/sales-predict/', data: data.toJson());
+    final response = await _dio.post(
+      '/sales-predict/',  // L'URL de création d'une prévision
+      data: data.toJson(),
+    );
     return SalesPredict.fromJson(response.data);
   }
 
+  // Mettre à jour une prévision de vente
   Future<SalesPredict> updateSalesPrediction(int id, SalesPredict data) async {
-    final response =
-    await _dio.put('/v1/sales-predict/$id/', data: data.toJson());
+    final response = await _dio.put(
+      '/sales-predict/$id/',
+      data: data.toJson(),
+    );
     return SalesPredict.fromJson(response.data);
   }
 
+  // Supprimer une prévision de vente
   Future<void> deleteSalesPrediction(int id) async {
-    await _dio.delete('/v1/sales-predict/$id/');
+    await _dio.delete('/sales-predict/$id/');
   }
 }

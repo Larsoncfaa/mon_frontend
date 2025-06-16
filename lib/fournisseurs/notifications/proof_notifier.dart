@@ -18,11 +18,21 @@ class ProofNotifier extends StateNotifier<AsyncValue<PaginatedProofList>> {
       _currentPage = page;
       state = AsyncData(proofs);
     } catch (e, st) {
-      state = AsyncError(e, st);
+      state = AsyncError(Exception('Erreur lors du chargement des preuves : $e'), st);
     }
   }
 
   Future<void> refresh() async {
     await loadProofs(page: _currentPage);
+  }
+
+  /// Supprime une preuve par son ID et recharge la liste
+  Future<void> delete(int id) async {
+    try {
+      await _repository.deleteProof(id);
+      await loadProofs(page: _currentPage);
+    } catch (e, st) {
+      state = AsyncError(Exception('Erreur lors de la suppression de la preuve : $e'), st);
+    }
   }
 }

@@ -13,20 +13,20 @@ class RegistrationService {
     Map<String, dynamic>? filters,
   }) async {
     final response = await dio.get(
-      '/v1/registrations/',
+      '/registrations/',
       queryParameters: {'page': page, ...?filters},
     );
     return PaginatedRegistrationList.fromJson(response.data);
   }
 
   Future<Registration> getRegistration(String id) async {
-    final response = await dio.get('/v1/registrations/$id/');
+    final response = await dio.get('/registrations/$id/');
     return Registration.fromJson(response.data);
   }
 
   Future<Registration> createRegistration(Registration registration) async {
     final response = await dio.post(
-      '/v1/registrations/',
+      '/registrations/',
       data: registration.toJson(),
     );
     return Registration.fromJson(response.data);
@@ -34,13 +34,13 @@ class RegistrationService {
 
   Future<Registration> updateRegistration(String id, Registration registration) async {
     final response = await dio.put(
-      '/v1/registrations/$id/',
+      '/registrations/$id/',
       data: registration.toJson(),
     );
     return Registration.fromJson(response.data);
   }
 
   Future<void> deleteRegistration(String id) async {
-    await dio.delete('/v1/registrations/$id/');
+    await dio.delete('/registrations/$id/');
   }
 }

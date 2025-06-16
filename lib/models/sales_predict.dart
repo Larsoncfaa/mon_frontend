@@ -9,13 +9,13 @@ part 'sales_predict.g.dart';
 class SalesPredict with _$SalesPredict {
   const factory SalesPredict({
     /// ID du produit concerné par la prévision
-    @JsonKey(name: 'product_id') required int productId,
+    required int productId,
 
     /// Période associée à la prévision (ex : "2025-06-01", "Semaine 22", etc.)
-    @JsonKey(name: 'period') required String period,
+    required String period,
 
     /// Valeur de vente prédite (exprimée en unités)
-    @JsonKey(name: 'predicted_sales') required int predictedSales,
+    required int predictedSales,
   }) = _SalesPredict;
 
   /// Création à partir d’un JSON

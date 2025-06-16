@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../fournisseurs/provider/order_provider.dart';
 import '../../models/order.dart';
 import '../../pagination/paginated_order_list.dart';
+import '../../widgets/app_drawer.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/error_widget.dart';
 
@@ -47,6 +48,7 @@ class _OrderManagementScreenState extends ConsumerState<OrderManagementScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Gestion des commandes')),
+      drawer: const AppDrawer(),
       body: asyncOrders.when(
         loading: () => const LoadingWidget(),
         error: (err, _) => ErrorDisplayWidget(error: err.toString()),
@@ -87,8 +89,31 @@ class _OrderManagementScreenState extends ConsumerState<OrderManagementScreen> {
                     ),
                   ),
                   onDismissed: (_) async {
-                    await notifier.deleteOrder(order.id);
-                    notifier.refresh();
+                    final confirmed = await showDialog<bool>(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: const Text('Supprimer la commande'),
+                        content: const Text('Voulez-vous vraiment supprimer cette commande ?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(ctx, false),
+                            child: const Text('Annuler'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(ctx, true),
+                            child: const Text('Supprimer'),
+                          ),
+                        ],
+                      ),
+                    );
+
+                    if (confirmed == true) {
+                      await notifier.deleteOrder(order.id);
+                      notifier.refresh();
+                    } else {
+                      // Réinsère l'élément si l'utilisateur annule la suppression
+                      setState(() {});
+                    }
                   },
                   child: ListTile(
                     title: Text('Commande #${order.id}'),

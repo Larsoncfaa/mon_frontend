@@ -20,13 +20,13 @@ Cart _$CartFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Cart {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'user')
-  int get user =>
-      throw _privateConstructorUsedError; // Ou User si tu veux l’objet
-  List<int> get items =>
-      throw _privateConstructorUsedError; // Ou List<CartItem> si tu as un modèle d'item
-  double get total => throw _privateConstructorUsedError;
+  int? get user => throw _privateConstructorUsedError;
+  List<CartItem> get items => throw _privateConstructorUsedError;
+  @StringToDoubleConverter()
+  double? get total =>
+      throw _privateConstructorUsedError; // ✅ Ajout du convertisseur ici
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
@@ -47,10 +47,10 @@ abstract class $CartCopyWith<$Res> {
       _$CartCopyWithImpl<$Res, Cart>;
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: 'user') int user,
-      List<int> items,
-      double total,
+      {int? id,
+      @JsonKey(name: 'user') int? user,
+      List<CartItem> items,
+      @StringToDoubleConverter() double? total,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
 }
@@ -70,30 +70,30 @@ class _$CartCopyWithImpl<$Res, $Val extends Cart>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? user = null,
+    Object? id = freezed,
+    Object? user = freezed,
     Object? items = null,
-    Object? total = null,
+    Object? total = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      user: null == user
+              as int?,
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-      total: null == total
+              as List<CartItem>,
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -114,10 +114,10 @@ abstract class _$$CartImplCopyWith<$Res> implements $CartCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: 'user') int user,
-      List<int> items,
-      double total,
+      {int? id,
+      @JsonKey(name: 'user') int? user,
+      List<CartItem> items,
+      @StringToDoubleConverter() double? total,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
 }
@@ -134,30 +134,30 @@ class __$$CartImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? user = null,
+    Object? id = freezed,
+    Object? user = freezed,
     Object? items = null,
-    Object? total = null,
+    Object? total = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
     return _then(_$CartImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      user: null == user
+              as int?,
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-      total: null == total
+              as List<CartItem>,
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -176,8 +176,8 @@ class _$CartImpl implements _Cart {
   const _$CartImpl(
       {required this.id,
       @JsonKey(name: 'user') required this.user,
-      required final List<int> items,
-      required this.total,
+      required final List<CartItem> items,
+      @StringToDoubleConverter() required this.total,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt})
       : _items = items;
@@ -186,23 +186,22 @@ class _$CartImpl implements _Cart {
       _$$CartImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'user')
-  final int user;
-// Ou User si tu veux l’objet
-  final List<int> _items;
-// Ou User si tu veux l’objet
+  final int? user;
+  final List<CartItem> _items;
   @override
-  List<int> get items {
+  List<CartItem> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
 
-// Ou List<CartItem> si tu as un modèle d'item
   @override
-  final double total;
+  @StringToDoubleConverter()
+  final double? total;
+// ✅ Ajout du convertisseur ici
   @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
@@ -253,10 +252,10 @@ class _$CartImpl implements _Cart {
 
 abstract class _Cart implements Cart {
   const factory _Cart(
-          {required final int id,
-          @JsonKey(name: 'user') required final int user,
-          required final List<int> items,
-          required final double total,
+          {required final int? id,
+          @JsonKey(name: 'user') required final int? user,
+          required final List<CartItem> items,
+          @StringToDoubleConverter() required final double? total,
           @JsonKey(name: 'created_at') required final DateTime createdAt,
           @JsonKey(name: 'updated_at') required final DateTime updatedAt}) =
       _$CartImpl;
@@ -264,14 +263,15 @@ abstract class _Cart implements Cart {
   factory _Cart.fromJson(Map<String, dynamic> json) = _$CartImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'user')
-  int get user; // Ou User si tu veux l’objet
+  int? get user;
   @override
-  List<int> get items; // Ou List<CartItem> si tu as un modèle d'item
+  List<CartItem> get items;
   @override
-  double get total;
+  @StringToDoubleConverter()
+  double? get total; // ✅ Ajout du convertisseur ici
   @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;

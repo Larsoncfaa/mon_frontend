@@ -1,75 +1,103 @@
-// ============================
-// 🛠 auth_notifier.dart
-// ============================
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../models/auth_state.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:maliag/core/network/dio_provider.dart';
+
 import '../../models/user.dart';
+import '../../models/user_role.dart';
+import '../../services/auth_service.dart';
 import '../repositories/auth_repository.dart';
 
-class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthRepository _repository;
 
-  /// Initialise l'état à `data(null)` (utilisateur non connecté)
-  AuthNotifier(this._repository) : super(const AuthState.data(null));
+/// Provider pour le AuthRepository
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
+  final dio = ref.read(dioProvider); // ✅ Corrigé ici
+  return AuthRepository(AuthService(dio), const FlutterSecureStorage());
+});
 
-  /// Inscription
+/// StateNotifier pour gérer l’état d’authentification
+class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
+  final AuthRepository _authRepository;
+
+  AuthNotifier(this._authRepository) : super(const AsyncValue.loading()) {
+    _loadUser();
+  }
+
+  Future<void> _loadUser() async {
+    try {
+      final user = await _authRepository.getCurrentUser();
+      state = AsyncValue.data(user);
+    } catch (e) {
+      state = const AsyncValue.data(null);
+    }
+  }
+
   Future<bool> register({
     required String firstName,
     required String lastName,
     required String email,
     required String password,
+    required UserRole role,
   }) async {
-    state = const AuthState.loading();
-    final success = await _repository.register(
-      firstName: firstName,
-      lastName:  lastName,
-      email:     email,
-      password:  password,
-    );
-    if (success) {
-      state = const AuthState.data(null);
-    } else {
-      state = const AuthState.error('Inscription échouée');
+    state = const AsyncLoading();
+
+    try {
+      final user = await _authRepository.register(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        role: role,
+      );
+
+      if (user != null) {
+        state = AsyncValue.data(user as User?);
+        return true;
+      } else {
+        state = const AsyncValue.data(null);
+        return false;
+      }
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+      return false;
     }
-    return success;
   }
 
-  /// Connexion
   Future<bool> login({
     required String email,
     required String password,
   }) async {
-    state = const AuthState.loading();
-    final success = await _repository.login(
-      email:    email,
-      password: password,
-    );
-    if (success) {
-      final User user = await _repository.getCurrentUser();
-      state = AuthState.data(user);
-    } else {
-      state = const AuthState.error('Connexion échouée');
+    state = const AsyncLoading();
+
+    try {
+      final success = await _authRepository.login(
+        email: email,
+        password: password,
+      );
+
+      if (success) {
+        final user = await _authRepository.getCurrentUser();
+        state = AsyncValue.data(user);
+        return true;
+      } else {
+        state = const AsyncValue.data(null);
+        return false;
+      }
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+      return false;
     }
-    return success;
   }
 
-  /// Déconnexion
   Future<void> logout() async {
-    state = const AuthState.loading();
-    await _repository.logout();
-    state = const AuthState.data(null);
-  }
-
-  /// Vérification de token (token passé en paramètre)
-  Future<void> verifyToken(String token) async {
-    state = const AuthState.loading();
-    final bool valid = await _repository.verifyToken(token);
-    if (valid) {
-      final User user = await _repository.getCurrentUser();
-      state = AuthState.data(user);
-    } else {
-      state = const AuthState.data(null);
-    }
+    state = const AsyncLoading();
+    await _authRepository.logout();
+    state = const AsyncValue.data(null);
   }
 }
+
+/// Provider du AuthNotifier
+final authNotifierProvider =
+StateNotifierProvider<AuthNotifier, AsyncValue<User?>>((ref) {
+  final repository = ref.watch(authRepositoryProvider);
+  return AuthNotifier(repository);
+});

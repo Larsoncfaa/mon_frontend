@@ -14,11 +14,20 @@ class PaymentLogNotifier extends StateNotifier<AsyncValue<PaginatedPaymentLogLis
       final data = await _repository.getAll(page: page);
       state = AsyncData(data);
     } catch (e, st) {
-      state = AsyncError(e, st);
+      state = AsyncError(Exception('Erreur lors du chargement des logs de paiement : $e'), st);
     }
   }
 
   Future<void> refresh() async => fetchAll();
 
   loadMore() {}
+
+  Future<void> delete(int id) async {
+    try {
+      await _repository.delete(id);
+      fetchAll(); // ou remove localement si besoin
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
 }

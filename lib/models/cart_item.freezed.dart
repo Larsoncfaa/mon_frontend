@@ -20,15 +20,17 @@ CartItem _$CartItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CartItem {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+
+  /// 🔄 Tu peux aussi remplacer `Map<String, dynamic>` par `Product` si tu veux.
   @JsonKey(name: 'product')
-  Map<String, dynamic> get product =>
-      throw _privateConstructorUsedError; // Ou un modèle Product
+  Map<String, dynamic> get product => throw _privateConstructorUsedError;
   @JsonKey(name: 'product_id')
-  int get productId => throw _privateConstructorUsedError;
+  int? get productId => throw _privateConstructorUsedError;
   int? get quantity => throw _privateConstructorUsedError;
+  @StringToDoubleConverter()
   @JsonKey(name: 'total_price')
-  double get totalPrice => throw _privateConstructorUsedError;
+  double? get totalPrice => throw _privateConstructorUsedError;
 
   /// Serializes this CartItem to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,11 +48,13 @@ abstract class $CartItemCopyWith<$Res> {
       _$CartItemCopyWithImpl<$Res, CartItem>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'product') Map<String, dynamic> product,
-      @JsonKey(name: 'product_id') int productId,
+      @JsonKey(name: 'product_id') int? productId,
       int? quantity,
-      @JsonKey(name: 'total_price') double totalPrice});
+      @StringToDoubleConverter()
+      @JsonKey(name: 'total_price')
+      double? totalPrice});
 }
 
 /// @nodoc
@@ -68,33 +72,33 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? product = null,
-    Object? productId = null,
+    Object? productId = freezed,
     Object? quantity = freezed,
-    Object? totalPrice = null,
+    Object? totalPrice = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-      productId: null == productId
+      productId: freezed == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       quantity: freezed == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int?,
-      totalPrice: null == totalPrice
+      totalPrice: freezed == totalPrice
           ? _value.totalPrice
           : totalPrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ) as $Val);
   }
 }
@@ -108,11 +112,13 @@ abstract class _$$CartItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       @JsonKey(name: 'product') Map<String, dynamic> product,
-      @JsonKey(name: 'product_id') int productId,
+      @JsonKey(name: 'product_id') int? productId,
       int? quantity,
-      @JsonKey(name: 'total_price') double totalPrice});
+      @StringToDoubleConverter()
+      @JsonKey(name: 'total_price')
+      double? totalPrice});
 }
 
 /// @nodoc
@@ -128,33 +134,33 @@ class __$$CartItemImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? product = null,
-    Object? productId = null,
+    Object? productId = freezed,
     Object? quantity = freezed,
-    Object? totalPrice = null,
+    Object? totalPrice = freezed,
   }) {
     return _then(_$CartItemImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       product: null == product
           ? _value._product
           : product // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-      productId: null == productId
+      productId: freezed == productId
           ? _value.productId
           : productId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       quantity: freezed == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int?,
-      totalPrice: null == totalPrice
+      totalPrice: freezed == totalPrice
           ? _value.totalPrice
           : totalPrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ));
   }
 }
@@ -167,15 +173,21 @@ class _$CartItemImpl implements _CartItem {
       @JsonKey(name: 'product') required final Map<String, dynamic> product,
       @JsonKey(name: 'product_id') required this.productId,
       this.quantity,
-      @JsonKey(name: 'total_price') required this.totalPrice})
+      @StringToDoubleConverter()
+      @JsonKey(name: 'total_price')
+      required this.totalPrice})
       : _product = product;
 
   factory _$CartItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$CartItemImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
+
+  /// 🔄 Tu peux aussi remplacer `Map<String, dynamic>` par `Product` si tu veux.
   final Map<String, dynamic> _product;
+
+  /// 🔄 Tu peux aussi remplacer `Map<String, dynamic>` par `Product` si tu veux.
   @override
   @JsonKey(name: 'product')
   Map<String, dynamic> get product {
@@ -184,15 +196,15 @@ class _$CartItemImpl implements _CartItem {
     return EqualUnmodifiableMapView(_product);
   }
 
-// Ou un modèle Product
   @override
   @JsonKey(name: 'product_id')
-  final int productId;
+  final int? productId;
   @override
   final int? quantity;
   @override
+  @StringToDoubleConverter()
   @JsonKey(name: 'total_price')
-  final double totalPrice;
+  final double? totalPrice;
 
   @override
   String toString() {
@@ -242,29 +254,33 @@ class _$CartItemImpl implements _CartItem {
 
 abstract class _CartItem implements CartItem {
   const factory _CartItem(
-          {required final int id,
-          @JsonKey(name: 'product') required final Map<String, dynamic> product,
-          @JsonKey(name: 'product_id') required final int productId,
-          final int? quantity,
-          @JsonKey(name: 'total_price') required final double totalPrice}) =
-      _$CartItemImpl;
+      {required final int? id,
+      @JsonKey(name: 'product') required final Map<String, dynamic> product,
+      @JsonKey(name: 'product_id') required final int? productId,
+      final int? quantity,
+      @StringToDoubleConverter()
+      @JsonKey(name: 'total_price')
+      required final double? totalPrice}) = _$CartItemImpl;
 
   factory _CartItem.fromJson(Map<String, dynamic> json) =
       _$CartItemImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
+
+  /// 🔄 Tu peux aussi remplacer `Map<String, dynamic>` par `Product` si tu veux.
   @override
   @JsonKey(name: 'product')
-  Map<String, dynamic> get product; // Ou un modèle Product
+  Map<String, dynamic> get product;
   @override
   @JsonKey(name: 'product_id')
-  int get productId;
+  int? get productId;
   @override
   int? get quantity;
   @override
+  @StringToDoubleConverter()
   @JsonKey(name: 'total_price')
-  double get totalPrice;
+  double? get totalPrice;
 
   /// Create a copy of CartItem
   /// with the given fields replaced by the non-null parameter values.

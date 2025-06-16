@@ -1,4 +1,4 @@
-
+import 'package:flutter/foundation.dart';
 
 import '../../models/order.dart';
 import '../../pagination/paginated_order_list.dart';
@@ -9,23 +9,58 @@ class OrderRepository {
 
   OrderRepository(this.service);
 
-  Future<PaginatedOrderList> fetchOrders({int page = 1}) {
-    return service.fetchOrders(page: page);
+  Future<PaginatedOrderList> fetchOrders({int page = 1}) async {
+    try {
+      return await service.fetchOrders(page: page);
+    } catch (e) {
+      debugPrint('Erreur fetchOrders: $e');
+      rethrow;
+    }
   }
 
-  Future<Order> getOrder(int id) {
-    return service.getOrder(id);
+  Future<Order> getOrder(int id) async {
+    try {
+      return await service.getOrder(id);
+    } catch (e) {
+      debugPrint('Erreur getOrder: $e');
+      rethrow;
+    }
   }
 
-  Future<Order> createOrder(Order order) {
-    return service.createOrder(order);
+  Future<Order> createOrder(Order order) async {
+    try {
+      return await service.createOrder(order);
+    } catch (e) {
+      debugPrint('Erreur createOrder: $e');
+      rethrow;
+    }
   }
 
-  Future<Order> updateOrder(Order order) {
-    return service.updateOrder(order);
+  Future<Order> updateOrder(Order order) async {
+    try {
+      return await service.updateOrder(order);
+    } catch (e) {
+      debugPrint('Erreur updateOrder: $e');
+      rethrow;
+    }
   }
 
-  Future<void> deleteOrder(int id) {
-    return service.deleteOrder(id);
+  Future<void> deleteOrder(int id) async {
+    try {
+      await service.deleteOrder(id);
+    } catch (e) {
+      debugPrint('Erreur deleteOrder: $e');
+      rethrow;
+    }
+  }
+
+  /// ✅ Ajout du paramètre cartId ici aussi
+  Future<Order> createOrderFromCart() async {
+    try {
+      return await service.createOrderFromCart();
+    } catch (e) {
+      debugPrint('Erreur createOrderFromCart: $e');
+      rethrow;
+    }
   }
 }

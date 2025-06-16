@@ -11,16 +11,12 @@ class ProfileScreen extends ConsumerWidget {
     final authState = ref.watch(authNotifierProvider);
 
     return authState.when(
-      initial: () => Scaffold(
-        appBar: AppBar(title: const Text('Profil')),
-        body: const Center(child: Text('Aucun utilisateur connecté')),
-      ),
       loading: () => const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       ),
-      error: (msg) => Scaffold(
+      error: (error, _) => Scaffold(
         appBar: AppBar(title: const Text('Profil')),
-        body: Center(child: Text('Erreur : $msg')),
+        body: Center(child: Text('Erreur : $error')),
       ),
       data: (user) {
         if (user == null) {
@@ -38,12 +34,7 @@ class ProfileScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Prénom : ${user.firstName}',
-                  style: const TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Nom : ${user.lastName}',
+                  'Nom d’utilisateur : ${user.username}',
                   style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 8),
@@ -51,12 +42,15 @@ class ProfileScreen extends ConsumerWidget {
                   'Email : ${user.email}',
                   style: const TextStyle(fontSize: 18),
                 ),
+                const SizedBox(height: 8),
+                Text(
+                  'Rôle : ${user.role.name}',
+                  style: const TextStyle(fontSize: 18),
+                ),
                 const Spacer(),
                 ElevatedButton.icon(
                   onPressed: () async {
-                    await ref
-                        .read(authNotifierProvider.notifier)
-                        .logout();
+                    await ref.read(authNotifierProvider.notifier).logout();
                     Navigator.pushReplacementNamed(context, '/login');
                   },
                   icon: const Icon(Icons.logout),

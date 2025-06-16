@@ -11,12 +11,12 @@ _$PaymentImpl _$$PaymentImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num?)?.toInt(),
       order: (json['order'] as num).toInt(),
       method: $enumDecode(_$MethodEnumEnumMap, json['method']),
-      amount: (json['amount'] as num).toDouble(),
+      amount: const StringToDoubleConverter().fromJson(json['amount']),
       paymentStatus: $enumDecodeNullable(
-          _$PaymentStatusEnumEnumMap, json['paymentStatus']),
-      paidAt: json['paidAt'] == null
+          _$PaymentStatusEnumEnumMap, json['payment_status']),
+      paidAt: json['paid_at'] == null
           ? null
-          : DateTime.parse(json['paidAt'] as String),
+          : DateTime.parse(json['paid_at'] as String),
     );
 
 Map<String, dynamic> _$$PaymentImplToJson(_$PaymentImpl instance) =>
@@ -24,9 +24,9 @@ Map<String, dynamic> _$$PaymentImplToJson(_$PaymentImpl instance) =>
       'id': instance.id,
       'order': instance.order,
       'method': _$MethodEnumEnumMap[instance.method]!,
-      'amount': instance.amount,
-      'paymentStatus': _$PaymentStatusEnumEnumMap[instance.paymentStatus],
-      'paidAt': instance.paidAt?.toIso8601String(),
+      'amount': const StringToDoubleConverter().toJson(instance.amount),
+      'payment_status': _$PaymentStatusEnumEnumMap[instance.paymentStatus],
+      'paid_at': instance.paidAt?.toIso8601String(),
     };
 
 const _$MethodEnumEnumMap = {
@@ -36,7 +36,7 @@ const _$MethodEnumEnumMap = {
   MethodEnum.paypal: 'PAYPAL',
   MethodEnum.applePay: 'APPLE_PAY',
   MethodEnum.googlePay: 'GOOGLE_PAY',
-  MethodEnum.creditCard: 'creditCard',
+  MethodEnum.balance: 'BALANCE',
 };
 
 const _$PaymentStatusEnumEnumMap = {

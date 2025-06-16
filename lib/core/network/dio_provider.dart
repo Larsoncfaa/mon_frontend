@@ -13,7 +13,7 @@ final dioProvider = Provider<Dio>((ref) {
   final secureStorage = ref.read(secureStorageProvider);
 
   final dio = Dio(BaseOptions(
-    baseUrl: 'https://10.0.2.2:8000/api', // 🔁 Personnalise ceci
+    baseUrl: 'http://192.168.1.11:8000/api/v1', // 🔁 Personnalise ceci
     connectTimeout: const Duration(seconds: 10),
     receiveTimeout: const Duration(seconds: 10),
     contentType: 'application/json',

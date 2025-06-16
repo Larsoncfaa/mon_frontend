@@ -25,16 +25,15 @@ mixin _$Product {
   String? get image => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'quantity_in_stock')
+  @JsonKey(includeIfNull: true)
   int? get quantityInStock => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: unitFromJson, toJson: unitToJson)
   UnitEnum get unit => throw _privateConstructorUsedError;
-  @JsonKey(name: 'purchase_price')
-  double get purchasePrice => throw _privateConstructorUsedError;
-  @JsonKey(name: 'selling_price')
-  double get sellingPrice => throw _privateConstructorUsedError;
-  @JsonKey(name: 'expiration_date')
+  @StringToDoubleConverter()
+  double? get purchasePrice => throw _privateConstructorUsedError;
+  @StringToDoubleConverter()
+  double? get sellingPrice => throw _privateConstructorUsedError;
   DateTime? get expirationDate => throw _privateConstructorUsedError;
-  @JsonKey(name: 'qr_code_image')
   String? get qrCodeImage => throw _privateConstructorUsedError;
 
   /// Serializes this Product to a JSON map.
@@ -57,12 +56,12 @@ abstract class $ProductCopyWith<$Res> {
       String? image,
       String name,
       String? description,
-      @JsonKey(name: 'quantity_in_stock') int? quantityInStock,
-      UnitEnum unit,
-      @JsonKey(name: 'purchase_price') double purchasePrice,
-      @JsonKey(name: 'selling_price') double sellingPrice,
-      @JsonKey(name: 'expiration_date') DateTime? expirationDate,
-      @JsonKey(name: 'qr_code_image') String? qrCodeImage});
+      @JsonKey(includeIfNull: true) int? quantityInStock,
+      @JsonKey(fromJson: unitFromJson, toJson: unitToJson) UnitEnum unit,
+      @StringToDoubleConverter() double? purchasePrice,
+      @StringToDoubleConverter() double? sellingPrice,
+      DateTime? expirationDate,
+      String? qrCodeImage});
 }
 
 /// @nodoc
@@ -87,8 +86,8 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? description = freezed,
     Object? quantityInStock = freezed,
     Object? unit = null,
-    Object? purchasePrice = null,
-    Object? sellingPrice = null,
+    Object? purchasePrice = freezed,
+    Object? sellingPrice = freezed,
     Object? expirationDate = freezed,
     Object? qrCodeImage = freezed,
   }) {
@@ -121,14 +120,14 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
               as UnitEnum,
-      purchasePrice: null == purchasePrice
+      purchasePrice: freezed == purchasePrice
           ? _value.purchasePrice
           : purchasePrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      sellingPrice: null == sellingPrice
+              as double?,
+      sellingPrice: freezed == sellingPrice
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       expirationDate: freezed == expirationDate
           ? _value.expirationDate
           : expirationDate // ignore: cast_nullable_to_non_nullable
@@ -154,12 +153,12 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String? image,
       String name,
       String? description,
-      @JsonKey(name: 'quantity_in_stock') int? quantityInStock,
-      UnitEnum unit,
-      @JsonKey(name: 'purchase_price') double purchasePrice,
-      @JsonKey(name: 'selling_price') double sellingPrice,
-      @JsonKey(name: 'expiration_date') DateTime? expirationDate,
-      @JsonKey(name: 'qr_code_image') String? qrCodeImage});
+      @JsonKey(includeIfNull: true) int? quantityInStock,
+      @JsonKey(fromJson: unitFromJson, toJson: unitToJson) UnitEnum unit,
+      @StringToDoubleConverter() double? purchasePrice,
+      @StringToDoubleConverter() double? sellingPrice,
+      DateTime? expirationDate,
+      String? qrCodeImage});
 }
 
 /// @nodoc
@@ -182,8 +181,8 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? description = freezed,
     Object? quantityInStock = freezed,
     Object? unit = null,
-    Object? purchasePrice = null,
-    Object? sellingPrice = null,
+    Object? purchasePrice = freezed,
+    Object? sellingPrice = freezed,
     Object? expirationDate = freezed,
     Object? qrCodeImage = freezed,
   }) {
@@ -216,14 +215,14 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
               as UnitEnum,
-      purchasePrice: null == purchasePrice
+      purchasePrice: freezed == purchasePrice
           ? _value.purchasePrice
           : purchasePrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      sellingPrice: null == sellingPrice
+              as double?,
+      sellingPrice: freezed == sellingPrice
           ? _value.sellingPrice
           : sellingPrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       expirationDate: freezed == expirationDate
           ? _value.expirationDate
           : expirationDate // ignore: cast_nullable_to_non_nullable
@@ -237,7 +236,8 @@ class __$$ProductImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class _$ProductImpl implements _Product {
   const _$ProductImpl(
       {required this.id,
@@ -245,12 +245,12 @@ class _$ProductImpl implements _Product {
       this.image,
       required this.name,
       this.description,
-      @JsonKey(name: 'quantity_in_stock') this.quantityInStock,
-      required this.unit,
-      @JsonKey(name: 'purchase_price') required this.purchasePrice,
-      @JsonKey(name: 'selling_price') required this.sellingPrice,
-      @JsonKey(name: 'expiration_date') this.expirationDate,
-      @JsonKey(name: 'qr_code_image') this.qrCodeImage});
+      @JsonKey(includeIfNull: true) this.quantityInStock,
+      @JsonKey(fromJson: unitFromJson, toJson: unitToJson) required this.unit,
+      @StringToDoubleConverter() required this.purchasePrice,
+      @StringToDoubleConverter() required this.sellingPrice,
+      this.expirationDate,
+      this.qrCodeImage});
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
@@ -266,21 +266,20 @@ class _$ProductImpl implements _Product {
   @override
   final String? description;
   @override
-  @JsonKey(name: 'quantity_in_stock')
+  @JsonKey(includeIfNull: true)
   final int? quantityInStock;
   @override
+  @JsonKey(fromJson: unitFromJson, toJson: unitToJson)
   final UnitEnum unit;
   @override
-  @JsonKey(name: 'purchase_price')
-  final double purchasePrice;
+  @StringToDoubleConverter()
+  final double? purchasePrice;
   @override
-  @JsonKey(name: 'selling_price')
-  final double sellingPrice;
+  @StringToDoubleConverter()
+  final double? sellingPrice;
   @override
-  @JsonKey(name: 'expiration_date')
   final DateTime? expirationDate;
   @override
-  @JsonKey(name: 'qr_code_image')
   final String? qrCodeImage;
 
   @override
@@ -347,18 +346,18 @@ class _$ProductImpl implements _Product {
 
 abstract class _Product implements Product {
   const factory _Product(
-          {required final int id,
-          required final String category,
-          final String? image,
-          required final String name,
-          final String? description,
-          @JsonKey(name: 'quantity_in_stock') final int? quantityInStock,
-          required final UnitEnum unit,
-          @JsonKey(name: 'purchase_price') required final double purchasePrice,
-          @JsonKey(name: 'selling_price') required final double sellingPrice,
-          @JsonKey(name: 'expiration_date') final DateTime? expirationDate,
-          @JsonKey(name: 'qr_code_image') final String? qrCodeImage}) =
-      _$ProductImpl;
+      {required final int id,
+      required final String category,
+      final String? image,
+      required final String name,
+      final String? description,
+      @JsonKey(includeIfNull: true) final int? quantityInStock,
+      @JsonKey(fromJson: unitFromJson, toJson: unitToJson)
+      required final UnitEnum unit,
+      @StringToDoubleConverter() required final double? purchasePrice,
+      @StringToDoubleConverter() required final double? sellingPrice,
+      final DateTime? expirationDate,
+      final String? qrCodeImage}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -373,21 +372,20 @@ abstract class _Product implements Product {
   @override
   String? get description;
   @override
-  @JsonKey(name: 'quantity_in_stock')
+  @JsonKey(includeIfNull: true)
   int? get quantityInStock;
   @override
+  @JsonKey(fromJson: unitFromJson, toJson: unitToJson)
   UnitEnum get unit;
   @override
-  @JsonKey(name: 'purchase_price')
-  double get purchasePrice;
+  @StringToDoubleConverter()
+  double? get purchasePrice;
   @override
-  @JsonKey(name: 'selling_price')
-  double get sellingPrice;
+  @StringToDoubleConverter()
+  double? get sellingPrice;
   @override
-  @JsonKey(name: 'expiration_date')
   DateTime? get expirationDate;
   @override
-  @JsonKey(name: 'qr_code_image')
   String? get qrCodeImage;
 
   /// Create a copy of Product

@@ -1,10 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-
-part 'method_enum.g.dart';
-
-/// Enumération des méthodes de paiement disponibles.
-@JsonEnum(alwaysCreate: true)
 enum MethodEnum {
   @JsonValue('CARD')
   card,
@@ -22,10 +17,11 @@ enum MethodEnum {
   applePay,
 
   @JsonValue('GOOGLE_PAY')
-  googlePay, creditCard,
-}
+  googlePay,
 
-/// Extension pour afficher les noms lisibles ou localisés
+  @JsonValue('BALANCE')
+  balance,
+}
 extension MethodEnumExtension on MethodEnum {
   String get label {
     switch (this) {
@@ -41,9 +37,8 @@ extension MethodEnumExtension on MethodEnum {
         return 'Apple Pay';
       case MethodEnum.googlePay:
         return 'Google Pay';
-      case MethodEnum.creditCard:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+      case MethodEnum.balance:
+        return 'Solde client';
     }
   }
 }

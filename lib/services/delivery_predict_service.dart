@@ -1,29 +1,30 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
-import 'package:maliag/widgets/loading_widget.dart';
-
+import 'package:flutter/cupertino.dart';
 import '../models/delivery_predict.dart';
 
-
 class DeliveryPredictService {
-  final Dio _dio;
+  final Dio dio;
 
-  DeliveryPredictService(this._dio);
+  DeliveryPredictService(this.dio);
 
-  Future<DeliveryPredict> predictDelivery({
+  /// Récupère les prédictions de livraison pour un produit
+  Future<List<DeliveryPredict>> fetchDeliveryPredictions({
     required int productId,
-    required int quantity,
   }) async {
-    final response = await _dio.post(
-      'v1/predict/delivery/',
-      data: {
+    try {
+      debugPrint("Fetching delivery predictions for productId: $productId");
+
+      final response = await dio.get('/predict/delivery/', queryParameters: {
         'product_id': productId,
-        'quantity': quantity,
-      },
-    );
+      });
 
-    return DeliveryPredict.fromJson(response.data);
+      debugPrint("Response data: ${response.data}");
+
+      final List data = response.data as List;
+      return data.map((e) => DeliveryPredict.fromJson(e)).toList();
+    } catch (e) {
+      debugPrint("Error fetching delivery predictions: $e");
+      throw Exception("Failed to fetch delivery predictions: $e");
+    }
   }
-
-  when({required Column Function(dynamic deliveries) data, required LoadingWidget Function() loading, required Function(dynamic e, dynamic _) error}) {}
 }

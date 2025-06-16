@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:maliag/models/exchange_request.dart';
 
+import '../../models/exchange_status_enum.dart';
 import '../../pagination/paginated_exchange_request_list.dart';
 import '../repositories/exchange_request_repository.dart';
 
@@ -44,7 +45,9 @@ class ExchangeRequestNotifier
     } catch (e, st) {
       state = AsyncError(e, st);
     }
-  }Future<void> update(int id, ExchangeRequest updatedExchange) async {
+  }
+
+  Future<void> update(int id, ExchangeRequest updatedExchange) async {
     try {
       final updated = await repository.update(id, updatedExchange);
       final previous = state.value;
@@ -68,6 +71,33 @@ class ExchangeRequestNotifier
         previous.results.where((e) => e.id != id).toList();
         state = AsyncData(previous.copyWith(results: updatedResults));
       }
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  /// Accepter une demande d'échange : met à jour son statut sur 'COMPLETED'
+  Future<void> accepter(int id) async {
+    try {
+      final previous = state.value;
+      if (previous == null) return;
+      // Récupère l'objet à mettre à jour
+      final exchange = previous.results.firstWhere((e) => e.id == id);
+      // Crée une nouvelle instance avec le statut à ExchangeStatusEnum.COMPLETED
+      final updatedExchange = exchange.copyWith(
+        exchangeStatus: ExchangeStatusEnum.COMPLETED,
+      );
+      // Appel API (update et mise à jour du state)
+      await update(id, updatedExchange);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  /// Refuser une demande d'échange : supprime la demande
+  Future<void> refuser(int id) async {
+    try {
+      await delete(id);
     } catch (e, st) {
       state = AsyncError(e, st);
     }

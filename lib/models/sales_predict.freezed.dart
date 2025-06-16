@@ -21,15 +21,12 @@ SalesPredict _$SalesPredictFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SalesPredict {
   /// ID du produit concerné par la prévision
-  @JsonKey(name: 'product_id')
   int get productId => throw _privateConstructorUsedError;
 
   /// Période associée à la prévision (ex : "2025-06-01", "Semaine 22", etc.)
-  @JsonKey(name: 'period')
   String get period => throw _privateConstructorUsedError;
 
   /// Valeur de vente prédite (exprimée en unités)
-  @JsonKey(name: 'predicted_sales')
   int get predictedSales => throw _privateConstructorUsedError;
 
   /// Serializes this SalesPredict to a JSON map.
@@ -48,10 +45,7 @@ abstract class $SalesPredictCopyWith<$Res> {
           SalesPredict value, $Res Function(SalesPredict) then) =
       _$SalesPredictCopyWithImpl<$Res, SalesPredict>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'product_id') int productId,
-      @JsonKey(name: 'period') String period,
-      @JsonKey(name: 'predicted_sales') int predictedSales});
+  $Res call({int productId, String period, int predictedSales});
 }
 
 /// @nodoc
@@ -98,10 +92,7 @@ abstract class _$$SalesPredictImplCopyWith<$Res>
       __$$SalesPredictImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'product_id') int productId,
-      @JsonKey(name: 'period') String period,
-      @JsonKey(name: 'predicted_sales') int predictedSales});
+  $Res call({int productId, String period, int predictedSales});
 }
 
 /// @nodoc
@@ -142,26 +133,23 @@ class __$$SalesPredictImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SalesPredictImpl implements _SalesPredict {
   const _$SalesPredictImpl(
-      {@JsonKey(name: 'product_id') required this.productId,
-      @JsonKey(name: 'period') required this.period,
-      @JsonKey(name: 'predicted_sales') required this.predictedSales});
+      {required this.productId,
+      required this.period,
+      required this.predictedSales});
 
   factory _$SalesPredictImpl.fromJson(Map<String, dynamic> json) =>
       _$$SalesPredictImplFromJson(json);
 
   /// ID du produit concerné par la prévision
   @override
-  @JsonKey(name: 'product_id')
   final int productId;
 
   /// Période associée à la prévision (ex : "2025-06-01", "Semaine 22", etc.)
   @override
-  @JsonKey(name: 'period')
   final String period;
 
   /// Valeur de vente prédite (exprimée en unités)
   @override
-  @JsonKey(name: 'predicted_sales')
   final int predictedSales;
 
   @override
@@ -204,9 +192,8 @@ class _$SalesPredictImpl implements _SalesPredict {
 
 abstract class _SalesPredict implements SalesPredict {
   const factory _SalesPredict(
-      {@JsonKey(name: 'product_id') required final int productId,
-      @JsonKey(name: 'period') required final String period,
-      @JsonKey(name: 'predicted_sales')
+      {required final int productId,
+      required final String period,
       required final int predictedSales}) = _$SalesPredictImpl;
 
   factory _SalesPredict.fromJson(Map<String, dynamic> json) =
@@ -214,17 +201,14 @@ abstract class _SalesPredict implements SalesPredict {
 
   /// ID du produit concerné par la prévision
   @override
-  @JsonKey(name: 'product_id')
   int get productId;
 
   /// Période associée à la prévision (ex : "2025-06-01", "Semaine 22", etc.)
   @override
-  @JsonKey(name: 'period')
   String get period;
 
   /// Valeur de vente prédite (exprimée en unités)
   @override
-  @JsonKey(name: 'predicted_sales')
   int get predictedSales;
 
   /// Create a copy of SalesPredict

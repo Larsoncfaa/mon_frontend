@@ -22,9 +22,11 @@ ClientProfile _$ClientProfileFromJson(Map<String, dynamic> json) {
 mixin _$ClientProfile {
   int get id => throw _privateConstructorUsedError;
   int get user => throw _privateConstructorUsedError;
-  String get location => throw _privateConstructorUsedError;
-  double get balance => throw _privateConstructorUsedError;
-  int get points => throw _privateConstructorUsedError;
+  String? get location => throw _privateConstructorUsedError;
+  @StringToDoubleConverter()
+  double get balance =>
+      throw _privateConstructorUsedError; // ← ✅ Correction ici
+  int? get points => throw _privateConstructorUsedError;
 
   /// Serializes this ClientProfile to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +44,12 @@ abstract class $ClientProfileCopyWith<$Res> {
           ClientProfile value, $Res Function(ClientProfile) then) =
       _$ClientProfileCopyWithImpl<$Res, ClientProfile>;
   @useResult
-  $Res call({int id, int user, String location, double balance, int points});
+  $Res call(
+      {int id,
+      int user,
+      String? location,
+      @StringToDoubleConverter() double balance,
+      int? points});
 }
 
 /// @nodoc
@@ -62,9 +69,9 @@ class _$ClientProfileCopyWithImpl<$Res, $Val extends ClientProfile>
   $Res call({
     Object? id = null,
     Object? user = null,
-    Object? location = null,
+    Object? location = freezed,
     Object? balance = null,
-    Object? points = null,
+    Object? points = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,18 +82,18 @@ class _$ClientProfileCopyWithImpl<$Res, $Val extends ClientProfile>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as int,
-      location: null == location
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       balance: null == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
-      points: null == points
+      points: freezed == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -99,7 +106,12 @@ abstract class _$$ClientProfileImplCopyWith<$Res>
       __$$ClientProfileImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, int user, String location, double balance, int points});
+  $Res call(
+      {int id,
+      int user,
+      String? location,
+      @StringToDoubleConverter() double balance,
+      int? points});
 }
 
 /// @nodoc
@@ -117,9 +129,9 @@ class __$$ClientProfileImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? user = null,
-    Object? location = null,
+    Object? location = freezed,
     Object? balance = null,
-    Object? points = null,
+    Object? points = freezed,
   }) {
     return _then(_$ClientProfileImpl(
       id: null == id
@@ -130,18 +142,18 @@ class __$$ClientProfileImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as int,
-      location: null == location
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       balance: null == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
-      points: null == points
+      points: freezed == points
           ? _value.points
           : points // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -152,9 +164,9 @@ class _$ClientProfileImpl implements _ClientProfile {
   const _$ClientProfileImpl(
       {required this.id,
       required this.user,
-      required this.location,
-      required this.balance,
-      required this.points});
+      this.location,
+      @StringToDoubleConverter() required this.balance,
+      this.points});
 
   factory _$ClientProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClientProfileImplFromJson(json);
@@ -164,11 +176,13 @@ class _$ClientProfileImpl implements _ClientProfile {
   @override
   final int user;
   @override
-  final String location;
+  final String? location;
   @override
+  @StringToDoubleConverter()
   final double balance;
+// ← ✅ Correction ici
   @override
-  final int points;
+  final int? points;
 
   @override
   String toString() {
@@ -213,9 +227,9 @@ abstract class _ClientProfile implements ClientProfile {
   const factory _ClientProfile(
       {required final int id,
       required final int user,
-      required final String location,
-      required final double balance,
-      required final int points}) = _$ClientProfileImpl;
+      final String? location,
+      @StringToDoubleConverter() required final double balance,
+      final int? points}) = _$ClientProfileImpl;
 
   factory _ClientProfile.fromJson(Map<String, dynamic> json) =
       _$ClientProfileImpl.fromJson;
@@ -225,11 +239,12 @@ abstract class _ClientProfile implements ClientProfile {
   @override
   int get user;
   @override
-  String get location;
+  String? get location;
   @override
-  double get balance;
+  @StringToDoubleConverter()
+  double get balance; // ← ✅ Correction ici
   @override
-  int get points;
+  int? get points;
 
   /// Create a copy of ClientProfile
   /// with the given fields replaced by the non-null parameter values.

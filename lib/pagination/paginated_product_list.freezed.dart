@@ -201,12 +201,6 @@ class _$PaginatedProductListImpl implements _PaginatedProductList {
       this,
     );
   }
-
-  @override
-  map(DropdownMenuItem<Object> Function(dynamic p) param0) {
-    // TODO: implement map
-    throw UnimplementedError();
-  }
 }
 
 abstract class _PaginatedProductList implements PaginatedProductList {

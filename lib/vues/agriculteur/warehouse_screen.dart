@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/warehouse.dart';
-import '../../fournisseurs/provider/warehouse_provider.dart';
+import '../../../fournisseurs/provider/warehouse_provider.dart';
+import '../../widgets/app_drawer.dart';
 import 'forme/warehouse_form_screen.dart';
-
 
 class WarehouseListScreen extends ConsumerWidget {
   const WarehouseListScreen({super.key});
@@ -15,7 +15,7 @@ class WarehouseListScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Entrepôts'),
+        title: const Text('Liste des entrepôts'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -23,6 +23,7 @@ class WarehouseListScreen extends ConsumerWidget {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(
           context,
@@ -41,7 +42,7 @@ class WarehouseListScreen extends ConsumerWidget {
                 title: Text(warehouse.name),
                 subtitle: Text(warehouse.location),
                 trailing: PopupMenuButton<String>(
-                  onSelected: (value) {
+                  onSelected: (value) async {
                     if (value == 'edit') {
                       Navigator.push(
                         context,
@@ -50,11 +51,31 @@ class WarehouseListScreen extends ConsumerWidget {
                         ),
                       );
                     } else if (value == 'delete') {
-                      notifier.deleteWarehouse(warehouse.id!).then((_) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Entrepôt supprimé')),
-                        );
-                      });
+                      final confirm = await showDialog<bool>(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: const Text('Confirmation'),
+                          content: const Text('Supprimer cet entrepôt ?'),
+                          actions: [
+                            TextButton(
+                              child: const Text('Annuler'),
+                              onPressed: () => Navigator.pop(context, false),
+                            ),
+                            TextButton(
+                              child: const Text('Supprimer'),
+                              onPressed: () => Navigator.pop(context, true),
+                            ),
+                          ],
+                        ),
+                      );
+                      if (confirm == true) {
+                        await notifier.deleteWarehouse(warehouse.id!);
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Entrepôt supprimé')),
+                          );
+                        }
+                      }
                     }
                   },
                   itemBuilder: (_) => const [

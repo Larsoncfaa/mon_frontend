@@ -11,7 +11,7 @@ _$OrderLineImpl _$$OrderLineImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       product: Product.fromJson(json['product'] as Map<String, dynamic>),
       quantity: (json['quantity'] as num).toInt(),
-      unitPrice: (json['unit_price'] as num).toDouble(),
+      unitPrice: const StringToDoubleConverter().fromJson(json['unit_price']),
     );
 
 Map<String, dynamic> _$$OrderLineImplToJson(_$OrderLineImpl instance) =>
@@ -19,5 +19,12 @@ Map<String, dynamic> _$$OrderLineImplToJson(_$OrderLineImpl instance) =>
       'id': instance.id,
       'product': instance.product,
       'quantity': instance.quantity,
-      'unit_price': instance.unitPrice,
+      'unit_price': _$JsonConverterToJson<dynamic, double>(
+          instance.unitPrice, const StringToDoubleConverter().toJson),
     };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

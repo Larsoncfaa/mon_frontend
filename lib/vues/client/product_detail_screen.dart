@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:maliag/pagination/paginated_cart_list.dart';
 
 import '../../fournisseurs/provider/cart_item_provider.dart';
 import '../../fournisseurs/provider/cart_provider.dart';
@@ -18,45 +17,38 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 
 class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   int quantity = 1;
+  bool isLoading = false;
 
   void _incrementQuantity() {
-    setState(() {
-      quantity++;
-    });
+    final maxStock = widget.product.quantityInStock;
+    if (maxStock == null || quantity < maxStock) {
+      setState(() => quantity++);
+    }
   }
 
   void _decrementQuantity() {
     if (quantity > 1) {
-      setState(() {
-        quantity--;
-      });
+      setState(() => quantity--);
     }
-  }
-
-  Future<int?> _getCartId() async {
-    final cartState = ref.read(cartNotifierProvider);
-    if (cartState is AsyncData<PaginatedCartList>) {
-      return cartState.value.results.isNotEmpty ? cartState.value.results.first.id : null;
-    }
-    return null;
   }
 
   Future<void> _addToCart() async {
     final product = widget.product;
-    final cartId = await _getCartId();
+    final cartAsync = ref.read(cartStateProvider);
 
-    if (cartId == null) {
+    if (cartAsync is! AsyncData || cartAsync.value == null) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Aucun panier disponible")),
+          const SnackBar(content: Text("Chargement du panier en cours...")),
         );
       }
       return;
     }
 
+    setState(() => isLoading = true);
+
     try {
       await ref.read(cartItemNotifierProvider.notifier).addCartItem(
-        cartId: cartId,
         productId: product.id,
         quantity: quantity,
       );
@@ -72,6 +64,8 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           const SnackBar(content: Text("Erreur lors de l'ajout au panier")),
         );
       }
+    } finally {
+      if (mounted) setState(() => isLoading = false);
     }
   }
 
@@ -98,6 +92,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => Container(
+                  width: double.infinity,
+                  height: 200,
+                  color: Colors.grey[300],
+                  child: const Center(child: Icon(Icons.broken_image)),
+                ),
               )
                   : Container(
                 width: double.infinity,
@@ -108,16 +108,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             ),
             const SizedBox(height: 16),
 
-            // Nom
             Text(
               product.name,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
 
-            // Prix
             Text(
-              '${product.sellingPrice.toStringAsFixed(2)} €',
+              '${product.sellingPrice?.toStringAsFixed(2)} FCFA',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: Colors.green[700],
                 fontWeight: FontWeight.bold,
@@ -125,16 +123,23 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             ),
             const SizedBox(height: 16),
 
-            // Description
             if (product.description != null && product.description!.isNotEmpty)
-              Text(
-                product.description!,
-                style: Theme.of(context).textTheme.bodyMedium,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Description",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    product.description!,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
 
-            const SizedBox(height: 16),
-
-            // Détails supplémentaires
             Wrap(
               runSpacing: 8,
               spacing: 16,
@@ -145,14 +150,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 if (product.expirationDate != null)
                   _DetailTile(
                     title: 'Date expiration',
-                    value: product.expirationDate!.toIso8601String().split('T').first,
+                    value: _formatDate(product.expirationDate!),
                   ),
               ],
             ),
-
             const SizedBox(height: 24),
 
-            // Sélection de quantité
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -172,15 +175,19 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
           ],
         ),
       ),
-
-      // Ajout au panier
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: ElevatedButton.icon(
-            onPressed: _addToCart,
-            icon: const Icon(Icons.add_shopping_cart),
-            label: const Text('Ajouter au panier'),
+            onPressed: isLoading ? null : _addToCart,
+            icon: isLoading
+                ? const SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+            )
+                : const Icon(Icons.add_shopping_cart),
+            label: isLoading ? const Text('Ajout...') : const Text('Ajouter au panier'),
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(50),
             ),
@@ -188,6 +195,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         ),
       ),
     );
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day.toString().padLeft(2, '0')}/'
+        '${date.month.toString().padLeft(2, '0')}/'
+        '${date.year}';
   }
 }
 

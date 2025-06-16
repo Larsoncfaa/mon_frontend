@@ -9,7 +9,7 @@ class Proof with _$Proof {
     required int id,
     required int delivery,
     required String image,
-    @JsonKey(name: 'uploaded_at') required DateTime uploadedAt,
+    required DateTime uploadedAt,
   }) = _Proof;
 
   factory Proof.fromJson(Map<String, dynamic> json) => _$ProofFromJson(json);

@@ -7,6 +7,7 @@ import '../../fournisseurs/provider/delivery_person_provider.dart';
 import '../../fournisseurs/provider/delivery_provider.dart';
 import '../../models/delivery.dart';
   // pour paginated DeliveryPersonNotifierProvider
+import '../../widgets/app_drawer.dart';
 import '../../widgets/loading_widget.dart';
 
 class DeliveryManagementScreen extends ConsumerWidget {
@@ -23,8 +24,12 @@ class DeliveryManagementScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Gestion des Livraisons'),
-        leading: const Icon(Icons.local_shipping),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
+      drawer: const AppDrawer(),
       body: deliveriesAsync.when(
         data: (deliveries) {
           if (deliveries.isEmpty) {

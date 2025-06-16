@@ -7,9 +7,6 @@ import '../../services/order_service.dart';
 import '../notifications/order_notifier.dart';
 import '../repositories/order_repository.dart';
 
-
-
-
 /// Service
 final orderServiceProvider = Provider<OrderService>((ref) {
   final dio = ref.watch(dioProvider);

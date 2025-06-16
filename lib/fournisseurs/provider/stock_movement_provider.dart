@@ -7,9 +7,6 @@ import '../../services/stock_movement_service.dart';
 import '../notifications/stock_movement_notifier.dart';
 import '../repositories/stock_movement_repository.dart';
 
-
-
-
 /// Fournisseur du service de mouvement de stock
 final stockMovementServiceProvider = Provider<StockMovementService>((ref) {
   final dio = ref.watch(dioProvider);
@@ -23,7 +20,8 @@ final stockMovementRepositoryProvider = Provider<StockMovementRepository>((ref) 
 });
 
 /// Fournisseur principal de la liste paginée
-final stockMovementNotifierProvider = StateNotifierProvider<StockMovementNotifier, AsyncValue<PaginatedStockMovementList>>((ref) {
+final stockMovementNotifierProvider =
+StateNotifierProvider<StockMovementNotifier, AsyncValue<PaginatedStockMovementList>>((ref) {
   final repository = ref.watch(stockMovementRepositoryProvider);
   return StockMovementNotifier(repository);
 });

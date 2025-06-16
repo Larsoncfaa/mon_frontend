@@ -13,5 +13,5 @@ enum RefundStatusEnum {
 
   /// Remboursement rejeté
   @JsonValue('REJECTED')
-  rejected, PENDING,
+  rejected, PENDING, accepted, refused, APPROVED, REJECTED,
 }

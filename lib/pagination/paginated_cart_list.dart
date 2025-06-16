@@ -8,10 +8,10 @@ part 'paginated_cart_list.g.dart';
 @freezed
 class PaginatedCartList with _$PaginatedCartList {
   const factory PaginatedCartList({
-    required int count,
+    @JsonKey(defaultValue: 0) required int count, // ✅ Protection contre null
     String? next,
     String? previous,
-    required List<Cart> results,
+    @Default([]) List<Cart> results, // ✅ Évite le crash si 'results' est null
   }) = _PaginatedCartList;
 
   factory PaginatedCartList.fromJson(Map<String, dynamic> json) =>

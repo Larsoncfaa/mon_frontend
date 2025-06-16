@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/method_enum.dart';
 import '../../models/payment.dart';
@@ -14,20 +16,40 @@ class PaymentNotifier extends StateNotifier<AsyncValue<Payment?>> {
     state = const AsyncValue.loading();
     try {
       final payment = await _repository.getPayment(id);
+      debugPrint('✅ Paiement chargé: ${payment.id}');
       state = AsyncValue.data(payment);
     } catch (e, st) {
+      debugPrint('❌ Erreur loadPayment($id): $e');
+      log('Erreur loadPayment', error: e, stackTrace: st);
       state = AsyncValue.error(e, st);
     }
   }
 
   /// Crée un nouveau paiement
-  Future<void> create(Payment payment) async {
+  Future<Payment> createPaymentForOrder({
+    required int orderId,
+    required double amount,
+    required MethodEnum method,
+  }) async {
     state = const AsyncValue.loading();
     try {
-      final created = await _repository.createPayment(payment);
-      state = AsyncValue.data(created);
+      final payment = Payment(
+        order: orderId,
+        method: method,
+        amount: amount,
+        paymentStatus: PaymentStatusEnum.pending,
+        paidAt: DateTime.now().toUtc(),
+        id: null,
+      );
+      final result = await _repository.createPayment(payment);
+      debugPrint('✅ Paiement créé pour commande #$orderId');
+      state = AsyncValue.data(result);
+      return result;
     } catch (e, st) {
+      debugPrint('❌ Erreur createPaymentForOrder: $e');
+      log('Erreur createPaymentForOrder', error: e, stackTrace: st);
       state = AsyncValue.error(e, st);
+      rethrow;
     }
   }
 
@@ -36,8 +58,11 @@ class PaymentNotifier extends StateNotifier<AsyncValue<Payment?>> {
     state = const AsyncValue.loading();
     try {
       final updated = await _repository.updatePayment(id, payment);
+      debugPrint('✅ Paiement mis à jour: ${updated.id}');
       state = AsyncValue.data(updated);
     } catch (e, st) {
+      debugPrint('❌ Erreur update($id): $e');
+      log('Erreur updatePayment', error: e, stackTrace: st);
       state = AsyncValue.error(e, st);
     }
   }
@@ -47,12 +72,16 @@ class PaymentNotifier extends StateNotifier<AsyncValue<Payment?>> {
     state = const AsyncValue.loading();
     try {
       await _repository.deletePayment(id);
+      debugPrint('✅ Paiement supprimé: $id');
       state = const AsyncValue.data(null);
     } catch (e, st) {
+      debugPrint('❌ Erreur delete($id): $e');
+      log('Erreur deletePayment', error: e, stackTrace: st);
       state = AsyncValue.error(e, st);
     }
   }
 
+  /// Crée un paiement pour une commande
   Future<bool> payerCommande({
     required int orderId,
     required double amount,
@@ -65,14 +94,20 @@ class PaymentNotifier extends StateNotifier<AsyncValue<Payment?>> {
         method: method,
         amount: amount,
         paymentStatus: PaymentStatusEnum.pending,
-        paidAt: DateTime.now().toUtc(), id: null,
+        paidAt: DateTime.now().toUtc(),
+        id: null,
       );
       final result = await _repository.createPayment(payment);
+      debugPrint('✅ Paiement effectué pour commande #$orderId');
       state = AsyncValue.data(result);
       return true;
     } catch (e, st) {
+      debugPrint('❌ Erreur payerCommande($orderId): $e');
+      log('Erreur payerCommande', error: e, stackTrace: st);
       state = AsyncValue.error(e, st);
       return false;
     }
   }
+  String? lastErrorMessage;
+
 }

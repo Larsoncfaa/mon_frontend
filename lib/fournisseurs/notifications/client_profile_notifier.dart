@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/client_profile.dart';
 import '../../pagination/paginated_client_profile.dart';
@@ -16,10 +17,13 @@ class ClientProfileListNotifier extends StateNotifier<AsyncValue<PaginatedClient
   Future<void> fetchClientProfiles({int page = 1}) async {
     state = const AsyncLoading();
     try {
+      debugPrint('ClientProfileListNotifier: fetchClientProfiles page $page');
       final result = await _repository.fetchClientProfiles(page: page);
       _currentPage = page;
       state = AsyncData(result);
     } catch (e, st) {
+      debugPrint('Erreur fetchClientProfiles: $e');
+      debugPrint(st.toString());
       state = AsyncError(e, st);
     }
   }
@@ -38,9 +42,12 @@ class ClientProfileNotifier extends StateNotifier<AsyncValue<ClientProfile?>> {
   Future<void> loadProfile(int id) async {
     state = const AsyncLoading();
     try {
+      debugPrint('ClientProfileNotifier: loadProfile id $id');
       final profile = await _repository.fetchClientProfile(id);
       state = AsyncData(profile);
     } catch (e, st) {
+      debugPrint('Erreur loadProfile: $e');
+      debugPrint(st.toString());
       state = AsyncError(e, st);
     }
   }
@@ -48,9 +55,12 @@ class ClientProfileNotifier extends StateNotifier<AsyncValue<ClientProfile?>> {
   Future<void> create(ClientProfile profile) async {
     state = const AsyncLoading();
     try {
+      debugPrint('ClientProfileNotifier: create profile');
       final created = await _repository.createClientProfile(profile);
       state = AsyncData(created);
     } catch (e, st) {
+      debugPrint('Erreur create: $e');
+      debugPrint(st.toString());
       state = AsyncError(e, st);
     }
   }
@@ -58,9 +68,12 @@ class ClientProfileNotifier extends StateNotifier<AsyncValue<ClientProfile?>> {
   Future<void> update(ClientProfile profile) async {
     state = const AsyncLoading();
     try {
+      debugPrint('ClientProfileNotifier: update profile id ${profile.id}');
       final updated = await _repository.updateClientProfile(profile);
       state = AsyncData(updated);
     } catch (e, st) {
+      debugPrint('Erreur update: $e');
+      debugPrint(st.toString());
       state = AsyncError(e, st);
     }
   }
@@ -68,9 +81,12 @@ class ClientProfileNotifier extends StateNotifier<AsyncValue<ClientProfile?>> {
   Future<void> delete(int id) async {
     state = const AsyncLoading();
     try {
+      debugPrint('ClientProfileNotifier: delete profile id $id');
       await _repository.deleteClientProfile(id);
       state = const AsyncData(null);
     } catch (e, st) {
+      debugPrint('Erreur delete: $e');
+      debugPrint(st.toString());
       state = AsyncError(e, st);
     }
   }

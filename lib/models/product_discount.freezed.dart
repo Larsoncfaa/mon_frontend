@@ -22,7 +22,10 @@ ProductDiscount _$ProductDiscountFromJson(Map<String, dynamic> json) {
 mixin _$ProductDiscount {
   int get id => throw _privateConstructorUsedError;
   int get product => throw _privateConstructorUsedError;
-  @JsonKey(name: 'discount_percent')
+  @JsonKey(
+      name: 'discount_percent',
+      fromJson: _stringToDouble,
+      toJson: _doubleToString)
   double get discountPercent => throw _privateConstructorUsedError;
 
   /// Serializes this ProductDiscount to a JSON map.
@@ -44,7 +47,11 @@ abstract class $ProductDiscountCopyWith<$Res> {
   $Res call(
       {int id,
       int product,
-      @JsonKey(name: 'discount_percent') double discountPercent});
+      @JsonKey(
+          name: 'discount_percent',
+          fromJson: _stringToDouble,
+          toJson: _doubleToString)
+      double discountPercent});
 }
 
 /// @nodoc
@@ -94,7 +101,11 @@ abstract class _$$ProductDiscountImplCopyWith<$Res>
   $Res call(
       {int id,
       int product,
-      @JsonKey(name: 'discount_percent') double discountPercent});
+      @JsonKey(
+          name: 'discount_percent',
+          fromJson: _stringToDouble,
+          toJson: _doubleToString)
+      double discountPercent});
 }
 
 /// @nodoc
@@ -137,7 +148,11 @@ class _$ProductDiscountImpl implements _ProductDiscount {
   const _$ProductDiscountImpl(
       {required this.id,
       required this.product,
-      @JsonKey(name: 'discount_percent') required this.discountPercent});
+      @JsonKey(
+          name: 'discount_percent',
+          fromJson: _stringToDouble,
+          toJson: _doubleToString)
+      required this.discountPercent});
 
   factory _$ProductDiscountImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductDiscountImplFromJson(json);
@@ -147,7 +162,10 @@ class _$ProductDiscountImpl implements _ProductDiscount {
   @override
   final int product;
   @override
-  @JsonKey(name: 'discount_percent')
+  @JsonKey(
+      name: 'discount_percent',
+      fromJson: _stringToDouble,
+      toJson: _doubleToString)
   final double discountPercent;
 
   @override
@@ -191,7 +209,10 @@ abstract class _ProductDiscount implements ProductDiscount {
   const factory _ProductDiscount(
       {required final int id,
       required final int product,
-      @JsonKey(name: 'discount_percent')
+      @JsonKey(
+          name: 'discount_percent',
+          fromJson: _stringToDouble,
+          toJson: _doubleToString)
       required final double discountPercent}) = _$ProductDiscountImpl;
 
   factory _ProductDiscount.fromJson(Map<String, dynamic> json) =
@@ -202,7 +223,10 @@ abstract class _ProductDiscount implements ProductDiscount {
   @override
   int get product;
   @override
-  @JsonKey(name: 'discount_percent')
+  @JsonKey(
+      name: 'discount_percent',
+      fromJson: _stringToDouble,
+      toJson: _doubleToString)
   double get discountPercent;
 
   /// Create a copy of ProductDiscount

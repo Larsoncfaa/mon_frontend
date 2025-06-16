@@ -14,32 +14,32 @@ class ExchangeRequestService {
     int pageSize = 10,
   }) async {
     final response = await dio.get(
-      '/v1/exchanges/',
+      '/exchanges/',
       queryParameters: {'page': page, 'page_size': pageSize},
     );
     return PaginatedExchangeRequestList.fromJson(response.data);
   }
 
   Future<ExchangeRequest> getExchangeRequest(int id) async {
-    final response = await dio.get('/v1/exchanges/$id/');
+    final response = await dio.get('/exchanges/$id/');
     return ExchangeRequest.fromJson(response.data);
   }
 
   Future<ExchangeRequest> createExchangeRequest(
       ExchangeRequest data) async {
     final response =
-    await dio.post('/v1/exchanges/', data: data.toJson());
+    await dio.post('/exchanges/', data: data.toJson());
     return ExchangeRequest.fromJson(response.data);
   }
 
   Future<ExchangeRequest> updateExchangeRequest(
       int id, ExchangeRequest data) async {
     final response =
-    await dio.put('/v1/exchanges/$id/', data: data.toJson());
+    await dio.put('/exchanges/$id/', data: data.toJson());
     return ExchangeRequest.fromJson(response.data);
   }
 
   Future<void> deleteExchangeRequest(int id) async {
-    await dio.delete('/v1/exchanges/$id/');
+    await dio.delete('/exchanges/$id/');
   }
 }

@@ -33,3 +33,9 @@ final warehouseByIdProvider = FutureProvider.family<Warehouse, int>((ref, id) as
   final repo = ref.watch(warehouseRepositoryProvider);
   return repo.getWarehouse(id);
 });
+/// Fournisseur de la liste simple des entrepôts (non paginée)
+final warehouseListProvider = FutureProvider<List<Warehouse>>((ref) async {
+  final repo = ref.watch(warehouseRepositoryProvider);
+  final result = await repo.fetchWarehouses(); // <- récupère la première page
+  return result.results;
+});

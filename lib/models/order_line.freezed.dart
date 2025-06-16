@@ -24,7 +24,8 @@ mixin _$OrderLine {
   Product get product => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   @JsonKey(name: 'unit_price')
-  double get unitPrice => throw _privateConstructorUsedError;
+  @StringToDoubleConverter()
+  double? get unitPrice => throw _privateConstructorUsedError;
 
   /// Serializes this OrderLine to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,7 +46,9 @@ abstract class $OrderLineCopyWith<$Res> {
       {int id,
       Product product,
       int quantity,
-      @JsonKey(name: 'unit_price') double unitPrice});
+      @JsonKey(name: 'unit_price')
+      @StringToDoubleConverter()
+      double? unitPrice});
 
   $ProductCopyWith<$Res> get product;
 }
@@ -68,7 +71,7 @@ class _$OrderLineCopyWithImpl<$Res, $Val extends OrderLine>
     Object? id = null,
     Object? product = null,
     Object? quantity = null,
-    Object? unitPrice = null,
+    Object? unitPrice = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -83,10 +86,10 @@ class _$OrderLineCopyWithImpl<$Res, $Val extends OrderLine>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      unitPrice: null == unitPrice
+      unitPrice: freezed == unitPrice
           ? _value.unitPrice
           : unitPrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ) as $Val);
   }
 
@@ -113,7 +116,9 @@ abstract class _$$OrderLineImplCopyWith<$Res>
       {int id,
       Product product,
       int quantity,
-      @JsonKey(name: 'unit_price') double unitPrice});
+      @JsonKey(name: 'unit_price')
+      @StringToDoubleConverter()
+      double? unitPrice});
 
   @override
   $ProductCopyWith<$Res> get product;
@@ -135,7 +140,7 @@ class __$$OrderLineImplCopyWithImpl<$Res>
     Object? id = null,
     Object? product = null,
     Object? quantity = null,
-    Object? unitPrice = null,
+    Object? unitPrice = freezed,
   }) {
     return _then(_$OrderLineImpl(
       id: null == id
@@ -150,10 +155,10 @@ class __$$OrderLineImplCopyWithImpl<$Res>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
-      unitPrice: null == unitPrice
+      unitPrice: freezed == unitPrice
           ? _value.unitPrice
           : unitPrice // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ));
   }
 }
@@ -165,7 +170,7 @@ class _$OrderLineImpl implements _OrderLine {
       {required this.id,
       required this.product,
       required this.quantity,
-      @JsonKey(name: 'unit_price') required this.unitPrice});
+      @JsonKey(name: 'unit_price') @StringToDoubleConverter() this.unitPrice});
 
   factory _$OrderLineImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderLineImplFromJson(json);
@@ -178,7 +183,8 @@ class _$OrderLineImpl implements _OrderLine {
   final int quantity;
   @override
   @JsonKey(name: 'unit_price')
-  final double unitPrice;
+  @StringToDoubleConverter()
+  final double? unitPrice;
 
   @override
   String toString() {
@@ -221,11 +227,12 @@ class _$OrderLineImpl implements _OrderLine {
 
 abstract class _OrderLine implements OrderLine {
   const factory _OrderLine(
-          {required final int id,
-          required final Product product,
-          required final int quantity,
-          @JsonKey(name: 'unit_price') required final double unitPrice}) =
-      _$OrderLineImpl;
+      {required final int id,
+      required final Product product,
+      required final int quantity,
+      @JsonKey(name: 'unit_price')
+      @StringToDoubleConverter()
+      final double? unitPrice}) = _$OrderLineImpl;
 
   factory _OrderLine.fromJson(Map<String, dynamic> json) =
       _$OrderLineImpl.fromJson;
@@ -238,7 +245,8 @@ abstract class _OrderLine implements OrderLine {
   int get quantity;
   @override
   @JsonKey(name: 'unit_price')
-  double get unitPrice;
+  @StringToDoubleConverter()
+  double? get unitPrice;
 
   /// Create a copy of OrderLine
   /// with the given fields replaced by the non-null parameter values.
