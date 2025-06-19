@@ -70,7 +70,7 @@ class DashboardAgriculteurScreen extends ConsumerWidget {
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             onPressed: () {
-                              // TODO: Naviguer vers la liste complète des alertes
+                              Navigator.pushNamed(context, '/stock');
                             },
                             child: const Text('Voir toutes les alertes'),
                           ),
