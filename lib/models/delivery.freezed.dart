@@ -22,13 +22,19 @@ Delivery _$DeliveryFromJson(Map<String, dynamic> json) {
 mixin _$Delivery {
   int get id => throw _privateConstructorUsedError;
   int? get deliverer => throw _privateConstructorUsedError;
-  int get order => throw _privateConstructorUsedError;
+  int? get order => throw _privateConstructorUsedError;
   int? get product => throw _privateConstructorUsedError;
+  @JsonKey(name: 'type', fromJson: _typeEnumFromJson)
   TypeEnum get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delivery_status', fromJson: _deliveryStatusEnumFromJson)
   DeliveryStatusEnum? get deliveryStatus => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
   DateTime get updatedAt => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
 
   /// Serializes this Delivery to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,13 +54,16 @@ abstract class $DeliveryCopyWith<$Res> {
   $Res call(
       {int id,
       int? deliverer,
-      int order,
+      int? order,
       int? product,
-      TypeEnum type,
+      @JsonKey(name: 'type', fromJson: _typeEnumFromJson) TypeEnum type,
+      @JsonKey(name: 'delivery_status', fromJson: _deliveryStatusEnumFromJson)
       DeliveryStatusEnum? deliveryStatus,
       String description,
-      DateTime createdAt,
-      DateTime updatedAt});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt,
+      double? latitude,
+      double? longitude});
 }
 
 /// @nodoc
@@ -74,13 +83,15 @@ class _$DeliveryCopyWithImpl<$Res, $Val extends Delivery>
   $Res call({
     Object? id = null,
     Object? deliverer = freezed,
-    Object? order = null,
+    Object? order = freezed,
     Object? product = freezed,
     Object? type = null,
     Object? deliveryStatus = freezed,
     Object? description = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -91,10 +102,10 @@ class _$DeliveryCopyWithImpl<$Res, $Val extends Delivery>
           ? _value.deliverer
           : deliverer // ignore: cast_nullable_to_non_nullable
               as int?,
-      order: null == order
+      order: freezed == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -119,6 +130,14 @@ class _$DeliveryCopyWithImpl<$Res, $Val extends Delivery>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      latitude: freezed == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: freezed == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -134,13 +153,16 @@ abstract class _$$DeliveryImplCopyWith<$Res>
   $Res call(
       {int id,
       int? deliverer,
-      int order,
+      int? order,
       int? product,
-      TypeEnum type,
+      @JsonKey(name: 'type', fromJson: _typeEnumFromJson) TypeEnum type,
+      @JsonKey(name: 'delivery_status', fromJson: _deliveryStatusEnumFromJson)
       DeliveryStatusEnum? deliveryStatus,
       String description,
-      DateTime createdAt,
-      DateTime updatedAt});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt,
+      double? latitude,
+      double? longitude});
 }
 
 /// @nodoc
@@ -158,13 +180,15 @@ class __$$DeliveryImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? deliverer = freezed,
-    Object? order = null,
+    Object? order = freezed,
     Object? product = freezed,
     Object? type = null,
     Object? deliveryStatus = freezed,
     Object? description = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_$DeliveryImpl(
       id: null == id
@@ -175,10 +199,10 @@ class __$$DeliveryImplCopyWithImpl<$Res>
           ? _value.deliverer
           : deliverer // ignore: cast_nullable_to_non_nullable
               as int?,
-      order: null == order
+      order: freezed == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -203,6 +227,14 @@ class __$$DeliveryImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      latitude: freezed == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double?,
+      longitude: freezed == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -213,13 +245,16 @@ class _$DeliveryImpl implements _Delivery {
   const _$DeliveryImpl(
       {required this.id,
       this.deliverer,
-      required this.order,
+      this.order,
       this.product,
-      required this.type,
+      @JsonKey(name: 'type', fromJson: _typeEnumFromJson) required this.type,
+      @JsonKey(name: 'delivery_status', fromJson: _deliveryStatusEnumFromJson)
       this.deliveryStatus,
       required this.description,
-      required this.createdAt,
-      required this.updatedAt});
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt,
+      this.latitude,
+      this.longitude});
 
   factory _$DeliveryImpl.fromJson(Map<String, dynamic> json) =>
       _$$DeliveryImplFromJson(json);
@@ -229,23 +264,31 @@ class _$DeliveryImpl implements _Delivery {
   @override
   final int? deliverer;
   @override
-  final int order;
+  final int? order;
   @override
   final int? product;
   @override
+  @JsonKey(name: 'type', fromJson: _typeEnumFromJson)
   final TypeEnum type;
   @override
+  @JsonKey(name: 'delivery_status', fromJson: _deliveryStatusEnumFromJson)
   final DeliveryStatusEnum? deliveryStatus;
   @override
   final String description;
   @override
+  @JsonKey(name: 'created_at')
   final DateTime createdAt;
   @override
+  @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
+  @override
+  final double? latitude;
+  @override
+  final double? longitude;
 
   @override
   String toString() {
-    return 'Delivery(id: $id, deliverer: $deliverer, order: $order, product: $product, type: $type, deliveryStatus: $deliveryStatus, description: $description, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Delivery(id: $id, deliverer: $deliverer, order: $order, product: $product, type: $type, deliveryStatus: $deliveryStatus, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -266,13 +309,28 @@ class _$DeliveryImpl implements _Delivery {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, deliverer, order, product,
-      type, deliveryStatus, description, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      deliverer,
+      order,
+      product,
+      type,
+      deliveryStatus,
+      description,
+      createdAt,
+      updatedAt,
+      latitude,
+      longitude);
 
   /// Create a copy of Delivery
   /// with the given fields replaced by the non-null parameter values.
@@ -294,13 +352,17 @@ abstract class _Delivery implements Delivery {
   const factory _Delivery(
       {required final int id,
       final int? deliverer,
-      required final int order,
+      final int? order,
       final int? product,
+      @JsonKey(name: 'type', fromJson: _typeEnumFromJson)
       required final TypeEnum type,
+      @JsonKey(name: 'delivery_status', fromJson: _deliveryStatusEnumFromJson)
       final DeliveryStatusEnum? deliveryStatus,
       required final String description,
-      required final DateTime createdAt,
-      required final DateTime updatedAt}) = _$DeliveryImpl;
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'updated_at') required final DateTime updatedAt,
+      final double? latitude,
+      final double? longitude}) = _$DeliveryImpl;
 
   factory _Delivery.fromJson(Map<String, dynamic> json) =
       _$DeliveryImpl.fromJson;
@@ -310,19 +372,27 @@ abstract class _Delivery implements Delivery {
   @override
   int? get deliverer;
   @override
-  int get order;
+  int? get order;
   @override
   int? get product;
   @override
+  @JsonKey(name: 'type', fromJson: _typeEnumFromJson)
   TypeEnum get type;
   @override
+  @JsonKey(name: 'delivery_status', fromJson: _deliveryStatusEnumFromJson)
   DeliveryStatusEnum? get deliveryStatus;
   @override
   String get description;
   @override
+  @JsonKey(name: 'created_at')
   DateTime get createdAt;
   @override
+  @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
+  @override
+  double? get latitude;
+  @override
+  double? get longitude;
 
   /// Create a copy of Delivery
   /// with the given fields replaced by the non-null parameter values.

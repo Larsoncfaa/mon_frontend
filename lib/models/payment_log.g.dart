@@ -12,7 +12,7 @@ _$PaymentLogImpl _$$PaymentLogImplFromJson(Map<String, dynamic> json) =>
       order: (json['order'] as num).toInt(),
       attemptTime: DateTime.parse(json['attempt_time'] as String),
       paymentStatus: json['payment_status'] as String,
-      amount: (json['amount'] as num).toDouble(),
+      amount: const StringToDoubleConverter().fromJson(json['amount']),
       info: json['info'] as Map<String, dynamic>?,
     );
 
@@ -22,6 +22,6 @@ Map<String, dynamic> _$$PaymentLogImplToJson(_$PaymentLogImpl instance) =>
       'order': instance.order,
       'attempt_time': instance.attemptTime.toIso8601String(),
       'payment_status': instance.paymentStatus,
-      'amount': instance.amount,
+      'amount': const StringToDoubleConverter().toJson(instance.amount),
       'info': instance.info,
     };

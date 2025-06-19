@@ -1,90 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../models/product.dart';
 import '../../models/product_discount.dart';
+import '../../fournisseurs/provider/client_profile_provider.dart';
+import '../../fournisseurs/provider/product_review_provider.dart';
 
-class ProductCard extends StatefulWidget {
+class ProductCard extends ConsumerStatefulWidget {
   final Product product;
   final ProductDiscount? discount;
-  final Future<void> Function()? onAddToCart; // <- asynchrone maintenant
 
   const ProductCard({
     Key? key,
     required this.product,
     this.discount,
-    this.onAddToCart,
   }) : super(key: key);
 
   @override
-  State<ProductCard> createState() => _ProductCardState();
+  ConsumerState<ProductCard> createState() => _ProductCardState();
 }
 
-class _ProductCardState extends State<ProductCard> {
-  bool isLoading = false;
-
+class _ProductCardState extends ConsumerState<ProductCard> {
   double get discountedPrice {
     if (widget.discount == null || widget.product.sellingPrice == null) {
       return widget.product.sellingPrice ?? 0;
     }
-    return (widget.product.sellingPrice!) * (1 - widget.discount!.discountPercent / 100);
-  }
-
-  Future<void> _handleAddToCart() async {
-    if (widget.onAddToCart == null) return;
-
-    setState(() => isLoading = true);
-    try {
-      await widget.onAddToCart!();
-      if (mounted) {
-        showModalBottomSheet(
-          context: context,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-          ),
-          builder: (_) => Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.check_circle, color: Colors.green, size: 48),
-                const SizedBox(height: 12),
-                Text(
-                  '${widget.product.name} a été ajouté au panier !',
-                  style: Theme.of(context).textTheme.titleMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.pop(context); // Ferme la bottom sheet
-                  },
-                  icon: const Icon(Icons.done),
-                  label: const Text('Continuer'),
-                  style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-                ),
-                const SizedBox(height: 12),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.pop(context); // Ferme la bottom sheet
-                    Navigator.pushNamed(context, '/cart'); // Navigue vers le panier
-                  },
-                  icon: const Icon(Icons.shopping_cart),
-                  label: const Text('Voir le panier'),
-                  style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(48)),
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur: ${e.toString()}')),
-        );
-      }
-    } finally {
-      if (mounted) setState(() => isLoading = false);
-    }
+    return (widget.product.sellingPrice!) *
+        (1 - widget.discount!.discountPercent / 100);
   }
 
   @override
@@ -92,6 +34,18 @@ class _ProductCardState extends State<ProductCard> {
     final product = widget.product;
     final discount = widget.discount;
     final hasDiscount = discount != null && product.sellingPrice != null;
+
+    final client = ref.watch(clientProfileNotifierProvider).value;
+    final reviews = ref.watch(productReviewNotifierProvider).maybeWhen(
+      data: (data) => data,
+      orElse: () => [],
+    );
+
+    final alreadyReviewed = reviews.any(
+          (r) => r.product == widget.product.id && r.client == client?.id,
+    );
+
+    final canLeaveReview = client != null && !alreadyReviewed;
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -121,9 +75,28 @@ class _ProductCardState extends State<ProductCard> {
                 const SizedBox(height: 8),
 
                 // Nom
-                Text(product.name, style: Theme.of(context).textTheme.titleMedium),
+                Text(product.name,
+                    style: Theme.of(context).textTheme.titleMedium),
                 Text('Unité : ${product.unit.label}',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600])),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: Colors.grey[600])),
+                const SizedBox(height: 4),
+
+                // ✅ Note moyenne désactivée car non définie sur Product
+                // if (product.averageRating != null)
+                //   Row(
+                //     children: [
+                //       buildStarRating(product.averageRating!),
+                //       const SizedBox(width: 6),
+                //       Text(
+                //         product.averageRating!.toStringAsFixed(1),
+                //         style: TextStyle(color: Colors.grey[800]),
+                //       ),
+                //     ],
+                //   ),
+
                 const SizedBox(height: 4),
 
                 // Prix
@@ -150,27 +123,31 @@ class _ProductCardState extends State<ProductCard> {
                   )
                 else if (product.sellingPrice != null)
                   Text(
-                    '${product.sellingPrice!.toStringAsFixed(2)}€',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    '${product.sellingPrice!.toStringAsFixed(2)}fcfa',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
                   ),
 
                 const Spacer(),
 
-                // Bouton ajouter au panier
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: isLoading ? null : _handleAddToCart,
-                    icon: isLoading
-                        ? const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                    )
-                        : const Icon(Icons.add_shopping_cart),
-                    label: Text(isLoading ? 'Ajout...' : 'Ajouter au panier'),
-                  ),
-                ),
+                // ✅ Bouton Donner un avis
+                if (canLeaveReview)
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/ajouter-avis',
+                          arguments: widget.product.id,
+                        );
+                      },
+                      icon: const Icon(Icons.rate_review),
+                      label: const Text('Donner un avis'),
+                    ),
+                  )
+                else
+                  const SizedBox.shrink(),
               ],
             ),
           ),
@@ -181,14 +158,16 @@ class _ProductCardState extends State<ProductCard> {
               top: 10,
               right: 10,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding:
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.redAccent,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   '-${discount!.discountPercent.toStringAsFixed(0)}%',
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -205,6 +184,24 @@ class _ProductCardState extends State<ProductCard> {
       borderRadius: BorderRadius.circular(12),
     ),
     alignment: Alignment.center,
-    child: const Icon(Icons.image_not_supported, size: 40, color: Colors.grey),
+    child:
+    const Icon(Icons.image_not_supported, size: 40, color: Colors.grey),
   );
+
+  Widget buildStarRating(double rating) {
+    final fullStars = rating.floor();
+    final hasHalfStar = (rating - fullStars) >= 0.5;
+    final emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    return Row(
+      children: [
+        for (var i = 0; i < fullStars; i++)
+          const Icon(Icons.star, color: Colors.amber, size: 18),
+        if (hasHalfStar)
+          const Icon(Icons.star_half, color: Colors.amber, size: 18),
+        for (var i = 0; i < emptyStars; i++)
+          const Icon(Icons.star_border, color: Colors.amber, size: 18),
+      ],
+    );
+  }
 }

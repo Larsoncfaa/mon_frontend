@@ -3,17 +3,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'delivery_input.freezed.dart';
 part 'delivery_input.g.dart';
 
-/// Modèle utilisé pour estimer une livraison à partir
-/// des coordonnées du client et d'une quantité totale.
+/// Modèle utilisé pour assigner une livraison à un livreur.
 @freezed
 class DeliveryInput with _$DeliveryInput {
   const factory DeliveryInput({
-    /// Dictionnaire contenant 'lat' et 'lng' du client
-    required Map<String, double> client,
-
-    /// Quantité totale commandée pour l'estimation
-    @JsonKey(name: 'total_quantity') required int totalQuantity,
+    @JsonKey(name: 'delivery_id') required int deliveryId,
+    @JsonKey(name: 'livreur_id') required int livreurId,
   }) = _DeliveryInput;
 
-  factory DeliveryInput.fromJson(Map<String, dynamic> json) => _$DeliveryInputFromJson(json);
+  factory DeliveryInput.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryInputFromJson(json);
 }

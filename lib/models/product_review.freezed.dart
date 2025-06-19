@@ -21,7 +21,6 @@ ProductReview _$ProductReviewFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ProductReview {
   int get id => throw _privateConstructorUsedError;
-  int get client => throw _privateConstructorUsedError;
   int get product => throw _privateConstructorUsedError;
   RatingEnum get rating => throw _privateConstructorUsedError;
   String? get comment => throw _privateConstructorUsedError;
@@ -29,6 +28,8 @@ mixin _$ProductReview {
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'verified_purchase')
   bool? get verifiedPurchase => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  dynamic get client => throw _privateConstructorUsedError;
 
   /// Serializes this ProductReview to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,12 +49,12 @@ abstract class $ProductReviewCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      int client,
       int product,
       RatingEnum rating,
       String? comment,
       @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'verified_purchase') bool? verifiedPurchase});
+      @JsonKey(name: 'verified_purchase') bool? verifiedPurchase,
+      @JsonKey(ignore: true) dynamic client});
 }
 
 /// @nodoc
@@ -72,21 +73,17 @@ class _$ProductReviewCopyWithImpl<$Res, $Val extends ProductReview>
   @override
   $Res call({
     Object? id = null,
-    Object? client = null,
     Object? product = null,
     Object? rating = null,
     Object? comment = freezed,
     Object? createdAt = null,
     Object? verifiedPurchase = freezed,
+    Object? client = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      client: null == client
-          ? _value.client
-          : client // ignore: cast_nullable_to_non_nullable
               as int,
       product: null == product
           ? _value.product
@@ -108,6 +105,10 @@ class _$ProductReviewCopyWithImpl<$Res, $Val extends ProductReview>
           ? _value.verifiedPurchase
           : verifiedPurchase // ignore: cast_nullable_to_non_nullable
               as bool?,
+      client: freezed == client
+          ? _value.client
+          : client // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -122,12 +123,12 @@ abstract class _$$ProductReviewImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      int client,
       int product,
       RatingEnum rating,
       String? comment,
       @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'verified_purchase') bool? verifiedPurchase});
+      @JsonKey(name: 'verified_purchase') bool? verifiedPurchase,
+      @JsonKey(ignore: true) dynamic client});
 }
 
 /// @nodoc
@@ -144,21 +145,17 @@ class __$$ProductReviewImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? client = null,
     Object? product = null,
     Object? rating = null,
     Object? comment = freezed,
     Object? createdAt = null,
     Object? verifiedPurchase = freezed,
+    Object? client = freezed,
   }) {
     return _then(_$ProductReviewImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      client: null == client
-          ? _value.client
-          : client // ignore: cast_nullable_to_non_nullable
               as int,
       product: null == product
           ? _value.product
@@ -180,6 +177,10 @@ class __$$ProductReviewImplCopyWithImpl<$Res>
           ? _value.verifiedPurchase
           : verifiedPurchase // ignore: cast_nullable_to_non_nullable
               as bool?,
+      client: freezed == client
+          ? _value.client
+          : client // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -189,20 +190,18 @@ class __$$ProductReviewImplCopyWithImpl<$Res>
 class _$ProductReviewImpl implements _ProductReview {
   const _$ProductReviewImpl(
       {required this.id,
-      required this.client,
       required this.product,
       required this.rating,
       this.comment,
       @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'verified_purchase') this.verifiedPurchase});
+      @JsonKey(name: 'verified_purchase') this.verifiedPurchase,
+      @JsonKey(ignore: true) this.client});
 
   factory _$ProductReviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductReviewImplFromJson(json);
 
   @override
   final int id;
-  @override
-  final int client;
   @override
   final int product;
   @override
@@ -215,10 +214,13 @@ class _$ProductReviewImpl implements _ProductReview {
   @override
   @JsonKey(name: 'verified_purchase')
   final bool? verifiedPurchase;
+  @override
+  @JsonKey(ignore: true)
+  final dynamic client;
 
   @override
   String toString() {
-    return 'ProductReview(id: $id, client: $client, product: $product, rating: $rating, comment: $comment, createdAt: $createdAt, verifiedPurchase: $verifiedPurchase)';
+    return 'ProductReview(id: $id, product: $product, rating: $rating, comment: $comment, createdAt: $createdAt, verifiedPurchase: $verifiedPurchase, client: $client)';
   }
 
   @override
@@ -227,20 +229,20 @@ class _$ProductReviewImpl implements _ProductReview {
         (other.runtimeType == runtimeType &&
             other is _$ProductReviewImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.client, client) || other.client == client) &&
             (identical(other.product, product) || other.product == product) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.comment, comment) || other.comment == comment) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.verifiedPurchase, verifiedPurchase) ||
-                other.verifiedPurchase == verifiedPurchase));
+                other.verifiedPurchase == verifiedPurchase) &&
+            const DeepCollectionEquality().equals(other.client, client));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, client, product, rating,
-      comment, createdAt, verifiedPurchase);
+  int get hashCode => Object.hash(runtimeType, id, product, rating, comment,
+      createdAt, verifiedPurchase, const DeepCollectionEquality().hash(client));
 
   /// Create a copy of ProductReview
   /// with the given fields replaced by the non-null parameter values.
@@ -260,22 +262,19 @@ class _$ProductReviewImpl implements _ProductReview {
 
 abstract class _ProductReview implements ProductReview {
   const factory _ProductReview(
-          {required final int id,
-          required final int client,
-          required final int product,
-          required final RatingEnum rating,
-          final String? comment,
-          @JsonKey(name: 'created_at') required final DateTime createdAt,
-          @JsonKey(name: 'verified_purchase') final bool? verifiedPurchase}) =
-      _$ProductReviewImpl;
+      {required final int id,
+      required final int product,
+      required final RatingEnum rating,
+      final String? comment,
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'verified_purchase') final bool? verifiedPurchase,
+      @JsonKey(ignore: true) final dynamic client}) = _$ProductReviewImpl;
 
   factory _ProductReview.fromJson(Map<String, dynamic> json) =
       _$ProductReviewImpl.fromJson;
 
   @override
   int get id;
-  @override
-  int get client;
   @override
   int get product;
   @override
@@ -288,6 +287,9 @@ abstract class _ProductReview implements ProductReview {
   @override
   @JsonKey(name: 'verified_purchase')
   bool? get verifiedPurchase;
+  @override
+  @JsonKey(ignore: true)
+  dynamic get client;
 
   /// Create a copy of ProductReview
   /// with the given fields replaced by the non-null parameter values.

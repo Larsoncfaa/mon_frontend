@@ -20,16 +20,17 @@ DeliveryPerson _$DeliveryPersonFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DeliveryPerson {
-  /// Identifiant unique de la livraison
-  int get id => throw _privateConstructorUsedError;
-
-  /// ID du compte livreur
-  int get user => throw _privateConstructorUsedError;
-
-  /// ID de l'agriculteur émetteur
-  int get agriculteur => throw _privateConstructorUsedError;
-
-  /// Téléphone du destinataire
+  int get id => throw _privateConstructorUsedError; // ID du compte livreur
+  int get user =>
+      throw _privateConstructorUsedError; // Nom complet du livreur (ex: "Ali Diarra")
+  @JsonKey(name: 'user_name')
+  String get userName =>
+      throw _privateConstructorUsedError; // ID de l'agriculteur
+  int get agriculteur =>
+      throw _privateConstructorUsedError; // Nom complet de l'agriculteur
+  @JsonKey(name: 'agriculteur_name')
+  String? get agriculteurName =>
+      throw _privateConstructorUsedError; // Téléphone
   String get phone => throw _privateConstructorUsedError;
 
   /// Serializes this DeliveryPerson to a JSON map.
@@ -48,7 +49,13 @@ abstract class $DeliveryPersonCopyWith<$Res> {
           DeliveryPerson value, $Res Function(DeliveryPerson) then) =
       _$DeliveryPersonCopyWithImpl<$Res, DeliveryPerson>;
   @useResult
-  $Res call({int id, int user, int agriculteur, String phone});
+  $Res call(
+      {int id,
+      int user,
+      @JsonKey(name: 'user_name') String userName,
+      int agriculteur,
+      @JsonKey(name: 'agriculteur_name') String? agriculteurName,
+      String phone});
 }
 
 /// @nodoc
@@ -68,7 +75,9 @@ class _$DeliveryPersonCopyWithImpl<$Res, $Val extends DeliveryPerson>
   $Res call({
     Object? id = null,
     Object? user = null,
+    Object? userName = null,
     Object? agriculteur = null,
+    Object? agriculteurName = freezed,
     Object? phone = null,
   }) {
     return _then(_value.copyWith(
@@ -80,10 +89,18 @@ class _$DeliveryPersonCopyWithImpl<$Res, $Val extends DeliveryPerson>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as int,
+      userName: null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
       agriculteur: null == agriculteur
           ? _value.agriculteur
           : agriculteur // ignore: cast_nullable_to_non_nullable
               as int,
+      agriculteurName: freezed == agriculteurName
+          ? _value.agriculteurName
+          : agriculteurName // ignore: cast_nullable_to_non_nullable
+              as String?,
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -100,7 +117,13 @@ abstract class _$$DeliveryPersonImplCopyWith<$Res>
       __$$DeliveryPersonImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, int user, int agriculteur, String phone});
+  $Res call(
+      {int id,
+      int user,
+      @JsonKey(name: 'user_name') String userName,
+      int agriculteur,
+      @JsonKey(name: 'agriculteur_name') String? agriculteurName,
+      String phone});
 }
 
 /// @nodoc
@@ -118,7 +141,9 @@ class __$$DeliveryPersonImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? user = null,
+    Object? userName = null,
     Object? agriculteur = null,
+    Object? agriculteurName = freezed,
     Object? phone = null,
   }) {
     return _then(_$DeliveryPersonImpl(
@@ -130,10 +155,18 @@ class __$$DeliveryPersonImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as int,
+      userName: null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
       agriculteur: null == agriculteur
           ? _value.agriculteur
           : agriculteur // ignore: cast_nullable_to_non_nullable
               as int,
+      agriculteurName: freezed == agriculteurName
+          ? _value.agriculteurName
+          : agriculteurName // ignore: cast_nullable_to_non_nullable
+              as String?,
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -148,31 +181,37 @@ class _$DeliveryPersonImpl implements _DeliveryPerson {
   const _$DeliveryPersonImpl(
       {required this.id,
       required this.user,
+      @JsonKey(name: 'user_name') required this.userName,
       required this.agriculteur,
+      @JsonKey(name: 'agriculteur_name') this.agriculteurName,
       required this.phone});
 
   factory _$DeliveryPersonImpl.fromJson(Map<String, dynamic> json) =>
       _$$DeliveryPersonImplFromJson(json);
 
-  /// Identifiant unique de la livraison
   @override
   final int id;
-
-  /// ID du compte livreur
+// ID du compte livreur
   @override
   final int user;
-
-  /// ID de l'agriculteur émetteur
+// Nom complet du livreur (ex: "Ali Diarra")
+  @override
+  @JsonKey(name: 'user_name')
+  final String userName;
+// ID de l'agriculteur
   @override
   final int agriculteur;
-
-  /// Téléphone du destinataire
+// Nom complet de l'agriculteur
+  @override
+  @JsonKey(name: 'agriculteur_name')
+  final String? agriculteurName;
+// Téléphone
   @override
   final String phone;
 
   @override
   String toString() {
-    return 'DeliveryPerson(id: $id, user: $user, agriculteur: $agriculteur, phone: $phone)';
+    return 'DeliveryPerson(id: $id, user: $user, userName: $userName, agriculteur: $agriculteur, agriculteurName: $agriculteurName, phone: $phone)';
   }
 
   @override
@@ -182,14 +221,19 @@ class _$DeliveryPersonImpl implements _DeliveryPerson {
             other is _$DeliveryPersonImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.user, user) || other.user == user) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
             (identical(other.agriculteur, agriculteur) ||
                 other.agriculteur == agriculteur) &&
+            (identical(other.agriculteurName, agriculteurName) ||
+                other.agriculteurName == agriculteurName) &&
             (identical(other.phone, phone) || other.phone == phone));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, user, agriculteur, phone);
+  int get hashCode => Object.hash(
+      runtimeType, id, user, userName, agriculteur, agriculteurName, phone);
 
   /// Create a copy of DeliveryPerson
   /// with the given fields replaced by the non-null parameter values.
@@ -212,25 +256,26 @@ abstract class _DeliveryPerson implements DeliveryPerson {
   const factory _DeliveryPerson(
       {required final int id,
       required final int user,
+      @JsonKey(name: 'user_name') required final String userName,
       required final int agriculteur,
+      @JsonKey(name: 'agriculteur_name') final String? agriculteurName,
       required final String phone}) = _$DeliveryPersonImpl;
 
   factory _DeliveryPerson.fromJson(Map<String, dynamic> json) =
       _$DeliveryPersonImpl.fromJson;
 
-  /// Identifiant unique de la livraison
   @override
-  int get id;
-
-  /// ID du compte livreur
+  int get id; // ID du compte livreur
   @override
-  int get user;
-
-  /// ID de l'agriculteur émetteur
+  int get user; // Nom complet du livreur (ex: "Ali Diarra")
   @override
-  int get agriculteur;
-
-  /// Téléphone du destinataire
+  @JsonKey(name: 'user_name')
+  String get userName; // ID de l'agriculteur
+  @override
+  int get agriculteur; // Nom complet de l'agriculteur
+  @override
+  @JsonKey(name: 'agriculteur_name')
+  String? get agriculteurName; // Téléphone
   @override
   String get phone;
 
@@ -240,260 +285,4 @@ abstract class _DeliveryPerson implements DeliveryPerson {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeliveryPersonImplCopyWith<_$DeliveryPersonImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-PaginatedDeliveryPersonList _$PaginatedDeliveryPersonListFromJson(
-    Map<String, dynamic> json) {
-  return _PaginatedDeliveryPersonList.fromJson(json);
-}
-
-/// @nodoc
-mixin _$PaginatedDeliveryPersonList {
-  /// Nombre total d'éléments
-  int get count => throw _privateConstructorUsedError;
-
-  /// URL de la page suivante (ou null si dernière page)
-  String? get next => throw _privateConstructorUsedError;
-
-  /// URL de la page précédente (ou null si première page)
-  String? get previous => throw _privateConstructorUsedError;
-
-  /// Liste des livraisons pour cette page
-  List<DeliveryPerson> get results => throw _privateConstructorUsedError;
-
-  /// Serializes this PaginatedDeliveryPersonList to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of PaginatedDeliveryPersonList
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PaginatedDeliveryPersonListCopyWith<PaginatedDeliveryPersonList>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PaginatedDeliveryPersonListCopyWith<$Res> {
-  factory $PaginatedDeliveryPersonListCopyWith(
-          PaginatedDeliveryPersonList value,
-          $Res Function(PaginatedDeliveryPersonList) then) =
-      _$PaginatedDeliveryPersonListCopyWithImpl<$Res,
-          PaginatedDeliveryPersonList>;
-  @useResult
-  $Res call(
-      {int count,
-      String? next,
-      String? previous,
-      List<DeliveryPerson> results});
-}
-
-/// @nodoc
-class _$PaginatedDeliveryPersonListCopyWithImpl<$Res,
-        $Val extends PaginatedDeliveryPersonList>
-    implements $PaginatedDeliveryPersonListCopyWith<$Res> {
-  _$PaginatedDeliveryPersonListCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of PaginatedDeliveryPersonList
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? count = null,
-    Object? next = freezed,
-    Object? previous = freezed,
-    Object? results = null,
-  }) {
-    return _then(_value.copyWith(
-      count: null == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int,
-      next: freezed == next
-          ? _value.next
-          : next // ignore: cast_nullable_to_non_nullable
-              as String?,
-      previous: freezed == previous
-          ? _value.previous
-          : previous // ignore: cast_nullable_to_non_nullable
-              as String?,
-      results: null == results
-          ? _value.results
-          : results // ignore: cast_nullable_to_non_nullable
-              as List<DeliveryPerson>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$PaginatedDeliveryPersonListImplCopyWith<$Res>
-    implements $PaginatedDeliveryPersonListCopyWith<$Res> {
-  factory _$$PaginatedDeliveryPersonListImplCopyWith(
-          _$PaginatedDeliveryPersonListImpl value,
-          $Res Function(_$PaginatedDeliveryPersonListImpl) then) =
-      __$$PaginatedDeliveryPersonListImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int count,
-      String? next,
-      String? previous,
-      List<DeliveryPerson> results});
-}
-
-/// @nodoc
-class __$$PaginatedDeliveryPersonListImplCopyWithImpl<$Res>
-    extends _$PaginatedDeliveryPersonListCopyWithImpl<$Res,
-        _$PaginatedDeliveryPersonListImpl>
-    implements _$$PaginatedDeliveryPersonListImplCopyWith<$Res> {
-  __$$PaginatedDeliveryPersonListImplCopyWithImpl(
-      _$PaginatedDeliveryPersonListImpl _value,
-      $Res Function(_$PaginatedDeliveryPersonListImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of PaginatedDeliveryPersonList
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? count = null,
-    Object? next = freezed,
-    Object? previous = freezed,
-    Object? results = null,
-  }) {
-    return _then(_$PaginatedDeliveryPersonListImpl(
-      count: null == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int,
-      next: freezed == next
-          ? _value.next
-          : next // ignore: cast_nullable_to_non_nullable
-              as String?,
-      previous: freezed == previous
-          ? _value.previous
-          : previous // ignore: cast_nullable_to_non_nullable
-              as String?,
-      results: null == results
-          ? _value._results
-          : results // ignore: cast_nullable_to_non_nullable
-              as List<DeliveryPerson>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$PaginatedDeliveryPersonListImpl
-    implements _PaginatedDeliveryPersonList {
-  const _$PaginatedDeliveryPersonListImpl(
-      {required this.count,
-      this.next,
-      this.previous,
-      required final List<DeliveryPerson> results})
-      : _results = results;
-
-  factory _$PaginatedDeliveryPersonListImpl.fromJson(
-          Map<String, dynamic> json) =>
-      _$$PaginatedDeliveryPersonListImplFromJson(json);
-
-  /// Nombre total d'éléments
-  @override
-  final int count;
-
-  /// URL de la page suivante (ou null si dernière page)
-  @override
-  final String? next;
-
-  /// URL de la page précédente (ou null si première page)
-  @override
-  final String? previous;
-
-  /// Liste des livraisons pour cette page
-  final List<DeliveryPerson> _results;
-
-  /// Liste des livraisons pour cette page
-  @override
-  List<DeliveryPerson> get results {
-    if (_results is EqualUnmodifiableListView) return _results;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_results);
-  }
-
-  @override
-  String toString() {
-    return 'PaginatedDeliveryPersonList(count: $count, next: $next, previous: $previous, results: $results)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaginatedDeliveryPersonListImpl &&
-            (identical(other.count, count) || other.count == count) &&
-            (identical(other.next, next) || other.next == next) &&
-            (identical(other.previous, previous) ||
-                other.previous == previous) &&
-            const DeepCollectionEquality().equals(other._results, _results));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, count, next, previous,
-      const DeepCollectionEquality().hash(_results));
-
-  /// Create a copy of PaginatedDeliveryPersonList
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaginatedDeliveryPersonListImplCopyWith<_$PaginatedDeliveryPersonListImpl>
-      get copyWith => __$$PaginatedDeliveryPersonListImplCopyWithImpl<
-          _$PaginatedDeliveryPersonListImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PaginatedDeliveryPersonListImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _PaginatedDeliveryPersonList
-    implements PaginatedDeliveryPersonList {
-  const factory _PaginatedDeliveryPersonList(
-          {required final int count,
-          final String? next,
-          final String? previous,
-          required final List<DeliveryPerson> results}) =
-      _$PaginatedDeliveryPersonListImpl;
-
-  factory _PaginatedDeliveryPersonList.fromJson(Map<String, dynamic> json) =
-      _$PaginatedDeliveryPersonListImpl.fromJson;
-
-  /// Nombre total d'éléments
-  @override
-  int get count;
-
-  /// URL de la page suivante (ou null si dernière page)
-  @override
-  String? get next;
-
-  /// URL de la page précédente (ou null si première page)
-  @override
-  String? get previous;
-
-  /// Liste des livraisons pour cette page
-  @override
-  List<DeliveryPerson> get results;
-
-  /// Create a copy of PaginatedDeliveryPersonList
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaginatedDeliveryPersonListImplCopyWith<_$PaginatedDeliveryPersonListImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }

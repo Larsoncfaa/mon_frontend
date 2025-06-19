@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/client_profile.dart';
@@ -39,16 +40,33 @@ class ClientProfileNotifier extends StateNotifier<AsyncValue<ClientProfile?>> {
 
   ClientProfileNotifier(this._repository) : super(const AsyncValue.data(null));
 
-  Future<void> loadProfile(int id) async {
+  Future<void> loadOrCreateProfile(int userId) async {
     state = const AsyncLoading();
     try {
-      debugPrint('ClientProfileNotifier: loadProfile id $id');
-      final profile = await _repository.fetchClientProfile(id);
+      debugPrint('ClientProfileNotifier: tentative de chargement du profil client');
+      final profile = await _repository.fetchClientProfile(userId);
       state = AsyncData(profile);
     } catch (e, st) {
-      debugPrint('Erreur loadProfile: $e');
-      debugPrint(st.toString());
-      state = AsyncError(e, st);
+      debugPrint('Profil introuvable, tentative de création...');
+      // Si le backend renvoie 404, on crée un profil vide par défaut
+      if (e is DioException && e.response?.statusCode == 404) {
+        try {
+          final newProfile = ClientProfile(
+            id: 0, // sera ignoré par le backend
+            user: userId,
+            location: null,
+            balance: 0.0,
+            points: 0,
+          );
+          final created = await _repository.createClientProfile(newProfile);
+          state = AsyncData(created);
+        } catch (e2, st2) {
+          debugPrint('Erreur lors de la création du profil: $e2');
+          state = AsyncError(e2, st2);
+        }
+      } else {
+        state = AsyncError(e, st);
+      }
     }
   }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../models/order.dart';
 import '../../models/order_line.dart';
 import 'methode_paiement.dart';
-// Assure-toi que ce fichier est bien importé
 
 class OrderConfirmationScreen extends StatelessWidget {
   final Order order;
@@ -14,7 +13,7 @@ class OrderConfirmationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Confirmation de la commande'),
-        automaticallyImplyLeading: false, // Empêche le back automatique
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -58,9 +57,10 @@ class OrderConfirmationScreen extends StatelessWidget {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed(
+                Navigator.of(context).pushNamedAndRemoveUntil(
                   '/orders-list',
-                  arguments: [order], // liste contenant la commande actuelle
+                      (route) => false, // Supprime toutes les anciennes routes
+                  arguments: [order],
                 );
               },
               child: const Text('Voir mes commandes'),

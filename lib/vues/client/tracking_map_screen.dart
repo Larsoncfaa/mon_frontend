@@ -1,24 +1,22 @@
+// 📦 lib/screens/client/tracking_map_screen.dart
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../core/network/dio_provider.dart';
+import '../../widgets/client_drawer_widget.dart';
 
 class TrackingMapScreen extends ConsumerStatefulWidget {
   final int deliveryId;
   final double? latitude;
   final double? longitude;
-  final double? destinationLatitude;
-  final double? destinationLongitude;
 
   const TrackingMapScreen({
     super.key,
     required this.deliveryId,
     this.latitude,
     this.longitude,
-    this.destinationLatitude,
-    this.destinationLongitude,
   });
 
   @override
@@ -37,15 +35,25 @@ class _TrackingMapScreenState extends ConsumerState<TrackingMapScreen> {
     super.initState();
     if (widget.latitude != null && widget.longitude != null) {
       final initialPos = LatLng(widget.latitude!, widget.longitude!);
-      _currentPosition = initialPos;
-      _path.add(initialPos);
-      _livreurMarker = _buildMarker(initialPos);
-      _startTracking();
+      _updatePosition(initialPos);
     }
+    _startTracking();
   }
 
   void _startTracking() {
-    _timer = Timer.periodic(const Duration(seconds: 10), (_) => _fetchPosition());
+    _timer = Timer.periodic(const Duration(seconds: 10), (_) => _fetchLatestPosition());
+  }
+
+  void _updatePosition(LatLng newPos) {
+    if (_path.isEmpty || _path.last != newPos) {
+      setState(() {
+        _currentPosition = newPos;
+        _path.add(newPos);
+        _livreurMarker = _buildMarker(newPos);
+      });
+
+      _mapController?.animateCamera(CameraUpdate.newLatLng(newPos));
+    }
   }
 
   Marker _buildMarker(LatLng pos) {
@@ -57,37 +65,20 @@ class _TrackingMapScreenState extends ConsumerState<TrackingMapScreen> {
     );
   }
 
-  Marker _buildDestinationMarker(LatLng pos) {
-    return Marker(
-      markerId: const MarkerId('destination'),
-      position: pos,
-      infoWindow: const InfoWindow(title: 'Destination client'),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-    );
-  }
-
-  Future<void> _fetchPosition() async {
+  Future<void> _fetchLatestPosition() async {
     final dio = ref.read(dioProvider);
     try {
-      final response = await dio.get('/deliveries/${widget.deliveryId}/');
+      final response = await dio.get('/tracking/${widget.deliveryId}/latest/');
       final data = response.data;
       final lat = data['latitude'];
       final lng = data['longitude'];
 
       if (lat != null && lng != null) {
         final newPos = LatLng(lat, lng);
-        if (_path.isEmpty || _path.last != newPos) {
-          setState(() {
-            _currentPosition = newPos;
-            _path.add(newPos);
-            _livreurMarker = _buildMarker(newPos);
-          });
-
-          _mapController?.animateCamera(CameraUpdate.newLatLng(newPos));
-        }
+        _updatePosition(newPos);
       }
     } catch (e) {
-      debugPrint('Erreur récupération position : $e');
+      debugPrint('Erreur lors de la récupération de la position : $e');
     }
   }
 
@@ -99,20 +90,21 @@ class _TrackingMapScreenState extends ConsumerState<TrackingMapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final destinationPos = (widget.destinationLatitude != null && widget.destinationLongitude != null)
-        ? LatLng(widget.destinationLatitude!, widget.destinationLongitude!)
-        : null;
-
-    final destinationMarker = destinationPos != null ? _buildDestinationMarker(destinationPos) : null;
-
     return Scaffold(
       appBar: AppBar(title: const Text("Suivi de la livraison")),
+      drawer: ClientDrawerWidget(
+        deliveryId: widget.deliveryId,
+        latitude: widget.latitude,
+        longitude: widget.longitude,
+      ),
       body: _currentPosition != null
           ? GoogleMap(
-        initialCameraPosition: CameraPosition(target: _currentPosition!, zoom: 14.5),
+        initialCameraPosition: CameraPosition(
+          target: _currentPosition!,
+          zoom: 14.5,
+        ),
         markers: {
           if (_livreurMarker != null) _livreurMarker!,
-          if (destinationMarker != null) destinationMarker,
         },
         polylines: {
           if (_path.length >= 2)
@@ -121,14 +113,6 @@ class _TrackingMapScreenState extends ConsumerState<TrackingMapScreen> {
               color: Colors.blueAccent,
               width: 5,
               points: _path,
-            ),
-          if (_currentPosition != null && destinationPos != null)
-            Polyline(
-              polylineId: const PolylineId('to_destination'),
-              color: Colors.green,
-              width: 4,
-              points: [_currentPosition!, destinationPos],
-              patterns: [PatternItem.dash(20), PatternItem.gap(10)],
             ),
         },
         onMapCreated: (controller) {

@@ -57,4 +57,12 @@ class OrderLineService {
       rethrow;
     }
   }
+  Future<PaginatedOrderLineList> fetchOrderLinesByOrderId(int orderId, {int page = 1}) async {
+    final response = await _dio.get('/order-lines/', queryParameters: {
+      'order': orderId,
+      'page': page,
+    });
+    return PaginatedOrderLineList.fromJson(response.data);
+  }
+
 }

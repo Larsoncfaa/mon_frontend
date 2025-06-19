@@ -10,6 +10,8 @@ class ExchangeRequest with _$ExchangeRequest {
     required int id,
     required int returnRequest,
     required int replacement,
+    required String requestedProduct,
+    required String reason,
     ExchangeStatusEnum? exchangeStatus,
   }) = _ExchangeRequest;
 

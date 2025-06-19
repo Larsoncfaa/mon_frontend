@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'refund_status_enum.dart';
 
@@ -22,13 +24,15 @@ class RefundRequest with _$RefundRequest {
     required String reason,
 
     /// Preuves à l’appui de la demande (peut être un lien ou description)
-    required String evidence,
+    // Champ ignoré pour JSON, rendu optionnel
+    @JsonKey(ignore: true)
+    File? evidence,  // nullable, car pas présent dans le JSON
 
     /// Statut actuel de la demande (enum)
-    required RefundStatusEnum refundStatus,
+    required RefundStatusEnum? refundStatus,
 
     /// Date à laquelle la demande a été faite
-    required DateTime requestedAt,
+    required DateTime ?requestedAt,
 
     /// Date de traitement par un administrateur (peut être null si non traité)
     DateTime? processedAt,

@@ -23,6 +23,8 @@ mixin _$ExchangeRequest {
   int get id => throw _privateConstructorUsedError;
   int get returnRequest => throw _privateConstructorUsedError;
   int get replacement => throw _privateConstructorUsedError;
+  String get requestedProduct => throw _privateConstructorUsedError;
+  String get reason => throw _privateConstructorUsedError;
   ExchangeStatusEnum? get exchangeStatus => throw _privateConstructorUsedError;
 
   /// Serializes this ExchangeRequest to a JSON map.
@@ -45,6 +47,8 @@ abstract class $ExchangeRequestCopyWith<$Res> {
       {int id,
       int returnRequest,
       int replacement,
+      String requestedProduct,
+      String reason,
       ExchangeStatusEnum? exchangeStatus});
 }
 
@@ -66,6 +70,8 @@ class _$ExchangeRequestCopyWithImpl<$Res, $Val extends ExchangeRequest>
     Object? id = null,
     Object? returnRequest = null,
     Object? replacement = null,
+    Object? requestedProduct = null,
+    Object? reason = null,
     Object? exchangeStatus = freezed,
   }) {
     return _then(_value.copyWith(
@@ -81,6 +87,14 @@ class _$ExchangeRequestCopyWithImpl<$Res, $Val extends ExchangeRequest>
           ? _value.replacement
           : replacement // ignore: cast_nullable_to_non_nullable
               as int,
+      requestedProduct: null == requestedProduct
+          ? _value.requestedProduct
+          : requestedProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      reason: null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as String,
       exchangeStatus: freezed == exchangeStatus
           ? _value.exchangeStatus
           : exchangeStatus // ignore: cast_nullable_to_non_nullable
@@ -101,6 +115,8 @@ abstract class _$$ExchangeRequestImplCopyWith<$Res>
       {int id,
       int returnRequest,
       int replacement,
+      String requestedProduct,
+      String reason,
       ExchangeStatusEnum? exchangeStatus});
 }
 
@@ -120,6 +136,8 @@ class __$$ExchangeRequestImplCopyWithImpl<$Res>
     Object? id = null,
     Object? returnRequest = null,
     Object? replacement = null,
+    Object? requestedProduct = null,
+    Object? reason = null,
     Object? exchangeStatus = freezed,
   }) {
     return _then(_$ExchangeRequestImpl(
@@ -135,6 +153,14 @@ class __$$ExchangeRequestImplCopyWithImpl<$Res>
           ? _value.replacement
           : replacement // ignore: cast_nullable_to_non_nullable
               as int,
+      requestedProduct: null == requestedProduct
+          ? _value.requestedProduct
+          : requestedProduct // ignore: cast_nullable_to_non_nullable
+              as String,
+      reason: null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as String,
       exchangeStatus: freezed == exchangeStatus
           ? _value.exchangeStatus
           : exchangeStatus // ignore: cast_nullable_to_non_nullable
@@ -150,6 +176,8 @@ class _$ExchangeRequestImpl implements _ExchangeRequest {
       {required this.id,
       required this.returnRequest,
       required this.replacement,
+      required this.requestedProduct,
+      required this.reason,
       this.exchangeStatus});
 
   factory _$ExchangeRequestImpl.fromJson(Map<String, dynamic> json) =>
@@ -162,11 +190,15 @@ class _$ExchangeRequestImpl implements _ExchangeRequest {
   @override
   final int replacement;
   @override
+  final String requestedProduct;
+  @override
+  final String reason;
+  @override
   final ExchangeStatusEnum? exchangeStatus;
 
   @override
   String toString() {
-    return 'ExchangeRequest(id: $id, returnRequest: $returnRequest, replacement: $replacement, exchangeStatus: $exchangeStatus)';
+    return 'ExchangeRequest(id: $id, returnRequest: $returnRequest, replacement: $replacement, requestedProduct: $requestedProduct, reason: $reason, exchangeStatus: $exchangeStatus)';
   }
 
   @override
@@ -179,14 +211,17 @@ class _$ExchangeRequestImpl implements _ExchangeRequest {
                 other.returnRequest == returnRequest) &&
             (identical(other.replacement, replacement) ||
                 other.replacement == replacement) &&
+            (identical(other.requestedProduct, requestedProduct) ||
+                other.requestedProduct == requestedProduct) &&
+            (identical(other.reason, reason) || other.reason == reason) &&
             (identical(other.exchangeStatus, exchangeStatus) ||
                 other.exchangeStatus == exchangeStatus));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, returnRequest, replacement, exchangeStatus);
+  int get hashCode => Object.hash(runtimeType, id, returnRequest, replacement,
+      requestedProduct, reason, exchangeStatus);
 
   /// Create a copy of ExchangeRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -210,6 +245,8 @@ abstract class _ExchangeRequest implements ExchangeRequest {
       {required final int id,
       required final int returnRequest,
       required final int replacement,
+      required final String requestedProduct,
+      required final String reason,
       final ExchangeStatusEnum? exchangeStatus}) = _$ExchangeRequestImpl;
 
   factory _ExchangeRequest.fromJson(Map<String, dynamic> json) =
@@ -221,6 +258,10 @@ abstract class _ExchangeRequest implements ExchangeRequest {
   int get returnRequest;
   @override
   int get replacement;
+  @override
+  String get requestedProduct;
+  @override
+  String get reason;
   @override
   ExchangeStatusEnum? get exchangeStatus;
 

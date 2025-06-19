@@ -14,8 +14,27 @@ class CartScreen extends ConsumerStatefulWidget {
 class _CartScreenState extends ConsumerState<CartScreen> {
   bool _isSubmitting = false;
 
-  /// Soumettre la commande à partir du panier
   Future<void> _submitOrder() async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirmer la commande'),
+        content: const Text('Souhaitez-vous passer la commande ?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Annuler'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Confirmer'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm != true) return;
+
     setState(() => _isSubmitting = true);
 
     try {
@@ -45,6 +64,30 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     }
   }
 
+  Future<void> _confirmDelete(int id) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Supprimer l\'article'),
+        content: const Text('Êtes-vous sûr de vouloir supprimer cet article du panier ?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Annuler'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Supprimer'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      ref.read(cartItemNotifierProvider.notifier).deleteCartItem(id);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final cartItemsState = ref.watch(cartItemNotifierProvider);
@@ -61,7 +104,6 @@ class _CartScreenState extends ConsumerState<CartScreen> {
             return const Center(child: Text('Votre panier est vide.'));
           }
 
-          // Sécurité pour éviter les null sur totalPrice
           final total = items.fold<double>(
             0,
                 (sum, item) => sum + (item.totalPrice ?? 0.0),
@@ -88,7 +130,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         onPressed: () {
                           final id = item.id;
                           if (id != null) {
-                            ref.read(cartItemNotifierProvider.notifier).deleteCartItem(id);
+                            _confirmDelete(id);
                           }
                         },
                       ),

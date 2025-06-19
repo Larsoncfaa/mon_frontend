@@ -26,6 +26,10 @@ Map<String, dynamic> _$$PatchedExchangeRequestImplToJson(
     };
 
 const _$ExchangeStatusEnumEnumMap = {
-  ExchangeStatusEnum.PENDING: 'PENDING',
+  ExchangeStatusEnum.pending: 'PENDING',
+  ExchangeStatusEnum.completed: 'COMPLETED',
   ExchangeStatusEnum.COMPLETED: 'COMPLETED',
+  ExchangeStatusEnum.PENDING: 'PENDING',
+  ExchangeStatusEnum.ACCEPTED: 'ACCEPTED',
+  ExchangeStatusEnum.REJECTED: 'REJECTED',
 };

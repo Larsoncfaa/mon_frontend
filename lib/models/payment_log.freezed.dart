@@ -26,6 +26,7 @@ mixin _$PaymentLog {
   DateTime get attemptTime => throw _privateConstructorUsedError;
   @JsonKey(name: 'payment_status')
   String get paymentStatus => throw _privateConstructorUsedError;
+  @StringToDoubleConverter()
   double get amount => throw _privateConstructorUsedError;
   Map<String, dynamic>? get info => throw _privateConstructorUsedError;
 
@@ -50,7 +51,7 @@ abstract class $PaymentLogCopyWith<$Res> {
       int order,
       @JsonKey(name: 'attempt_time') DateTime attemptTime,
       @JsonKey(name: 'payment_status') String paymentStatus,
-      double amount,
+      @StringToDoubleConverter() double amount,
       Map<String, dynamic>? info});
 }
 
@@ -118,7 +119,7 @@ abstract class _$$PaymentLogImplCopyWith<$Res>
       int order,
       @JsonKey(name: 'attempt_time') DateTime attemptTime,
       @JsonKey(name: 'payment_status') String paymentStatus,
-      double amount,
+      @StringToDoubleConverter() double amount,
       Map<String, dynamic>? info});
 }
 
@@ -179,7 +180,7 @@ class _$PaymentLogImpl implements _PaymentLog {
       required this.order,
       @JsonKey(name: 'attempt_time') required this.attemptTime,
       @JsonKey(name: 'payment_status') required this.paymentStatus,
-      required this.amount,
+      @StringToDoubleConverter() required this.amount,
       final Map<String, dynamic>? info})
       : _info = info;
 
@@ -197,6 +198,7 @@ class _$PaymentLogImpl implements _PaymentLog {
   @JsonKey(name: 'payment_status')
   final String paymentStatus;
   @override
+  @StringToDoubleConverter()
   final double amount;
   final Map<String, dynamic>? _info;
   @override
@@ -255,7 +257,7 @@ abstract class _PaymentLog implements PaymentLog {
       required final int order,
       @JsonKey(name: 'attempt_time') required final DateTime attemptTime,
       @JsonKey(name: 'payment_status') required final String paymentStatus,
-      required final double amount,
+      @StringToDoubleConverter() required final double amount,
       final Map<String, dynamic>? info}) = _$PaymentLogImpl;
 
   factory _PaymentLog.fromJson(Map<String, dynamic> json) =
@@ -272,6 +274,7 @@ abstract class _PaymentLog implements PaymentLog {
   @JsonKey(name: 'payment_status')
   String get paymentStatus;
   @override
+  @StringToDoubleConverter()
   double get amount;
   @override
   Map<String, dynamic>? get info;

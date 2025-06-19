@@ -10,6 +10,7 @@ import 'package:maliag/vues/auth/profile_screen.dart';
 import 'package:maliag/vues/client/cart_screen.dart';
 import 'package:maliag/vues/client/order_confirmation_screen.dart';
 import 'package:maliag/vues/client/order_list.dart';
+import 'package:maliag/vues/client/routes/forms/ajouter_avis.dart';
 import 'package:maliag/vues/commun/deconnexion.dart';
 
 import 'core/utils/logger.dart';
@@ -133,6 +134,12 @@ class MyApp extends ConsumerWidget {
           final args = ModalRoute.of(context)!.settings.arguments as List<Order>;
           return OrdersListScreen(orders: args);
         },
+
+        '/ajouter-avis': (context) {
+          final productId = ModalRoute.of(context)!.settings.arguments as int;
+          return AjouterAvisScreen(productId: productId);
+        },
+
 
       },
     );

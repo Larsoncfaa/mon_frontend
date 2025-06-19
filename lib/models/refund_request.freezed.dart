@@ -30,13 +30,15 @@ mixin _$RefundRequest {
   String get reason => throw _privateConstructorUsedError;
 
   /// Preuves à l’appui de la demande (peut être un lien ou description)
-  String get evidence => throw _privateConstructorUsedError;
-
+// Champ ignoré pour JSON, rendu optionnel
+  @JsonKey(ignore: true)
+  File? get evidence =>
+      throw _privateConstructorUsedError; // nullable, car pas présent dans le JSON
   /// Statut actuel de la demande (enum)
-  RefundStatusEnum get refundStatus => throw _privateConstructorUsedError;
+  RefundStatusEnum? get refundStatus => throw _privateConstructorUsedError;
 
   /// Date à laquelle la demande a été faite
-  DateTime get requestedAt => throw _privateConstructorUsedError;
+  DateTime? get requestedAt => throw _privateConstructorUsedError;
 
   /// Date de traitement par un administrateur (peut être null si non traité)
   DateTime? get processedAt => throw _privateConstructorUsedError;
@@ -64,9 +66,9 @@ abstract class $RefundRequestCopyWith<$Res> {
       {int id,
       int daysRemaining,
       String reason,
-      String evidence,
-      RefundStatusEnum refundStatus,
-      DateTime requestedAt,
+      @JsonKey(ignore: true) File? evidence,
+      RefundStatusEnum? refundStatus,
+      DateTime? requestedAt,
       DateTime? processedAt,
       int order});
 }
@@ -89,9 +91,9 @@ class _$RefundRequestCopyWithImpl<$Res, $Val extends RefundRequest>
     Object? id = null,
     Object? daysRemaining = null,
     Object? reason = null,
-    Object? evidence = null,
-    Object? refundStatus = null,
-    Object? requestedAt = null,
+    Object? evidence = freezed,
+    Object? refundStatus = freezed,
+    Object? requestedAt = freezed,
     Object? processedAt = freezed,
     Object? order = null,
   }) {
@@ -108,18 +110,18 @@ class _$RefundRequestCopyWithImpl<$Res, $Val extends RefundRequest>
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String,
-      evidence: null == evidence
+      evidence: freezed == evidence
           ? _value.evidence
           : evidence // ignore: cast_nullable_to_non_nullable
-              as String,
-      refundStatus: null == refundStatus
+              as File?,
+      refundStatus: freezed == refundStatus
           ? _value.refundStatus
           : refundStatus // ignore: cast_nullable_to_non_nullable
-              as RefundStatusEnum,
-      requestedAt: null == requestedAt
+              as RefundStatusEnum?,
+      requestedAt: freezed == requestedAt
           ? _value.requestedAt
           : requestedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       processedAt: freezed == processedAt
           ? _value.processedAt
           : processedAt // ignore: cast_nullable_to_non_nullable
@@ -144,9 +146,9 @@ abstract class _$$RefundRequestImplCopyWith<$Res>
       {int id,
       int daysRemaining,
       String reason,
-      String evidence,
-      RefundStatusEnum refundStatus,
-      DateTime requestedAt,
+      @JsonKey(ignore: true) File? evidence,
+      RefundStatusEnum? refundStatus,
+      DateTime? requestedAt,
       DateTime? processedAt,
       int order});
 }
@@ -167,9 +169,9 @@ class __$$RefundRequestImplCopyWithImpl<$Res>
     Object? id = null,
     Object? daysRemaining = null,
     Object? reason = null,
-    Object? evidence = null,
-    Object? refundStatus = null,
-    Object? requestedAt = null,
+    Object? evidence = freezed,
+    Object? refundStatus = freezed,
+    Object? requestedAt = freezed,
     Object? processedAt = freezed,
     Object? order = null,
   }) {
@@ -186,18 +188,18 @@ class __$$RefundRequestImplCopyWithImpl<$Res>
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String,
-      evidence: null == evidence
+      evidence: freezed == evidence
           ? _value.evidence
           : evidence // ignore: cast_nullable_to_non_nullable
-              as String,
-      refundStatus: null == refundStatus
+              as File?,
+      refundStatus: freezed == refundStatus
           ? _value.refundStatus
           : refundStatus // ignore: cast_nullable_to_non_nullable
-              as RefundStatusEnum,
-      requestedAt: null == requestedAt
+              as RefundStatusEnum?,
+      requestedAt: freezed == requestedAt
           ? _value.requestedAt
           : requestedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       processedAt: freezed == processedAt
           ? _value.processedAt
           : processedAt // ignore: cast_nullable_to_non_nullable
@@ -217,7 +219,7 @@ class _$RefundRequestImpl implements _RefundRequest {
       {required this.id,
       required this.daysRemaining,
       required this.reason,
-      required this.evidence,
+      @JsonKey(ignore: true) this.evidence,
       required this.refundStatus,
       required this.requestedAt,
       this.processedAt,
@@ -239,16 +241,18 @@ class _$RefundRequestImpl implements _RefundRequest {
   final String reason;
 
   /// Preuves à l’appui de la demande (peut être un lien ou description)
+// Champ ignoré pour JSON, rendu optionnel
   @override
-  final String evidence;
-
+  @JsonKey(ignore: true)
+  final File? evidence;
+// nullable, car pas présent dans le JSON
   /// Statut actuel de la demande (enum)
   @override
-  final RefundStatusEnum refundStatus;
+  final RefundStatusEnum? refundStatus;
 
   /// Date à laquelle la demande a été faite
   @override
-  final DateTime requestedAt;
+  final DateTime? requestedAt;
 
   /// Date de traitement par un administrateur (peut être null si non traité)
   @override
@@ -309,9 +313,9 @@ abstract class _RefundRequest implements RefundRequest {
       {required final int id,
       required final int daysRemaining,
       required final String reason,
-      required final String evidence,
-      required final RefundStatusEnum refundStatus,
-      required final DateTime requestedAt,
+      @JsonKey(ignore: true) final File? evidence,
+      required final RefundStatusEnum? refundStatus,
+      required final DateTime? requestedAt,
       final DateTime? processedAt,
       required final int order}) = _$RefundRequestImpl;
 
@@ -331,16 +335,17 @@ abstract class _RefundRequest implements RefundRequest {
   String get reason;
 
   /// Preuves à l’appui de la demande (peut être un lien ou description)
+// Champ ignoré pour JSON, rendu optionnel
   @override
-  String get evidence;
-
+  @JsonKey(ignore: true)
+  File? get evidence; // nullable, car pas présent dans le JSON
   /// Statut actuel de la demande (enum)
   @override
-  RefundStatusEnum get refundStatus;
+  RefundStatusEnum? get refundStatus;
 
   /// Date à laquelle la demande a été faite
   @override
-  DateTime get requestedAt;
+  DateTime? get requestedAt;
 
   /// Date de traitement par un administrateur (peut être null si non traité)
   @override

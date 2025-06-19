@@ -23,14 +23,20 @@ class _ProductDiscountScreenState extends ConsumerState<ProductDiscountScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(productDiscountNotifierProvider.notifier).load(page: _currentPage);
-    ref.read(productProvider).whenData((paginated) {
-      setState(() {
-        _productNames = {
-          for (var p in paginated.results) p.id: p.name,
-        };
+
+    Future.microtask(() {
+      ref.read(productDiscountNotifierProvider.notifier).load(page: _currentPage);
+
+      final productsState = ref.read(productProvider);
+      productsState.whenData((paginated) {
+        setState(() {
+          _productNames = {
+            for (var p in paginated.results) p.id: p.name,
+          };
+        });
       });
     });
+
     _scrollController.addListener(_onScroll);
   }
 

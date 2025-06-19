@@ -6,19 +6,17 @@ import '../../services/product_review_service.dart';
 import '../notifications/product_review_notifier.dart';
 import '../repositories/product_review_repository.dart';
 
-
-
-// Service
+/// 🔌 Fournit le service qui gère les appels HTTP vers l’API
 final productReviewServiceProvider = Provider<ProductReviewService>(
       (ref) => ProductReviewService(ref.watch(dioProvider)),
 );
 
-// Repository
+/// 📦 Fournit le dépôt qui encapsule la logique de récupération des données
 final productReviewRepositoryProvider = Provider<ProductReviewRepository>(
       (ref) => ProductReviewRepository(ref.watch(productReviewServiceProvider)),
 );
 
-// Notifier
+/// 🧠 Fournit le notifier qui gère l’état des avis produits (AsyncValue)
 final productReviewNotifierProvider = StateNotifierProvider<ProductReviewNotifier, AsyncValue<List<ProductReview>>>(
       (ref) => ProductReviewNotifier(ref.watch(productReviewRepositoryProvider)),
 );

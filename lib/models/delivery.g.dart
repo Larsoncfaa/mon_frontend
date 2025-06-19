@@ -10,14 +10,16 @@ _$DeliveryImpl _$$DeliveryImplFromJson(Map<String, dynamic> json) =>
     _$DeliveryImpl(
       id: (json['id'] as num).toInt(),
       deliverer: (json['deliverer'] as num?)?.toInt(),
-      order: (json['order'] as num).toInt(),
+      order: (json['order'] as num?)?.toInt(),
       product: (json['product'] as num?)?.toInt(),
-      type: $enumDecode(_$TypeEnumEnumMap, json['type']),
-      deliveryStatus: $enumDecodeNullable(
-          _$DeliveryStatusEnumEnumMap, json['deliveryStatus']),
+      type: _typeEnumFromJson(json['type'] as String?),
+      deliveryStatus:
+          _deliveryStatusEnumFromJson(json['delivery_status'] as String?),
       description: json['description'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$DeliveryImplToJson(_$DeliveryImpl instance) =>
@@ -27,10 +29,12 @@ Map<String, dynamic> _$$DeliveryImplToJson(_$DeliveryImpl instance) =>
       'order': instance.order,
       'product': instance.product,
       'type': _$TypeEnumEnumMap[instance.type]!,
-      'deliveryStatus': _$DeliveryStatusEnumEnumMap[instance.deliveryStatus],
+      'delivery_status': _$DeliveryStatusEnumEnumMap[instance.deliveryStatus],
       'description': instance.description,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };
 
 const _$TypeEnumEnumMap = {

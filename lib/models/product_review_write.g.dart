@@ -1,29 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product_review.dart';
+part of 'product_review_write.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProductReviewImpl _$$ProductReviewImplFromJson(Map<String, dynamic> json) =>
-    _$ProductReviewImpl(
-      id: (json['id'] as num).toInt(),
+_$ProductReviewWriteImpl _$$ProductReviewWriteImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ProductReviewWriteImpl(
       product: (json['product'] as num).toInt(),
       rating: $enumDecode(_$RatingEnumEnumMap, json['rating']),
       comment: json['comment'] as String?,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      verifiedPurchase: json['verified_purchase'] as bool?,
     );
 
-Map<String, dynamic> _$$ProductReviewImplToJson(_$ProductReviewImpl instance) =>
+Map<String, dynamic> _$$ProductReviewWriteImplToJson(
+        _$ProductReviewWriteImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'product': instance.product,
       'rating': _$RatingEnumEnumMap[instance.rating]!,
       'comment': instance.comment,
-      'created_at': instance.createdAt.toIso8601String(),
-      'verified_purchase': instance.verifiedPurchase,
     };
 
 const _$RatingEnumEnumMap = {

@@ -53,4 +53,13 @@ class OrderLineRepository {
       rethrow;
     }
   }
+  Future<PaginatedOrderLineList> getByOrderId(int orderId, {int page = 1}) async {
+    try {
+      return await _service.fetchOrderLinesByOrderId(orderId, page: page);
+    } catch (e) {
+      debugPrint('Erreur getByOrderId OrderLine: $e');
+      rethrow;
+    }
+  }
+
 }

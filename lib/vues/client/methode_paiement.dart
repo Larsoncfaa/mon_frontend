@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../fournisseurs/provider/payment_provider.dart';
-import '../../fournisseurs/provider/client_profile_provider.dart'; // 👈 ajoute ceci
+import '../../fournisseurs/provider/client_profile_provider.dart';
 import '../../models/order.dart';
 import '../../models/method_enum.dart';
 import '../../models/payment.dart';
@@ -47,7 +47,7 @@ class PaymentMethodSelectionScreen extends ConsumerWidget {
                       const SizedBox(height: 8),
                       TextField(
                         controller: controller,
-                        keyboardType: TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         decoration: const InputDecoration(
                           labelText: 'Montant',
                           hintText: 'Ex: 2000.00',
@@ -79,12 +79,14 @@ class PaymentMethodSelectionScreen extends ConsumerWidget {
                           method: method,
                         );
 
-                        final state = ref.read(paymentNotifierProvider);
-                        if (success && state is AsyncData<Payment>) {
+                        final paymentState = ref.read(paymentNotifierProvider);
+                        final payment = paymentState is AsyncData<Payment?> ? paymentState.value : null;
+
+                        if (success && payment != null) {
                           if (context.mounted) {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (_) => PaymentConfirmationScreen(payment: state.value!),
+                                builder: (_) => PaymentConfirmationScreen(payment: payment),
                               ),
                             );
                           }

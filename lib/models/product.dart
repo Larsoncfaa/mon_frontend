@@ -57,6 +57,7 @@ class Product with _$Product {
     @StringToDoubleConverter() required double? purchasePrice,
     @StringToDoubleConverter() required double? sellingPrice,
 
+
     DateTime? expirationDate,
     String? qrCodeImage,
   }) = _Product;

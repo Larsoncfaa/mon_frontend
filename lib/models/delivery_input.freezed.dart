@@ -20,12 +20,10 @@ DeliveryInput _$DeliveryInputFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DeliveryInput {
-  /// Dictionnaire contenant 'lat' et 'lng' du client
-  Map<String, double> get client => throw _privateConstructorUsedError;
-
-  /// Quantité totale commandée pour l'estimation
-  @JsonKey(name: 'total_quantity')
-  int get totalQuantity => throw _privateConstructorUsedError;
+  @JsonKey(name: 'delivery_id')
+  int get deliveryId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'livreur_id')
+  int get livreurId => throw _privateConstructorUsedError;
 
   /// Serializes this DeliveryInput to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,8 +42,8 @@ abstract class $DeliveryInputCopyWith<$Res> {
       _$DeliveryInputCopyWithImpl<$Res, DeliveryInput>;
   @useResult
   $Res call(
-      {Map<String, double> client,
-      @JsonKey(name: 'total_quantity') int totalQuantity});
+      {@JsonKey(name: 'delivery_id') int deliveryId,
+      @JsonKey(name: 'livreur_id') int livreurId});
 }
 
 /// @nodoc
@@ -63,17 +61,17 @@ class _$DeliveryInputCopyWithImpl<$Res, $Val extends DeliveryInput>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? client = null,
-    Object? totalQuantity = null,
+    Object? deliveryId = null,
+    Object? livreurId = null,
   }) {
     return _then(_value.copyWith(
-      client: null == client
-          ? _value.client
-          : client // ignore: cast_nullable_to_non_nullable
-              as Map<String, double>,
-      totalQuantity: null == totalQuantity
-          ? _value.totalQuantity
-          : totalQuantity // ignore: cast_nullable_to_non_nullable
+      deliveryId: null == deliveryId
+          ? _value.deliveryId
+          : deliveryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      livreurId: null == livreurId
+          ? _value.livreurId
+          : livreurId // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -88,8 +86,8 @@ abstract class _$$DeliveryInputImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<String, double> client,
-      @JsonKey(name: 'total_quantity') int totalQuantity});
+      {@JsonKey(name: 'delivery_id') int deliveryId,
+      @JsonKey(name: 'livreur_id') int livreurId});
 }
 
 /// @nodoc
@@ -105,17 +103,17 @@ class __$$DeliveryInputImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? client = null,
-    Object? totalQuantity = null,
+    Object? deliveryId = null,
+    Object? livreurId = null,
   }) {
     return _then(_$DeliveryInputImpl(
-      client: null == client
-          ? _value._client
-          : client // ignore: cast_nullable_to_non_nullable
-              as Map<String, double>,
-      totalQuantity: null == totalQuantity
-          ? _value.totalQuantity
-          : totalQuantity // ignore: cast_nullable_to_non_nullable
+      deliveryId: null == deliveryId
+          ? _value.deliveryId
+          : deliveryId // ignore: cast_nullable_to_non_nullable
+              as int,
+      livreurId: null == livreurId
+          ? _value.livreurId
+          : livreurId // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -125,32 +123,22 @@ class __$$DeliveryInputImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DeliveryInputImpl implements _DeliveryInput {
   const _$DeliveryInputImpl(
-      {required final Map<String, double> client,
-      @JsonKey(name: 'total_quantity') required this.totalQuantity})
-      : _client = client;
+      {@JsonKey(name: 'delivery_id') required this.deliveryId,
+      @JsonKey(name: 'livreur_id') required this.livreurId});
 
   factory _$DeliveryInputImpl.fromJson(Map<String, dynamic> json) =>
       _$$DeliveryInputImplFromJson(json);
 
-  /// Dictionnaire contenant 'lat' et 'lng' du client
-  final Map<String, double> _client;
-
-  /// Dictionnaire contenant 'lat' et 'lng' du client
   @override
-  Map<String, double> get client {
-    if (_client is EqualUnmodifiableMapView) return _client;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_client);
-  }
-
-  /// Quantité totale commandée pour l'estimation
+  @JsonKey(name: 'delivery_id')
+  final int deliveryId;
   @override
-  @JsonKey(name: 'total_quantity')
-  final int totalQuantity;
+  @JsonKey(name: 'livreur_id')
+  final int livreurId;
 
   @override
   String toString() {
-    return 'DeliveryInput(client: $client, totalQuantity: $totalQuantity)';
+    return 'DeliveryInput(deliveryId: $deliveryId, livreurId: $livreurId)';
   }
 
   @override
@@ -158,15 +146,15 @@ class _$DeliveryInputImpl implements _DeliveryInput {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DeliveryInputImpl &&
-            const DeepCollectionEquality().equals(other._client, _client) &&
-            (identical(other.totalQuantity, totalQuantity) ||
-                other.totalQuantity == totalQuantity));
+            (identical(other.deliveryId, deliveryId) ||
+                other.deliveryId == deliveryId) &&
+            (identical(other.livreurId, livreurId) ||
+                other.livreurId == livreurId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_client), totalQuantity);
+  int get hashCode => Object.hash(runtimeType, deliveryId, livreurId);
 
   /// Create a copy of DeliveryInput
   /// with the given fields replaced by the non-null parameter values.
@@ -186,21 +174,19 @@ class _$DeliveryInputImpl implements _DeliveryInput {
 
 abstract class _DeliveryInput implements DeliveryInput {
   const factory _DeliveryInput(
-          {required final Map<String, double> client,
-          @JsonKey(name: 'total_quantity') required final int totalQuantity}) =
+          {@JsonKey(name: 'delivery_id') required final int deliveryId,
+          @JsonKey(name: 'livreur_id') required final int livreurId}) =
       _$DeliveryInputImpl;
 
   factory _DeliveryInput.fromJson(Map<String, dynamic> json) =
       _$DeliveryInputImpl.fromJson;
 
-  /// Dictionnaire contenant 'lat' et 'lng' du client
   @override
-  Map<String, double> get client;
-
-  /// Quantité totale commandée pour l'estimation
+  @JsonKey(name: 'delivery_id')
+  int get deliveryId;
   @override
-  @JsonKey(name: 'total_quantity')
-  int get totalQuantity;
+  @JsonKey(name: 'livreur_id')
+  int get livreurId;
 
   /// Create a copy of DeliveryInput
   /// with the given fields replaced by the non-null parameter values.

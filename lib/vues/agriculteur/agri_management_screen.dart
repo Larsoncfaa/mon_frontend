@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../fournisseurs/provider/exchange_request_provider.dart';
 import '../../fournisseurs/provider/invoice_provider.dart';
 import '../../fournisseurs/provider/refund_request_provider.dart';
+import '../../models/exchange_status_enum.dart';
+import '../../models/refund_status_enum.dart';
 import '../../widgets/app_drawer.dart';
 
 class GestionAgriculteurScreen extends ConsumerWidget {
@@ -66,6 +68,17 @@ class _InvoiceTab extends ConsumerWidget {
 class _ExchangeTab extends ConsumerWidget {
   const _ExchangeTab({Key? key}) : super(key: key);
 
+  Color _statusColor(ExchangeStatusEnum status) {
+    switch (status) {
+      case ExchangeStatusEnum.COMPLETED:
+        return Colors.green;
+      case ExchangeStatusEnum.PENDING:
+        return Colors.orange;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(exchangeRequestNotifierProvider);
@@ -79,19 +92,31 @@ class _ExchangeTab extends ConsumerWidget {
           return Card(
             margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
             child: ListTile(
-              title: Text('Échange #${exchange.id}'),
-              subtitle: Text('Statut: ${exchange.exchangeStatus}'),
+              title: Text('Échange #${exchange.id} – ${exchange.reason}'),
+              subtitle: Text(
+                'Produit demandé : ${exchange.requestedProduct}\nStatut: ${exchange.exchangeStatus?.name}',
+                style: TextStyle(
+                  color: _statusColor(exchange.exchangeStatus ?? ExchangeStatusEnum.PENDING),
+                ),
+              ),
+              isThreeLine: true,
               trailing: PopupMenuButton<String>(
                 onSelected: (value) async {
                   if (value == 'accepter') {
                     await notifier.accepter(exchange.id);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Échange accepté')),
+                    );
                   } else if (value == 'refuser') {
                     await notifier.refuser(exchange.id);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Échange refusé')),
+                    );
                   }
                 },
                 itemBuilder: (context) => const [
-                  PopupMenuItem(value: 'accepter', child: Text('Accepter')),
-                  PopupMenuItem(value: 'refuser', child: Text('Refuser')),
+                  PopupMenuItem(value: 'accepter', child: Text('✅ Accepter')),
+                  PopupMenuItem(value: 'refuser', child: Text('❌ Refuser')),
                 ],
               ),
             ),
@@ -103,10 +128,28 @@ class _ExchangeTab extends ConsumerWidget {
     );
   }
 }
-
-/// Onglet Remboursements (avec boutons Approuver / Rejeter)
 class _RefundTab extends ConsumerWidget {
   const _RefundTab({Key? key}) : super(key: key);
+
+  Color _statusColor(RefundStatusEnum status) {
+    switch (status) {
+      case RefundStatusEnum.APPROVED:
+        return Colors.green;
+      case RefundStatusEnum.REJECTED:
+        return Colors.red;
+      case RefundStatusEnum.PENDING:
+        return Colors.orange;
+      case RefundStatusEnum.pending:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case RefundStatusEnum.approved:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case RefundStatusEnum.rejected:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -121,8 +164,15 @@ class _RefundTab extends ConsumerWidget {
           return Card(
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             child: ListTile(
-              title: Text('Remb. #${refund.id} – ${refund.reason}'),
-              subtitle: Text('Statut: ${refund.refundStatus}'),
+              title: Text('Remboursement #${refund.id}'),
+              subtitle: Text(
+                '${refund.reason}\nStatut: ${refund.refundStatus?.name}',
+                style: TextStyle(
+                  color:  _statusColor(refund.refundStatus ?? RefundStatusEnum.pending),
+
+              ),
+              ),
+              isThreeLine: true,
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -131,6 +181,9 @@ class _RefundTab extends ConsumerWidget {
                     tooltip: 'Approuver',
                     onPressed: () {
                       notifier.approuverRemboursement(refund.id);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Remboursement approuvé')),
+                      );
                     },
                   ),
                   IconButton(
@@ -138,6 +191,9 @@ class _RefundTab extends ConsumerWidget {
                     tooltip: 'Rejeter',
                     onPressed: () {
                       notifier.rejeterRemboursement(refund.id);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Remboursement rejeté')),
+                      );
                     },
                   ),
                 ],

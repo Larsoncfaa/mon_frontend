@@ -11,10 +11,11 @@ _$RefundRequestImpl _$$RefundRequestImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       daysRemaining: (json['daysRemaining'] as num).toInt(),
       reason: json['reason'] as String,
-      evidence: json['evidence'] as String,
       refundStatus:
-          $enumDecode(_$RefundStatusEnumEnumMap, json['refundStatus']),
-      requestedAt: DateTime.parse(json['requestedAt'] as String),
+          $enumDecodeNullable(_$RefundStatusEnumEnumMap, json['refundStatus']),
+      requestedAt: json['requestedAt'] == null
+          ? null
+          : DateTime.parse(json['requestedAt'] as String),
       processedAt: json['processedAt'] == null
           ? null
           : DateTime.parse(json['processedAt'] as String),
@@ -26,9 +27,8 @@ Map<String, dynamic> _$$RefundRequestImplToJson(_$RefundRequestImpl instance) =>
       'id': instance.id,
       'daysRemaining': instance.daysRemaining,
       'reason': instance.reason,
-      'evidence': instance.evidence,
-      'refundStatus': _$RefundStatusEnumEnumMap[instance.refundStatus]!,
-      'requestedAt': instance.requestedAt.toIso8601String(),
+      'refundStatus': _$RefundStatusEnumEnumMap[instance.refundStatus],
+      'requestedAt': instance.requestedAt?.toIso8601String(),
       'processedAt': instance.processedAt?.toIso8601String(),
       'order': instance.order,
     };
@@ -37,9 +37,7 @@ const _$RefundStatusEnumEnumMap = {
   RefundStatusEnum.pending: 'PENDING',
   RefundStatusEnum.approved: 'APPROVED',
   RefundStatusEnum.rejected: 'REJECTED',
-  RefundStatusEnum.PENDING: 'PENDING',
-  RefundStatusEnum.accepted: 'accepted',
-  RefundStatusEnum.refused: 'refused',
   RefundStatusEnum.APPROVED: 'APPROVED',
   RefundStatusEnum.REJECTED: 'REJECTED',
+  RefundStatusEnum.PENDING: 'PENDING',
 };

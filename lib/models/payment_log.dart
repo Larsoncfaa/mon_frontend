@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'double_converter.dart';
+
+
 part 'payment_log.freezed.dart';
 part 'payment_log.g.dart';
 
@@ -10,9 +13,10 @@ class PaymentLog with _$PaymentLog {
     required int order,
     @JsonKey(name: 'attempt_time') required DateTime attemptTime,
     @JsonKey(name: 'payment_status') required String paymentStatus,
-    required double amount,
+    @StringToDoubleConverter() required double amount,
     Map<String, dynamic>? info,
   }) = _PaymentLog;
 
-  factory PaymentLog.fromJson(Map<String, dynamic> json) => _$PaymentLogFromJson(json);
+  factory PaymentLog.fromJson(Map<String, dynamic> json) =>
+      _$PaymentLogFromJson(json);
 }

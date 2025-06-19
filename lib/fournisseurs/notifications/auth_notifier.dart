@@ -41,7 +41,7 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
     state = const AsyncLoading();
 
     try {
-      final user = await _authRepository.register(
+      final result = await _authRepository.register(
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -49,8 +49,9 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
         role: role,
       );
 
-      if (user != null) {
-        state = AsyncValue.data(user as User?);
+      if (result != null && result['user'] != null) {
+        final user = User.fromJson(result['user'] as Map<String, dynamic>);
+        state = AsyncValue.data(user);
         return true;
       } else {
         state = const AsyncValue.data(null);
@@ -60,6 +61,7 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
       state = AsyncValue.error(e, st);
       return false;
     }
+
   }
 
   Future<bool> login({
