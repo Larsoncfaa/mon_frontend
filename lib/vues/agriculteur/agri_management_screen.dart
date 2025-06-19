@@ -133,21 +133,13 @@ class _RefundTab extends ConsumerWidget {
 
   Color _statusColor(RefundStatusEnum status) {
     switch (status) {
-      case RefundStatusEnum.APPROVED:
-        return Colors.green;
-      case RefundStatusEnum.REJECTED:
-        return Colors.red;
-      case RefundStatusEnum.PENDING:
-        return Colors.orange;
-      case RefundStatusEnum.pending:
-        // TODO: Handle this case.
-        throw UnimplementedError();
       case RefundStatusEnum.approved:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return Colors.green;
       case RefundStatusEnum.rejected:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return Colors.red;
+      case RefundStatusEnum.pending:
+      default:
+        return Colors.orange;
     }
   }
 

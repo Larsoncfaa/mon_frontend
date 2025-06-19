@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../vues/client/mes_demande.dart';
 import '../vues/client/tracking_map_screen.dart';
+import '../fournisseurs/notifications/auth_notifier.dart';
 
-class ClientDrawerWidget extends StatelessWidget {
+class ClientDrawerWidget extends ConsumerWidget {
   final int? deliveryId;
   final double? latitude;
   final double? longitude;
@@ -16,7 +18,7 @@ class ClientDrawerWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
       child: Column(
         children: [
@@ -93,10 +95,32 @@ class ClientDrawerWidget extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Déconnexion'),
-            onTap: () {
+            onTap: () async {
               Navigator.pop(context);
-              // TODO: Ajoute ici ta logique de déconnexion (vider token, naviguer vers login...)
-              Navigator.pushReplacementNamed(context, '/login');
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: const Text('Confirmer la déconnexion'),
+                  content: const Text('Voulez-vous vous déconnecter ?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('Annuler'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('Se déconnecter'),
+                    ),
+                  ],
+                ),
+              );
+              if (confirm == true) {
+                await ref.read(authNotifierProvider.notifier).logout();
+                if (context.mounted) {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/login', (r) => false);
+                }
+              }
             },
           ),
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:io';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../fournisseurs/provider/payment_log_provider.dart';
 import '../../fournisseurs/provider/proof_provider.dart';
 import '../../fournisseurs/provider/tracking_info_provider.dart';
@@ -12,6 +14,77 @@ import '../../widgets/app_drawer.dart';
 
 class SuiviLogistiqueAgriculteurScreen extends ConsumerWidget {
   const SuiviLogistiqueAgriculteurScreen({super.key});
+
+  Future<void> _exportCsv(BuildContext context,
+      List<PaymentLog> payments,
+      List<Proof> proofs,
+      List<TrackingInfo> trackings) async {
+    final buffer = StringBuffer();
+    buffer.writeln('Paiements');
+    buffer.writeln('Statut,Montant,Date');
+    for (final p in payments) {
+      buffer.writeln(
+          '${p.paymentStatus},${p.amount},${DateFormat('yyyy-MM-dd').format(p.attemptTime)}');
+    }
+    buffer.writeln();
+    buffer.writeln('Preuves');
+    buffer.writeln('ID,Lien,Date');
+    for (final pr in proofs) {
+      buffer.writeln(
+          '${pr.id},${pr.image},${DateFormat('yyyy-MM-dd').format(pr.uploadedAt)}');
+    }
+    buffer.writeln();
+    buffer.writeln('Suivi');
+    buffer.writeln('Statut,Localisation,Date');
+    for (final t in trackings) {
+      buffer.writeln(
+          '${t.trackingStatus},${t.location},${DateFormat('yyyy-MM-dd').format(t.timestamp)}');
+    }
+
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/suivi_logistique.csv');
+    await file.writeAsString(buffer.toString());
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('CSV enregistré : ${file.path}')),
+      );
+    }
+  }
+
+  Future<void> _exportPdf(BuildContext context,
+      List<PaymentLog> payments,
+      List<Proof> proofs,
+      List<TrackingInfo> trackings) async {
+    final buffer = StringBuffer();
+    buffer.writeln('Suivi logistique');
+    buffer.writeln();
+    buffer.writeln('Paiements');
+    for (final p in payments) {
+      buffer.writeln(
+          '- ${p.paymentStatus} : ${p.amount}€ (${DateFormat('yyyy-MM-dd').format(p.attemptTime)})');
+    }
+    buffer.writeln();
+    buffer.writeln('Preuves');
+    for (final pr in proofs) {
+      buffer.writeln(
+          '- ${pr.image} (${DateFormat('yyyy-MM-dd').format(pr.uploadedAt)})');
+    }
+    buffer.writeln();
+    buffer.writeln('Suivi');
+    for (final t in trackings) {
+      buffer.writeln(
+          '- ${t.trackingStatus} @${t.location} (${DateFormat('yyyy-MM-dd').format(t.timestamp)})');
+    }
+
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/suivi_logistique.pdf');
+    await file.writeAsString(buffer.toString());
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('PDF enregistré : ${file.path}')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,11 +100,17 @@ class SuiviLogistiqueAgriculteurScreen extends ConsumerWidget {
         title: const Text("Suivi logistique"),
         actions: [
           PopupMenuButton<String>(
-            onSelected: (value) {
+            onSelected: (value) async {
+              final payments =
+                  paymentLogState.value?.results ?? <PaymentLog>[];
+              final proofs = proofState.value?.results ?? <Proof>[];
+              final trackings =
+                  trackingState.value?.results ?? <TrackingInfo>[];
+
               if (value == 'pdf') {
-                // TODO: Implémenter export PDF
+                await _exportPdf(context, payments, proofs, trackings);
               } else if (value == 'csv') {
-                // TODO: Implémenter export CSV
+                await _exportCsv(context, payments, proofs, trackings);
               }
             },
             itemBuilder: (context) => const [
