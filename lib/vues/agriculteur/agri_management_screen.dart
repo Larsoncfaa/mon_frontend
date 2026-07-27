@@ -94,9 +94,9 @@ class _ExchangeTab extends ConsumerWidget {
             child: ListTile(
               title: Text('Échange #${exchange.id} – ${exchange.reason}'),
               subtitle: Text(
-                'Produit demandé : ${exchange.requestedProduct}\nStatut: ${exchange.exchangeStatus?.name}',
+                'Remplacement : ${exchange.replacement}\nStatut: ${exchange.exchangeStatus.name}',
                 style: TextStyle(
-                  color: _statusColor(exchange.exchangeStatus ?? ExchangeStatusEnum.PENDING),
+                  color: _statusColor(exchange.exchangeStatus),
                 ),
               ),
               isThreeLine: true,

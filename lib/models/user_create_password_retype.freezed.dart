@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,304 +9,284 @@ part of 'user_create_password_retype.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-UserCreatePasswordRetype _$UserCreatePasswordRetypeFromJson(
-    Map<String, dynamic> json) {
-  return _UserCreatePasswordRetype.fromJson(json);
-}
 
 /// @nodoc
 mixin _$UserCreatePasswordRetype {
-  /// Adresse e-mail de l'utilisateur
-  String get email => throw _privateConstructorUsedError;
 
-  /// Prénom de l'utilisateur (optionnel)
-  String? get firstName => throw _privateConstructorUsedError;
-
-  /// Nom de famille de l'utilisateur (optionnel)
-  String? get lastName => throw _privateConstructorUsedError;
-
-  /// ID de l'utilisateur
-  int get id => throw _privateConstructorUsedError;
-
-  /// Mot de passe de l'utilisateur
-  String get password => throw _privateConstructorUsedError;
-
-  /// Confirmation du mot de passe
-  String get rePassword => throw _privateConstructorUsedError;
+ int get id; String get email;@JsonKey(name: 'first_name') String get firstName;@JsonKey(name: 'last_name') String get lastName; String get password;@JsonKey(name: 're_password') String get rePassword;
+/// Create a copy of UserCreatePasswordRetype
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UserCreatePasswordRetypeCopyWith<UserCreatePasswordRetype> get copyWith => _$UserCreatePasswordRetypeCopyWithImpl<UserCreatePasswordRetype>(this as UserCreatePasswordRetype, _$identity);
 
   /// Serializes this UserCreatePasswordRetype to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of UserCreatePasswordRetype
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $UserCreatePasswordRetypeCopyWith<UserCreatePasswordRetype> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserCreatePasswordRetype&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.password, password) || other.password == password)&&(identical(other.rePassword, rePassword) || other.rePassword == rePassword));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,email,firstName,lastName,password,rePassword);
+
+@override
+String toString() {
+  return 'UserCreatePasswordRetype(id: $id, email: $email, firstName: $firstName, lastName: $lastName, password: $password, rePassword: $rePassword)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $UserCreatePasswordRetypeCopyWith<$Res> {
-  factory $UserCreatePasswordRetypeCopyWith(UserCreatePasswordRetype value,
-          $Res Function(UserCreatePasswordRetype) then) =
-      _$UserCreatePasswordRetypeCopyWithImpl<$Res, UserCreatePasswordRetype>;
-  @useResult
-  $Res call(
-      {String email,
-      String? firstName,
-      String? lastName,
-      int id,
-      String password,
-      String rePassword});
-}
+abstract mixin class $UserCreatePasswordRetypeCopyWith<$Res>  {
+  factory $UserCreatePasswordRetypeCopyWith(UserCreatePasswordRetype value, $Res Function(UserCreatePasswordRetype) _then) = _$UserCreatePasswordRetypeCopyWithImpl;
+@useResult
+$Res call({
+ int id, String email,@JsonKey(name: 'first_name') String firstName,@JsonKey(name: 'last_name') String lastName, String password,@JsonKey(name: 're_password') String rePassword
+});
 
+
+
+
+}
 /// @nodoc
-class _$UserCreatePasswordRetypeCopyWithImpl<$Res,
-        $Val extends UserCreatePasswordRetype>
+class _$UserCreatePasswordRetypeCopyWithImpl<$Res>
     implements $UserCreatePasswordRetypeCopyWith<$Res> {
-  _$UserCreatePasswordRetypeCopyWithImpl(this._value, this._then);
+  _$UserCreatePasswordRetypeCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final UserCreatePasswordRetype _self;
+  final $Res Function(UserCreatePasswordRetype) _then;
 
-  /// Create a copy of UserCreatePasswordRetype
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
-    Object? id = null,
-    Object? password = null,
-    Object? rePassword = null,
-  }) {
-    return _then(_value.copyWith(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      rePassword: null == rePassword
-          ? _value.rePassword
-          : rePassword // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of UserCreatePasswordRetype
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = null,Object? firstName = null,Object? lastName = null,Object? password = null,Object? rePassword = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,rePassword: null == rePassword ? _self.rePassword : rePassword // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$UserCreatePasswordRetypeImplCopyWith<$Res>
-    implements $UserCreatePasswordRetypeCopyWith<$Res> {
-  factory _$$UserCreatePasswordRetypeImplCopyWith(
-          _$UserCreatePasswordRetypeImpl value,
-          $Res Function(_$UserCreatePasswordRetypeImpl) then) =
-      __$$UserCreatePasswordRetypeImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String email,
-      String? firstName,
-      String? lastName,
-      int id,
-      String password,
-      String rePassword});
 }
 
-/// @nodoc
-class __$$UserCreatePasswordRetypeImplCopyWithImpl<$Res>
-    extends _$UserCreatePasswordRetypeCopyWithImpl<$Res,
-        _$UserCreatePasswordRetypeImpl>
-    implements _$$UserCreatePasswordRetypeImplCopyWith<$Res> {
-  __$$UserCreatePasswordRetypeImplCopyWithImpl(
-      _$UserCreatePasswordRetypeImpl _value,
-      $Res Function(_$UserCreatePasswordRetypeImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of UserCreatePasswordRetype
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
-    Object? id = null,
-    Object? password = null,
-    Object? rePassword = null,
-  }) {
-    return _then(_$UserCreatePasswordRetypeImpl(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-      rePassword: null == rePassword
-          ? _value.rePassword
-          : rePassword // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+/// Adds pattern-matching-related methods to [UserCreatePasswordRetype].
+extension UserCreatePasswordRetypePatterns on UserCreatePasswordRetype {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UserCreatePasswordRetype value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UserCreatePasswordRetype() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UserCreatePasswordRetype value)  $default,){
+final _that = this;
+switch (_that) {
+case _UserCreatePasswordRetype():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UserCreatePasswordRetype value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UserCreatePasswordRetype() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String email, @JsonKey(name: 'first_name')  String firstName, @JsonKey(name: 'last_name')  String lastName,  String password, @JsonKey(name: 're_password')  String rePassword)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UserCreatePasswordRetype() when $default != null:
+return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.password,_that.rePassword);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String email, @JsonKey(name: 'first_name')  String firstName, @JsonKey(name: 'last_name')  String lastName,  String password, @JsonKey(name: 're_password')  String rePassword)  $default,) {final _that = this;
+switch (_that) {
+case _UserCreatePasswordRetype():
+return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.password,_that.rePassword);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String email, @JsonKey(name: 'first_name')  String firstName, @JsonKey(name: 'last_name')  String lastName,  String password, @JsonKey(name: 're_password')  String rePassword)?  $default,) {final _that = this;
+switch (_that) {
+case _UserCreatePasswordRetype() when $default != null:
+return $default(_that.id,_that.email,_that.firstName,_that.lastName,_that.password,_that.rePassword);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserCreatePasswordRetypeImpl implements _UserCreatePasswordRetype {
-  const _$UserCreatePasswordRetypeImpl(
-      {required this.email,
-      this.firstName,
-      this.lastName,
-      required this.id,
-      required this.password,
-      required this.rePassword});
 
-  factory _$UserCreatePasswordRetypeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserCreatePasswordRetypeImplFromJson(json);
+class _UserCreatePasswordRetype implements UserCreatePasswordRetype {
+  const _UserCreatePasswordRetype({required this.id, required this.email, @JsonKey(name: 'first_name') required this.firstName, @JsonKey(name: 'last_name') required this.lastName, required this.password, @JsonKey(name: 're_password') required this.rePassword});
+  factory _UserCreatePasswordRetype.fromJson(Map<String, dynamic> json) => _$UserCreatePasswordRetypeFromJson(json);
 
-  /// Adresse e-mail de l'utilisateur
-  @override
-  final String email;
+@override final  int id;
+@override final  String email;
+@override@JsonKey(name: 'first_name') final  String firstName;
+@override@JsonKey(name: 'last_name') final  String lastName;
+@override final  String password;
+@override@JsonKey(name: 're_password') final  String rePassword;
 
-  /// Prénom de l'utilisateur (optionnel)
-  @override
-  final String? firstName;
+/// Create a copy of UserCreatePasswordRetype
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UserCreatePasswordRetypeCopyWith<_UserCreatePasswordRetype> get copyWith => __$UserCreatePasswordRetypeCopyWithImpl<_UserCreatePasswordRetype>(this, _$identity);
 
-  /// Nom de famille de l'utilisateur (optionnel)
-  @override
-  final String? lastName;
-
-  /// ID de l'utilisateur
-  @override
-  final int id;
-
-  /// Mot de passe de l'utilisateur
-  @override
-  final String password;
-
-  /// Confirmation du mot de passe
-  @override
-  final String rePassword;
-
-  @override
-  String toString() {
-    return 'UserCreatePasswordRetype(email: $email, firstName: $firstName, lastName: $lastName, id: $id, password: $password, rePassword: $rePassword)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UserCreatePasswordRetypeImpl &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.rePassword, rePassword) ||
-                other.rePassword == rePassword));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, email, firstName, lastName, id, password, rePassword);
-
-  /// Create a copy of UserCreatePasswordRetype
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UserCreatePasswordRetypeImplCopyWith<_$UserCreatePasswordRetypeImpl>
-      get copyWith => __$$UserCreatePasswordRetypeImplCopyWithImpl<
-          _$UserCreatePasswordRetypeImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UserCreatePasswordRetypeImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$UserCreatePasswordRetypeToJson(this, );
 }
 
-abstract class _UserCreatePasswordRetype implements UserCreatePasswordRetype {
-  const factory _UserCreatePasswordRetype(
-      {required final String email,
-      final String? firstName,
-      final String? lastName,
-      required final int id,
-      required final String password,
-      required final String rePassword}) = _$UserCreatePasswordRetypeImpl;
-
-  factory _UserCreatePasswordRetype.fromJson(Map<String, dynamic> json) =
-      _$UserCreatePasswordRetypeImpl.fromJson;
-
-  /// Adresse e-mail de l'utilisateur
-  @override
-  String get email;
-
-  /// Prénom de l'utilisateur (optionnel)
-  @override
-  String? get firstName;
-
-  /// Nom de famille de l'utilisateur (optionnel)
-  @override
-  String? get lastName;
-
-  /// ID de l'utilisateur
-  @override
-  int get id;
-
-  /// Mot de passe de l'utilisateur
-  @override
-  String get password;
-
-  /// Confirmation du mot de passe
-  @override
-  String get rePassword;
-
-  /// Create a copy of UserCreatePasswordRetype
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UserCreatePasswordRetypeImplCopyWith<_$UserCreatePasswordRetypeImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserCreatePasswordRetype&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.password, password) || other.password == password)&&(identical(other.rePassword, rePassword) || other.rePassword == rePassword));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,email,firstName,lastName,password,rePassword);
+
+@override
+String toString() {
+  return 'UserCreatePasswordRetype(id: $id, email: $email, firstName: $firstName, lastName: $lastName, password: $password, rePassword: $rePassword)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UserCreatePasswordRetypeCopyWith<$Res> implements $UserCreatePasswordRetypeCopyWith<$Res> {
+  factory _$UserCreatePasswordRetypeCopyWith(_UserCreatePasswordRetype value, $Res Function(_UserCreatePasswordRetype) _then) = __$UserCreatePasswordRetypeCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, String email,@JsonKey(name: 'first_name') String firstName,@JsonKey(name: 'last_name') String lastName, String password,@JsonKey(name: 're_password') String rePassword
+});
+
+
+
+
+}
+/// @nodoc
+class __$UserCreatePasswordRetypeCopyWithImpl<$Res>
+    implements _$UserCreatePasswordRetypeCopyWith<$Res> {
+  __$UserCreatePasswordRetypeCopyWithImpl(this._self, this._then);
+
+  final _UserCreatePasswordRetype _self;
+  final $Res Function(_UserCreatePasswordRetype) _then;
+
+/// Create a copy of UserCreatePasswordRetype
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = null,Object? firstName = null,Object? lastName = null,Object? password = null,Object? rePassword = null,}) {
+  return _then(_UserCreatePasswordRetype(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String,rePassword: null == rePassword ? _self.rePassword : rePassword // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

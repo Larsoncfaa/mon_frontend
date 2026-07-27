@@ -6,13 +6,8 @@ part of 'send_email_reset.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SendEmailResetImpl _$$SendEmailResetImplFromJson(Map<String, dynamic> json) =>
-    _$SendEmailResetImpl(
-      email: json['email'] as String,
-    );
+_SendEmailReset _$SendEmailResetFromJson(Map<String, dynamic> json) =>
+    _SendEmailReset(email: json['email'] as String);
 
-Map<String, dynamic> _$$SendEmailResetImplToJson(
-        _$SendEmailResetImpl instance) =>
-    <String, dynamic>{
-      'email': instance.email,
-    };
+Map<String, dynamic> _$SendEmailResetToJson(_SendEmailReset instance) =>
+    <String, dynamic>{'email': instance.email};

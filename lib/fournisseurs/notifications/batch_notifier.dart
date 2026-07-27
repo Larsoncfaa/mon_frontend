@@ -5,17 +5,26 @@ import 'package:flutter/foundation.dart';
 import '../../models/batch.dart';
 import '../repositories/batch_repository.dart';
 
-class BatchNotifier extends StateNotifier<AsyncValue<List<Batch>>> {
-  final BatchRepository repository;
+// Déclaration du provider du repository (à adapter selon votre projet)
+final batchRepositoryProvider = Provider<BatchRepository>((ref) {
+  throw UnimplementedError('Initialisez votre BatchRepository ici');
+});
 
-  BatchNotifier(this.repository) : super(const AsyncValue.loading()) {
+/// Notifier moderne pour Riverpod 3.x
+class BatchNotifier extends Notifier<AsyncValue<List<Batch>>> {
+  late final BatchRepository _repository;
+
+  @override
+  AsyncValue<List<Batch>> build() {
+    _repository = ref.watch(batchRepositoryProvider);
     loadBatches();
+    return const AsyncValue.loading();
   }
 
   Future<void> loadBatches() async {
     debugPrint('BatchNotifier: loading batches...');
     try {
-      final batches = await repository.fetchBatches();
+      final batches = await _repository.fetchBatches();
       debugPrint('BatchNotifier: ${batches.length} batches loaded.');
       state = AsyncValue.data(batches);
     } catch (e, st) {
@@ -29,7 +38,7 @@ class BatchNotifier extends StateNotifier<AsyncValue<List<Batch>>> {
   Future<void> createBatch(Batch newBatch) async {
     debugPrint('BatchNotifier: creating batch...');
     try {
-      final created = await repository.createBatch(newBatch);
+      final created = await _repository.createBatch(newBatch);
       final previous = state.value ?? [];
       state = AsyncValue.data([...previous, created]);
       debugPrint('BatchNotifier: batch created: ${created.id}');
@@ -42,7 +51,7 @@ class BatchNotifier extends StateNotifier<AsyncValue<List<Batch>>> {
   Future<void> updateBatch(int id, Batch updatedBatch) async {
     debugPrint('BatchNotifier: updating batch $id...');
     try {
-      final updated = await repository.updateBatch(id, updatedBatch);
+      final updated = await _repository.updateBatch(id, updatedBatch);
       final previous = state.value ?? [];
       final updatedList = previous.map((b) => b.id == id ? updated : b).toList();
       state = AsyncValue.data(updatedList);
@@ -56,7 +65,7 @@ class BatchNotifier extends StateNotifier<AsyncValue<List<Batch>>> {
   Future<void> deleteBatch(int id) async {
     debugPrint('BatchNotifier: deleting batch $id...');
     try {
-      await repository.deleteBatch(id);
+      await _repository.deleteBatch(id);
       final updatedList = (state.value ?? []).where((b) => b.id != id).toList();
       state = AsyncValue.data(updatedList);
       debugPrint('BatchNotifier: batch $id deleted.');
@@ -66,3 +75,7 @@ class BatchNotifier extends StateNotifier<AsyncValue<List<Batch>>> {
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final batchNotifierProvider =
+NotifierProvider<BatchNotifier, AsyncValue<List<Batch>>>(BatchNotifier.new);

@@ -6,24 +6,24 @@ part of 'user_create_password_retype.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserCreatePasswordRetypeImpl _$$UserCreatePasswordRetypeImplFromJson(
-        Map<String, dynamic> json) =>
-    _$UserCreatePasswordRetypeImpl(
-      email: json['email'] as String,
-      firstName: json['firstName'] as String?,
-      lastName: json['lastName'] as String?,
-      id: (json['id'] as num).toInt(),
-      password: json['password'] as String,
-      rePassword: json['rePassword'] as String,
-    );
+_UserCreatePasswordRetype _$UserCreatePasswordRetypeFromJson(
+  Map<String, dynamic> json,
+) => _UserCreatePasswordRetype(
+  id: (json['id'] as num).toInt(),
+  email: json['email'] as String,
+  firstName: json['first_name'] as String,
+  lastName: json['last_name'] as String,
+  password: json['password'] as String,
+  rePassword: json['re_password'] as String,
+);
 
-Map<String, dynamic> _$$UserCreatePasswordRetypeImplToJson(
-        _$UserCreatePasswordRetypeImpl instance) =>
-    <String, dynamic>{
-      'email': instance.email,
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'id': instance.id,
-      'password': instance.password,
-      'rePassword': instance.rePassword,
-    };
+Map<String, dynamic> _$UserCreatePasswordRetypeToJson(
+  _UserCreatePasswordRetype instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'email': instance.email,
+  'first_name': instance.firstName,
+  'last_name': instance.lastName,
+  'password': instance.password,
+  're_password': instance.rePassword,
+};

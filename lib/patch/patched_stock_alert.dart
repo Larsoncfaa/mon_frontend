@@ -4,10 +4,13 @@ part 'patched_stock_alert.freezed.dart';
 part 'patched_stock_alert.g.dart';
 
 @freezed
-class PatchedStockAlert with _$PatchedStockAlert {
+abstract class PatchedStockAlert with _$PatchedStockAlert {
   const factory PatchedStockAlert({
+    int? id,
     int? product,
-    int? quantity,
+    int? threshold,
+    @JsonKey(name: 'is_active') bool? isActive,
+    int? warehouse,
     String? message,
   }) = _PatchedStockAlert;
 

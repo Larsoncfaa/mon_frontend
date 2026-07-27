@@ -4,14 +4,15 @@ part 'patched_stock_movement.freezed.dart';
 part 'patched_stock_movement.g.dart';
 
 @freezed
-class PatchedStockMovement with _$PatchedStockMovement {
+abstract class PatchedStockMovement with _$PatchedStockMovement {
   const factory PatchedStockMovement({
-    String? productId,
-    String? movementType,
+    int? id,
+    @JsonKey(name: 'product_id') int? productId,
+    int? warehouse,
+    @JsonKey(name: 'movement_type') String? movementType,
     int? quantity,
-    String? source,
-    String? destination,
     DateTime? timestamp,
+    String? destination,
   }) = _PatchedStockMovement;
 
   factory PatchedStockMovement.fromJson(Map<String, dynamic> json) =>

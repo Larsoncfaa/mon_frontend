@@ -4,13 +4,8 @@ import '../models/order_line.dart';
 part 'paginated_order_line_list.freezed.dart';
 part 'paginated_order_line_list.g.dart';
 
-
-
-
-
-
 @freezed
-class PaginatedOrderLineList with _$PaginatedOrderLineList {
+abstract class PaginatedOrderLineList with _$PaginatedOrderLineList {
   const factory PaginatedOrderLineList({
     required int count,
     String? next,

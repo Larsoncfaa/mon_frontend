@@ -26,7 +26,7 @@ class InvoiceDetailScreen extends ConsumerWidget {
               ),
               Expanded(
                 child: Center(
-                  child: Text('PDF à charger depuis: ${inv.pdf}'),
+                  child: Text('PDF à charger depuis: ${inv.pdfFile}'),
                 ),
               ),
             ],

@@ -2,14 +2,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../pagination/paginated_proof_list.dart';
 import '../repositories/proof_repository.dart';
 
-class ProofNotifier extends StateNotifier<AsyncValue<PaginatedProofList>> {
-  final ProofRepository _repository;
+// Provider du repository (à adapter selon la configuration de ton projet)
+final proofRepositoryProvider = Provider<ProofRepository>((ref) {
+  throw UnimplementedError('Initialisez votre ProofRepository ici');
+});
 
-  ProofNotifier(this._repository) : super(const AsyncLoading()) {
-    loadProofs();
-  }
-
+/// Notifier moderne pour Riverpod 3.x
+class ProofNotifier extends Notifier<AsyncValue<PaginatedProofList>> {
+  late final ProofRepository _repository;
   int _currentPage = 1;
+
+  @override
+  AsyncValue<PaginatedProofList> build() {
+    _repository = ref.watch(proofRepositoryProvider);
+    loadProofs();
+    return const AsyncLoading();
+  }
 
   Future<void> loadProofs({int page = 1}) async {
     state = const AsyncLoading();
@@ -36,3 +44,9 @@ class ProofNotifier extends StateNotifier<AsyncValue<PaginatedProofList>> {
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final proofNotifierProvider = NotifierProvider<
+    ProofNotifier, AsyncValue<PaginatedProofList>>(
+  ProofNotifier.new,
+);

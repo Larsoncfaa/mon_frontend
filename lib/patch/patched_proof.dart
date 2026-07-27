@@ -4,7 +4,7 @@ part 'patched_proof.freezed.dart';
 part 'patched_proof.g.dart';
 
 @freezed
-class PatchedProof with _$PatchedProof {
+abstract class PatchedProof with _$PatchedProof {
   const factory PatchedProof({
     int? id,
     int? delivery,

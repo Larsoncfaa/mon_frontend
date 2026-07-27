@@ -2,12 +2,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/category.dart';
 import '../repositories/category_repository.dart';
 
-/// Notifier pour gérer l'état de la liste de catégories
-class CategoryNotifier extends StateNotifier<AsyncValue<List<Category>>> {
-  final CategoryRepository _repository;
+// Provider du repository (à adapter selon ton projet)
+final categoryRepositoryProvider = Provider<CategoryRepository>((ref) {
+  throw UnimplementedError('Initialisez votre CategoryRepository ici');
+});
 
-  CategoryNotifier(this._repository) : super(const AsyncValue.loading()) {
+/// Notifier moderne pour Riverpod 3.x
+class CategoryNotifier extends Notifier<AsyncValue<List<Category>>> {
+  late final CategoryRepository _repository;
+
+  @override
+  AsyncValue<List<Category>> build() {
+    _repository = ref.watch(categoryRepositoryProvider);
     loadCategories();
+    return const AsyncValue.loading();
   }
 
   /// Charge les catégories depuis le backend
@@ -53,5 +61,13 @@ class CategoryNotifier extends StateNotifier<AsyncValue<List<Category>>> {
     }
   }
 
-  void fetchCategories() {}
+  void fetchCategories() {
+    loadCategories();
+  }
 }
+
+/// Provider pour Riverpod 3.x
+final categoryNotifierProvider =
+NotifierProvider<CategoryNotifier, AsyncValue<List<Category>>>(
+  CategoryNotifier.new,
+);

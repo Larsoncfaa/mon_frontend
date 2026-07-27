@@ -121,7 +121,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                     final totalItem = item.totalPrice ?? 0.0;
 
                     return ListTile(
-                      title: Text(product['name'] ?? 'Produit'),
+                      title: Text(product.name),
                       subtitle: Text(
                         'Quantité: $quantity - Total: ${totalItem.toStringAsFixed(2)} FCFA',
                       ),

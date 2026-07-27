@@ -6,20 +6,17 @@ part of 'paginated_cart_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaginatedCartListImpl _$$PaginatedCartListImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PaginatedCartListImpl(
-      count: (json['count'] as num?)?.toInt() ?? 0,
+_PaginatedCartList _$PaginatedCartListFromJson(Map<String, dynamic> json) =>
+    _PaginatedCartList(
+      count: (json['count'] as num).toInt(),
       next: json['next'] as String?,
       previous: json['previous'] as String?,
-      results: (json['results'] as List<dynamic>?)
-              ?.map((e) => Cart.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+      results: (json['results'] as List<dynamic>)
+          .map((e) => Cart.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$$PaginatedCartListImplToJson(
-        _$PaginatedCartListImpl instance) =>
+Map<String, dynamic> _$PaginatedCartListToJson(_PaginatedCartList instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,

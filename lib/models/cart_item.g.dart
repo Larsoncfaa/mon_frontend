@@ -6,27 +6,18 @@ part of 'cart_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CartItemImpl _$$CartItemImplFromJson(Map<String, dynamic> json) =>
-    _$CartItemImpl(
-      id: (json['id'] as num?)?.toInt(),
-      product: json['product'] as Map<String, dynamic>,
-      productId: (json['product_id'] as num?)?.toInt(),
-      quantity: (json['quantity'] as num?)?.toInt(),
-      totalPrice: const StringToDoubleConverter().fromJson(json['total_price']),
-    );
+_CartItem _$CartItemFromJson(Map<String, dynamic> json) => _CartItem(
+  id: (json['id'] as num?)?.toInt(),
+  productId: (json['productId'] as num?)?.toInt(),
+  product: Product.fromJson(json['product'] as Map<String, dynamic>),
+  quantity: (json['quantity'] as num?)?.toInt(),
+  totalPrice: (json['totalPrice'] as num?)?.toDouble(),
+);
 
-Map<String, dynamic> _$$CartItemImplToJson(_$CartItemImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'product': instance.product,
-      'product_id': instance.productId,
-      'quantity': instance.quantity,
-      'total_price': _$JsonConverterToJson<dynamic, double>(
-          instance.totalPrice, const StringToDoubleConverter().toJson),
-    };
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
+Map<String, dynamic> _$CartItemToJson(_CartItem instance) => <String, dynamic>{
+  'id': instance.id,
+  'productId': instance.productId,
+  'product': instance.product,
+  'quantity': instance.quantity,
+  'totalPrice': instance.totalPrice,
+};

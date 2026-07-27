@@ -6,28 +6,30 @@ part of 'payment.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaymentImpl _$$PaymentImplFromJson(Map<String, dynamic> json) =>
-    _$PaymentImpl(
-      id: (json['id'] as num?)?.toInt(),
-      order: (json['order'] as num).toInt(),
-      method: $enumDecode(_$MethodEnumEnumMap, json['method']),
-      amount: const StringToDoubleConverter().fromJson(json['amount']),
-      paymentStatus: $enumDecodeNullable(
-          _$PaymentStatusEnumEnumMap, json['payment_status']),
-      paidAt: json['paid_at'] == null
-          ? null
-          : DateTime.parse(json['paid_at'] as String),
-    );
+_Payment _$PaymentFromJson(Map<String, dynamic> json) => _Payment(
+  id: (json['id'] as num).toInt(),
+  order: (json['order'] as num).toInt(),
+  amount: (json['amount'] as num).toDouble(),
+  method: $enumDecode(_$MethodEnumEnumMap, json['method']),
+  paymentStatus: $enumDecode(
+    _$PaymentStatusEnumEnumMap,
+    json['payment_status'],
+  ),
+  transactionId: json['transaction_id'] as String?,
+  paidAt: json['paid_at'] == null
+      ? null
+      : DateTime.parse(json['paid_at'] as String),
+);
 
-Map<String, dynamic> _$$PaymentImplToJson(_$PaymentImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'order': instance.order,
-      'method': _$MethodEnumEnumMap[instance.method]!,
-      'amount': const StringToDoubleConverter().toJson(instance.amount),
-      'payment_status': _$PaymentStatusEnumEnumMap[instance.paymentStatus],
-      'paid_at': instance.paidAt?.toIso8601String(),
-    };
+Map<String, dynamic> _$PaymentToJson(_Payment instance) => <String, dynamic>{
+  'id': instance.id,
+  'order': instance.order,
+  'amount': instance.amount,
+  'method': _$MethodEnumEnumMap[instance.method]!,
+  'payment_status': _$PaymentStatusEnumEnumMap[instance.paymentStatus]!,
+  'transaction_id': instance.transactionId,
+  'paid_at': instance.paidAt?.toIso8601String(),
+};
 
 const _$MethodEnumEnumMap = {
   MethodEnum.card: 'CARD',

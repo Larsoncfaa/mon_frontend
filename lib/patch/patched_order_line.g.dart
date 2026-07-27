@@ -6,9 +6,8 @@ part of 'patched_order_line.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedOrderLineImpl _$$PatchedOrderLineImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedOrderLineImpl(
+_PatchedOrderLine _$PatchedOrderLineFromJson(Map<String, dynamic> json) =>
+    _PatchedOrderLine(
       id: (json['id'] as num?)?.toInt(),
       product: json['product'] == null
           ? null
@@ -17,8 +16,7 @@ _$PatchedOrderLineImpl _$$PatchedOrderLineImplFromJson(
       unitPrice: (json['unit_price'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$PatchedOrderLineImplToJson(
-        _$PatchedOrderLineImpl instance) =>
+Map<String, dynamic> _$PatchedOrderLineToJson(_PatchedOrderLine instance) =>
     <String, dynamic>{
       'id': instance.id,
       'product': instance.product,

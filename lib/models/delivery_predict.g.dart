@@ -6,16 +6,14 @@ part of 'delivery_predict.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DeliveryPredictImpl _$$DeliveryPredictImplFromJson(
-        Map<String, dynamic> json) =>
-    _$DeliveryPredictImpl(
+_DeliveryPredict _$DeliveryPredictFromJson(Map<String, dynamic> json) =>
+    _DeliveryPredict(
       productId: (json['product_id'] as num).toInt(),
       quantity: (json['quantity'] as num).toInt(),
       prediction: json['prediction'] as String,
     );
 
-Map<String, dynamic> _$$DeliveryPredictImplToJson(
-        _$DeliveryPredictImpl instance) =>
+Map<String, dynamic> _$DeliveryPredictToJson(_DeliveryPredict instance) =>
     <String, dynamic>{
       'product_id': instance.productId,
       'quantity': instance.quantity,

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,227 +9,284 @@ part of 'paginated_cart_item_list.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PaginatedCartItemList _$PaginatedCartItemListFromJson(
-    Map<String, dynamic> json) {
-  return _PaginatedCartItemList.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PaginatedCartItemList {
-  int get count => throw _privateConstructorUsedError;
-  String? get next => throw _privateConstructorUsedError;
-  String? get previous => throw _privateConstructorUsedError;
-  List<CartItem> get results => throw _privateConstructorUsedError;
+
+ int get count; String? get next; String? get previous; List<CartItem> get results;
+/// Create a copy of PaginatedCartItemList
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PaginatedCartItemListCopyWith<PaginatedCartItemList> get copyWith => _$PaginatedCartItemListCopyWithImpl<PaginatedCartItemList>(this as PaginatedCartItemList, _$identity);
 
   /// Serializes this PaginatedCartItemList to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of PaginatedCartItemList
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PaginatedCartItemListCopyWith<PaginatedCartItemList> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaginatedCartItemList&&(identical(other.count, count) || other.count == count)&&(identical(other.next, next) || other.next == next)&&(identical(other.previous, previous) || other.previous == previous)&&const DeepCollectionEquality().equals(other.results, results));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,count,next,previous,const DeepCollectionEquality().hash(results));
+
+@override
+String toString() {
+  return 'PaginatedCartItemList(count: $count, next: $next, previous: $previous, results: $results)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PaginatedCartItemListCopyWith<$Res> {
-  factory $PaginatedCartItemListCopyWith(PaginatedCartItemList value,
-          $Res Function(PaginatedCartItemList) then) =
-      _$PaginatedCartItemListCopyWithImpl<$Res, PaginatedCartItemList>;
-  @useResult
-  $Res call(
-      {int count, String? next, String? previous, List<CartItem> results});
-}
+abstract mixin class $PaginatedCartItemListCopyWith<$Res>  {
+  factory $PaginatedCartItemListCopyWith(PaginatedCartItemList value, $Res Function(PaginatedCartItemList) _then) = _$PaginatedCartItemListCopyWithImpl;
+@useResult
+$Res call({
+ int count, String? next, String? previous, List<CartItem> results
+});
 
+
+
+
+}
 /// @nodoc
-class _$PaginatedCartItemListCopyWithImpl<$Res,
-        $Val extends PaginatedCartItemList>
+class _$PaginatedCartItemListCopyWithImpl<$Res>
     implements $PaginatedCartItemListCopyWith<$Res> {
-  _$PaginatedCartItemListCopyWithImpl(this._value, this._then);
+  _$PaginatedCartItemListCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PaginatedCartItemList _self;
+  final $Res Function(PaginatedCartItemList) _then;
 
-  /// Create a copy of PaginatedCartItemList
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? count = null,
-    Object? next = freezed,
-    Object? previous = freezed,
-    Object? results = null,
-  }) {
-    return _then(_value.copyWith(
-      count: null == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int,
-      next: freezed == next
-          ? _value.next
-          : next // ignore: cast_nullable_to_non_nullable
-              as String?,
-      previous: freezed == previous
-          ? _value.previous
-          : previous // ignore: cast_nullable_to_non_nullable
-              as String?,
-      results: null == results
-          ? _value.results
-          : results // ignore: cast_nullable_to_non_nullable
-              as List<CartItem>,
-    ) as $Val);
-  }
+/// Create a copy of PaginatedCartItemList
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? count = null,Object? next = freezed,Object? previous = freezed,Object? results = null,}) {
+  return _then(_self.copyWith(
+count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,next: freezed == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as String?,previous: freezed == previous ? _self.previous : previous // ignore: cast_nullable_to_non_nullable
+as String?,results: null == results ? _self.results : results // ignore: cast_nullable_to_non_nullable
+as List<CartItem>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PaginatedCartItemListImplCopyWith<$Res>
-    implements $PaginatedCartItemListCopyWith<$Res> {
-  factory _$$PaginatedCartItemListImplCopyWith(
-          _$PaginatedCartItemListImpl value,
-          $Res Function(_$PaginatedCartItemListImpl) then) =
-      __$$PaginatedCartItemListImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int count, String? next, String? previous, List<CartItem> results});
 }
 
-/// @nodoc
-class __$$PaginatedCartItemListImplCopyWithImpl<$Res>
-    extends _$PaginatedCartItemListCopyWithImpl<$Res,
-        _$PaginatedCartItemListImpl>
-    implements _$$PaginatedCartItemListImplCopyWith<$Res> {
-  __$$PaginatedCartItemListImplCopyWithImpl(_$PaginatedCartItemListImpl _value,
-      $Res Function(_$PaginatedCartItemListImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of PaginatedCartItemList
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? count = null,
-    Object? next = freezed,
-    Object? previous = freezed,
-    Object? results = null,
-  }) {
-    return _then(_$PaginatedCartItemListImpl(
-      count: null == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int,
-      next: freezed == next
-          ? _value.next
-          : next // ignore: cast_nullable_to_non_nullable
-              as String?,
-      previous: freezed == previous
-          ? _value.previous
-          : previous // ignore: cast_nullable_to_non_nullable
-              as String?,
-      results: null == results
-          ? _value._results
-          : results // ignore: cast_nullable_to_non_nullable
-              as List<CartItem>,
-    ));
-  }
+/// Adds pattern-matching-related methods to [PaginatedCartItemList].
+extension PaginatedCartItemListPatterns on PaginatedCartItemList {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PaginatedCartItemList value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PaginatedCartItemList() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PaginatedCartItemList value)  $default,){
+final _that = this;
+switch (_that) {
+case _PaginatedCartItemList():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PaginatedCartItemList value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PaginatedCartItemList() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int count,  String? next,  String? previous,  List<CartItem> results)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PaginatedCartItemList() when $default != null:
+return $default(_that.count,_that.next,_that.previous,_that.results);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int count,  String? next,  String? previous,  List<CartItem> results)  $default,) {final _that = this;
+switch (_that) {
+case _PaginatedCartItemList():
+return $default(_that.count,_that.next,_that.previous,_that.results);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int count,  String? next,  String? previous,  List<CartItem> results)?  $default,) {final _that = this;
+switch (_that) {
+case _PaginatedCartItemList() when $default != null:
+return $default(_that.count,_that.next,_that.previous,_that.results);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PaginatedCartItemListImpl implements _PaginatedCartItemList {
-  const _$PaginatedCartItemListImpl(
-      {required this.count,
-      this.next,
-      this.previous,
-      required final List<CartItem> results})
-      : _results = results;
 
-  factory _$PaginatedCartItemListImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PaginatedCartItemListImplFromJson(json);
+class _PaginatedCartItemList implements PaginatedCartItemList {
+  const _PaginatedCartItemList({required this.count, this.next, this.previous, required final  List<CartItem> results}): _results = results;
+  factory _PaginatedCartItemList.fromJson(Map<String, dynamic> json) => _$PaginatedCartItemListFromJson(json);
 
-  @override
-  final int count;
-  @override
-  final String? next;
-  @override
-  final String? previous;
-  final List<CartItem> _results;
-  @override
-  List<CartItem> get results {
-    if (_results is EqualUnmodifiableListView) return _results;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_results);
-  }
-
-  @override
-  String toString() {
-    return 'PaginatedCartItemList(count: $count, next: $next, previous: $previous, results: $results)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PaginatedCartItemListImpl &&
-            (identical(other.count, count) || other.count == count) &&
-            (identical(other.next, next) || other.next == next) &&
-            (identical(other.previous, previous) ||
-                other.previous == previous) &&
-            const DeepCollectionEquality().equals(other._results, _results));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, count, next, previous,
-      const DeepCollectionEquality().hash(_results));
-
-  /// Create a copy of PaginatedCartItemList
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PaginatedCartItemListImplCopyWith<_$PaginatedCartItemListImpl>
-      get copyWith => __$$PaginatedCartItemListImplCopyWithImpl<
-          _$PaginatedCartItemListImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PaginatedCartItemListImplToJson(
-      this,
-    );
-  }
+@override final  int count;
+@override final  String? next;
+@override final  String? previous;
+ final  List<CartItem> _results;
+@override List<CartItem> get results {
+  if (_results is EqualUnmodifiableListView) return _results;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_results);
 }
 
-abstract class _PaginatedCartItemList implements PaginatedCartItemList {
-  const factory _PaginatedCartItemList(
-      {required final int count,
-      final String? next,
-      final String? previous,
-      required final List<CartItem> results}) = _$PaginatedCartItemListImpl;
 
-  factory _PaginatedCartItemList.fromJson(Map<String, dynamic> json) =
-      _$PaginatedCartItemListImpl.fromJson;
+/// Create a copy of PaginatedCartItemList
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PaginatedCartItemListCopyWith<_PaginatedCartItemList> get copyWith => __$PaginatedCartItemListCopyWithImpl<_PaginatedCartItemList>(this, _$identity);
 
-  @override
-  int get count;
-  @override
-  String? get next;
-  @override
-  String? get previous;
-  @override
-  List<CartItem> get results;
-
-  /// Create a copy of PaginatedCartItemList
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PaginatedCartItemListImplCopyWith<_$PaginatedCartItemListImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$PaginatedCartItemListToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaginatedCartItemList&&(identical(other.count, count) || other.count == count)&&(identical(other.next, next) || other.next == next)&&(identical(other.previous, previous) || other.previous == previous)&&const DeepCollectionEquality().equals(other._results, _results));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,count,next,previous,const DeepCollectionEquality().hash(_results));
+
+@override
+String toString() {
+  return 'PaginatedCartItemList(count: $count, next: $next, previous: $previous, results: $results)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PaginatedCartItemListCopyWith<$Res> implements $PaginatedCartItemListCopyWith<$Res> {
+  factory _$PaginatedCartItemListCopyWith(_PaginatedCartItemList value, $Res Function(_PaginatedCartItemList) _then) = __$PaginatedCartItemListCopyWithImpl;
+@override @useResult
+$Res call({
+ int count, String? next, String? previous, List<CartItem> results
+});
+
+
+
+
+}
+/// @nodoc
+class __$PaginatedCartItemListCopyWithImpl<$Res>
+    implements _$PaginatedCartItemListCopyWith<$Res> {
+  __$PaginatedCartItemListCopyWithImpl(this._self, this._then);
+
+  final _PaginatedCartItemList _self;
+  final $Res Function(_PaginatedCartItemList) _then;
+
+/// Create a copy of PaginatedCartItemList
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? count = null,Object? next = freezed,Object? previous = freezed,Object? results = null,}) {
+  return _then(_PaginatedCartItemList(
+count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,next: freezed == next ? _self.next : next // ignore: cast_nullable_to_non_nullable
+as String?,previous: freezed == previous ? _self.previous : previous // ignore: cast_nullable_to_non_nullable
+as String?,results: null == results ? _self._results : results // ignore: cast_nullable_to_non_nullable
+as List<CartItem>,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -1,12 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../models/product.dart';
 
-
 part 'patched_order_line.freezed.dart';
 part 'patched_order_line.g.dart';
 
 @freezed
-class PatchedOrderLine with _$PatchedOrderLine {
+abstract class PatchedOrderLine with _$PatchedOrderLine {
   const factory PatchedOrderLine({
     int? id,
     Product? product,

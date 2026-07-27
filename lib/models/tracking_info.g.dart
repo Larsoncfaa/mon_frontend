@@ -6,20 +6,24 @@ part of 'tracking_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TrackingInfoImpl _$$TrackingInfoImplFromJson(Map<String, dynamic> json) =>
-    _$TrackingInfoImpl(
+_TrackingInfo _$TrackingInfoFromJson(Map<String, dynamic> json) =>
+    _TrackingInfo(
       id: (json['id'] as num).toInt(),
       delivery: (json['delivery'] as num).toInt(),
-      trackingStatus: json['trackingStatus'] as String,
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
       location: json['location'] as String,
-      timestamp: DateTime.parse(json['timestamp'] as String),
+      status: json['status'] as String,
+      updatedAt: DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$$TrackingInfoImplToJson(_$TrackingInfoImpl instance) =>
+Map<String, dynamic> _$TrackingInfoToJson(_TrackingInfo instance) =>
     <String, dynamic>{
       'id': instance.id,
       'delivery': instance.delivery,
-      'trackingStatus': instance.trackingStatus,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'location': instance.location,
-      'timestamp': instance.timestamp.toIso8601String(),
+      'status': instance.status,
+      'updated_at': instance.updatedAt.toIso8601String(),
     };

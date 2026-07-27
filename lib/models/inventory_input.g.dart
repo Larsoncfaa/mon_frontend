@@ -6,14 +6,13 @@ part of 'inventory_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$InventoryInputImpl _$$InventoryInputImplFromJson(Map<String, dynamic> json) =>
-    _$InventoryInputImpl(
+_InventoryInput _$InventoryInputFromJson(Map<String, dynamic> json) =>
+    _InventoryInput(
       productId: (json['product_id'] as num).toInt(),
-      windowDays: (json['window_days'] as num?)?.toInt() ?? 30,
+      windowDays: (json['window_days'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$InventoryInputImplToJson(
-        _$InventoryInputImpl instance) =>
+Map<String, dynamic> _$InventoryInputToJson(_InventoryInput instance) =>
     <String, dynamic>{
       'product_id': instance.productId,
       'window_days': instance.windowDays,

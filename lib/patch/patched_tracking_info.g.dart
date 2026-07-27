@@ -6,24 +6,25 @@ part of 'patched_tracking_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedTrackingInfoImpl _$$PatchedTrackingInfoImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedTrackingInfoImpl(
+_PatchedTrackingInfo _$PatchedTrackingInfoFromJson(Map<String, dynamic> json) =>
+    _PatchedTrackingInfo(
       id: (json['id'] as num?)?.toInt(),
       delivery: (json['delivery'] as num?)?.toInt(),
-      trackingStatus: json['tracking_status'] as String?,
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
       location: json['location'] as String?,
-      timestamp: json['timestamp'] == null
+      updatedAt: json['updated_at'] == null
           ? null
-          : DateTime.parse(json['timestamp'] as String),
+          : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$$PatchedTrackingInfoImplToJson(
-        _$PatchedTrackingInfoImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'delivery': instance.delivery,
-      'tracking_status': instance.trackingStatus,
-      'location': instance.location,
-      'timestamp': instance.timestamp?.toIso8601String(),
-    };
+Map<String, dynamic> _$PatchedTrackingInfoToJson(
+  _PatchedTrackingInfo instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'delivery': instance.delivery,
+  'latitude': instance.latitude,
+  'longitude': instance.longitude,
+  'location': instance.location,
+  'updated_at': instance.updatedAt?.toIso8601String(),
+};

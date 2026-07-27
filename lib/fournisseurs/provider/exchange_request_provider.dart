@@ -16,8 +16,8 @@ final exchangeRequestRepositoryProvider = Provider<ExchangeRequestRepository>(
       (ref) => ExchangeRequestRepository(ref.watch(exchangeRequestServiceProvider)),
 );
 
-/// Provider du notifier ExchangeRequestNotifier
-final exchangeRequestNotifierProvider = StateNotifierProvider<
+/// Provider du notifier ExchangeRequestNotifier (Riverpod 3.x)
+final exchangeRequestNotifierProvider = NotifierProvider<
     ExchangeRequestNotifier, AsyncValue<PaginatedExchangeRequestList>>(
-      (ref) => ExchangeRequestNotifier(ref.watch(exchangeRequestRepositoryProvider)),
+  ExchangeRequestNotifier.new,
 );

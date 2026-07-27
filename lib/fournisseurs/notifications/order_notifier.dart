@@ -5,19 +5,28 @@ import '../../models/order.dart';
 import '../../pagination/paginated_order_list.dart';
 import '../repositories/order_repository.dart';
 
-class OrderNotifier extends StateNotifier<AsyncValue<PaginatedOrderList>> {
-  final OrderRepository repository;
+// Provider du repository (à adapter selon ton projet)
+final orderRepositoryProvider = Provider<OrderRepository>((ref) {
+  throw UnimplementedError('Initialisez votre OrderRepository ici');
+});
+
+/// Notifier moderne pour Riverpod 3.x
+class OrderNotifier extends Notifier<AsyncValue<PaginatedOrderList>> {
+  late final OrderRepository _repository;
   int _currentPage = 1;
   bool isFetchingMore = false;
 
-  OrderNotifier(this.repository) : super(const AsyncLoading()) {
+  @override
+  AsyncValue<PaginatedOrderList> build() {
+    _repository = ref.watch(orderRepositoryProvider);
     fetchOrders();
+    return const AsyncLoading();
   }
 
   Future<void> fetchOrders({int page = 1}) async {
     state = const AsyncLoading();
     try {
-      final orders = await repository.fetchOrders(page: page);
+      final orders = await _repository.fetchOrders(page: page);
       _currentPage = page;
       state = AsyncData(orders);
     } catch (e, st) {
@@ -32,7 +41,7 @@ class OrderNotifier extends StateNotifier<AsyncValue<PaginatedOrderList>> {
 
   Future<void> deleteOrder(int id) async {
     try {
-      await repository.deleteOrder(id);
+      await _repository.deleteOrder(id);
       await fetchOrders(page: _currentPage);
     } catch (e, st) {
       debugPrint('Erreur deleteOrder: $e');
@@ -47,7 +56,7 @@ class OrderNotifier extends StateNotifier<AsyncValue<PaginatedOrderList>> {
     isFetchingMore = true;
     try {
       final nextPage = _currentPage + 1;
-      final nextData = await repository.fetchOrders(page: nextPage);
+      final nextData = await _repository.fetchOrders(page: nextPage);
 
       final combined = current.value?.copyWith(
         results: [...?current.value?.results, ...?nextData.results],
@@ -64,9 +73,11 @@ class OrderNotifier extends StateNotifier<AsyncValue<PaginatedOrderList>> {
     } finally {
       isFetchingMore = false;
     }
-  }Future<Order> createOrderFromCart() async {
+  }
+
+  Future<Order> createOrderFromCart() async {
     try {
-      final order = await repository.createOrderFromCart();
+      final order = await _repository.createOrderFromCart();
       debugPrint('Commande créée: ${order.id}');
       return order;
     } catch (e, st) {
@@ -75,3 +86,9 @@ class OrderNotifier extends StateNotifier<AsyncValue<PaginatedOrderList>> {
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final orderNotifierProvider = NotifierProvider<
+    OrderNotifier, AsyncValue<PaginatedOrderList>>(
+  OrderNotifier.new,
+);

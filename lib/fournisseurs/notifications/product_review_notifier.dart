@@ -4,16 +4,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/product_review.dart';
 import '../repositories/product_review_repository.dart';
 
-class ProductReviewNotifier extends StateNotifier<AsyncValue<List<ProductReview>>> {
-  final ProductReviewRepository _repository;
+// Provider du repository (à adapter selon ton projet)
+final productReviewRepositoryProvider = Provider<ProductReviewRepository>((ref) {
+  throw UnimplementedError('Initialisez votre ProductReviewRepository ici');
+});
+
+/// Notifier moderne pour Riverpod 3.x
+class ProductReviewNotifier extends Notifier<AsyncValue<List<ProductReview>>> {
+  late final ProductReviewRepository _repository;
   int? _productId;
 
-  ProductReviewNotifier(this._repository) : super(const AsyncLoading());
+  @override
+  AsyncValue<List<ProductReview>> build() {
+    _repository = ref.watch(productReviewRepositoryProvider);
+    return const AsyncValue.data([]);
+  }
 
   // Appelé depuis l'extérieur pour charger les avis d'un produit spécifique
   Future<void> fetchReviews({required int productId}) async {
     _productId = productId;
-    state = const AsyncLoading();
+    state = const AsyncValue.loading();
     try {
       final reviews = await _repository.fetchAll(productId: productId);
       debugPrint('[Notifier] fetchReviews → ${reviews.length} avis');
@@ -34,7 +44,6 @@ class ProductReviewNotifier extends StateNotifier<AsyncValue<List<ProductReview>
       state = AsyncValue.error(e, st);
     }
   }
-
 
   Future<void> updateReview(ProductReview review) async {
     try {
@@ -61,5 +70,10 @@ class ProductReviewNotifier extends StateNotifier<AsyncValue<List<ProductReview>
       state = AsyncValue.error(e, st);
     }
   }
-
 }
+
+/// Provider pour Riverpod 3.x
+final productReviewNotifierProvider = NotifierProvider<
+    ProductReviewNotifier, AsyncValue<List<ProductReview>>>(
+  ProductReviewNotifier.new,
+);

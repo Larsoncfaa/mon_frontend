@@ -13,7 +13,14 @@ import 'forme/form_stock_movement_screen.dart';
 import 'forme/form_stock_alert_screen.dart';
 import 'forme/modifier_stock_movement_screen.dart';
 
-final showArchivedMovementsProvider = StateProvider<bool>((ref) => false);
+class ShowArchivedNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+  void toggle(bool value) => state = value;
+}
+
+final showArchivedMovementsProvider = NotifierProvider<ShowArchivedNotifier, bool>(ShowArchivedNotifier.new);
+
 
 class StockManagementScreen extends ConsumerWidget {
   const StockManagementScreen({super.key});
@@ -96,7 +103,7 @@ class StockManagementScreen extends ConsumerWidget {
                     Switch(
                       value: showArchived,
                       onChanged: (val) {
-                        ref.read(showArchivedMovementsProvider.notifier).state = val;
+                        ref.read(showArchivedMovementsProvider.notifier).toggle(val);
                       },
                     ),
                   ],

@@ -1,15 +1,27 @@
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../models/method_enum.dart';
 import '../../models/payment.dart';
 import '../../models/payment_status_enum.dart';
 import '../repositories/payment_repository.dart';
 
-class PaymentNotifier extends StateNotifier<AsyncValue<Payment?>> {
-  final PaymentRepository _repository;
+// Provider du repository (à adapter selon la configuration de ton projet)
+final paymentRepositoryProvider = Provider<PaymentRepository>((ref) {
+  throw UnimplementedError('Initialisez votre PaymentRepository ici');
+});
 
-  PaymentNotifier(this._repository) : super(const AsyncValue.data(null));
+/// Notifier moderne pour Riverpod 3.x
+class PaymentNotifier extends Notifier<AsyncValue<Payment?>> {
+  late final PaymentRepository _repository;
+  String? lastErrorMessage;
+
+  @override
+  AsyncValue<Payment?> build() {
+    _repository = ref.watch(paymentRepositoryProvider);
+    return const AsyncValue.data(null);
+  }
 
   /// Charge un paiement depuis l’API
   Future<void> loadPayment(int id) async {
@@ -39,7 +51,7 @@ class PaymentNotifier extends StateNotifier<AsyncValue<Payment?>> {
         amount: amount,
         paymentStatus: PaymentStatusEnum.pending,
         paidAt: DateTime.now().toUtc(),
-        id: null,
+        id: 0,
       );
       final result = await _repository.createPayment(payment);
       debugPrint('✅ Paiement créé pour commande #$orderId');
@@ -95,7 +107,7 @@ class PaymentNotifier extends StateNotifier<AsyncValue<Payment?>> {
         amount: amount,
         paymentStatus: PaymentStatusEnum.pending,
         paidAt: DateTime.now().toUtc(),
-        id: null,
+        id: 0,
       );
       final result = await _repository.createPayment(payment);
       debugPrint('✅ Paiement effectué pour commande #$orderId');
@@ -108,6 +120,10 @@ class PaymentNotifier extends StateNotifier<AsyncValue<Payment?>> {
       return false;
     }
   }
-  String? lastErrorMessage;
-
 }
+
+/// Provider pour Riverpod 3.x
+final paymentNotifierProvider =
+NotifierProvider<PaymentNotifier, AsyncValue<Payment?>>(
+  PaymentNotifier.new,
+);

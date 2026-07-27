@@ -3,17 +3,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../pagination/paginated_registration_list.dart';
 import '../repositories/registration_repository.dart';
 
-class RegistrationNotifier extends StateNotifier<AsyncValue<PaginatedRegistrationList>> {
-  final RegistrationRepository repository;
+// Provider du repository (à adapter selon la configuration de ton projet)
+final registrationRepositoryProvider = Provider<RegistrationRepository>((ref) {
+  throw UnimplementedError('Initialisez votre RegistrationRepository ici');
+});
 
-  RegistrationNotifier(this.repository) : super(const AsyncValue.loading()) {
+/// Notifier moderne pour Riverpod 3.x
+class RegistrationNotifier extends Notifier<AsyncValue<PaginatedRegistrationList>> {
+  late final RegistrationRepository _repository;
+
+  @override
+  AsyncValue<PaginatedRegistrationList> build() {
+    _repository = ref.watch(registrationRepositoryProvider);
     fetchRegistrations();
+    return const AsyncValue.loading();
   }
 
   Future<void> fetchRegistrations({int page = 1}) async {
     state = const AsyncValue.loading();
     try {
-      final data = await repository.fetchAll(page: page);
+      final data = await _repository.fetchAll(page: page);
       state = AsyncValue.data(data);
     } catch (e, st) {
       state = AsyncValue.error(e, st);
@@ -24,3 +33,9 @@ class RegistrationNotifier extends StateNotifier<AsyncValue<PaginatedRegistratio
     await fetchRegistrations();
   }
 }
+
+/// Provider pour Riverpod 3.x
+final registrationNotifierProvider = NotifierProvider<
+    RegistrationNotifier, AsyncValue<PaginatedRegistrationList>>(
+  RegistrationNotifier.new,
+);

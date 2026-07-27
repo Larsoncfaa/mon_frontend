@@ -93,8 +93,7 @@ class _ProductManagementScreenState extends ConsumerState<ProductManagementScree
                           ),
                         );
                         if (confirmed == true) {
-                          await ref.read(productProvider.notifier).repository.deleteProduct(product.id);
-                          ref.invalidate(productProvider);
+                          await ref.read(productProvider.notifier).deleteProduct(product.id);
                         }
                       },
                     ),

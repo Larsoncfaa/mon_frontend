@@ -6,8 +6,8 @@ part of 'patched_proof.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedProofImpl _$$PatchedProofImplFromJson(Map<String, dynamic> json) =>
-    _$PatchedProofImpl(
+_PatchedProof _$PatchedProofFromJson(Map<String, dynamic> json) =>
+    _PatchedProof(
       id: (json['id'] as num?)?.toInt(),
       delivery: (json['delivery'] as num?)?.toInt(),
       image: json['image'] as String?,
@@ -16,7 +16,7 @@ _$PatchedProofImpl _$$PatchedProofImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['uploaded_at'] as String),
     );
 
-Map<String, dynamic> _$$PatchedProofImplToJson(_$PatchedProofImpl instance) =>
+Map<String, dynamic> _$PatchedProofToJson(_PatchedProof instance) =>
     <String, dynamic>{
       'id': instance.id,
       'delivery': instance.delivery,

@@ -1,12 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../models/delivery.dart';
 
-
 part 'paginated_delivery.freezed.dart';
 part 'paginated_delivery.g.dart';
 
 @freezed
-class PaginatedDelivery with _$PaginatedDelivery {
+abstract class PaginatedDelivery with _$PaginatedDelivery {
   const factory PaginatedDelivery({
     required int count,
     String? next,

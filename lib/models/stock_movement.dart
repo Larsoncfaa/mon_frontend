@@ -32,8 +32,9 @@ MovementTypeEnum stringToMovementTypeEnum(String str) {
       throw Exception('Type de mouvement inconnu : $str');
   }
 }
+
 @freezed
-class StockMovement with _$StockMovement {
+abstract class StockMovement with _$StockMovement {
   const factory StockMovement({
     required int id,
     required int product,
@@ -42,9 +43,8 @@ class StockMovement with _$StockMovement {
     @Default(false)
     bool stockApplied,
     int? batch,
-    @JsonKey(name: 'is_archived') // ✅ Ajout crucial ici
+    @JsonKey(name: 'is_archived')
     @Default(false) bool isArchived,
-    // ✅ Ajouté ici
     @JsonKey(
       name: 'movement_type',
       fromJson: stringToMovementTypeEnum,
@@ -54,7 +54,6 @@ class StockMovement with _$StockMovement {
     required int quantity,
     required DateTime timestamp,
     int? user,
-    // ✅ Ajouter ce champ
     @JsonKey(name: 'product_name')
     String? productName,
   }) = _StockMovement;

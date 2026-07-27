@@ -6,9 +6,8 @@ part of 'selection_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SelectionResponseImpl _$$SelectionResponseImplFromJson(
-        Map<String, dynamic> json) =>
-    _$SelectionResponseImpl(
+_SelectionResponse _$SelectionResponseFromJson(Map<String, dynamic> json) =>
+    _SelectionResponse(
       count: (json['count'] as num).toInt(),
       next: json['next'] as String?,
       previous: json['previous'] as String?,
@@ -17,8 +16,7 @@ _$SelectionResponseImpl _$$SelectionResponseImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$SelectionResponseImplToJson(
-        _$SelectionResponseImpl instance) =>
+Map<String, dynamic> _$SelectionResponseToJson(_SelectionResponse instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,

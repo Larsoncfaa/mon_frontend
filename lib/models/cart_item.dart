@@ -1,24 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'double_converter.dart'; // ✅ à ajouter
+import 'product.dart';
 
 part 'cart_item.freezed.dart';
 part 'cart_item.g.dart';
 
 @freezed
-class CartItem with _$CartItem {
+abstract class CartItem with _$CartItem {
   const factory CartItem({
-    required int? id,
-
-    /// 🔄 Tu peux aussi remplacer `Map<String, dynamic>` par `Product` si tu veux.
-    @JsonKey(name: 'product') required Map<String, dynamic> product,
-
-    @JsonKey(name: 'product_id') required int? productId,
+    int? id,
+    int? productId,
+    required Product product,
     int? quantity,
-
-    @StringToDoubleConverter() // ✅ convertisseur ajouté
-    @JsonKey(name: 'total_price') required double? totalPrice,
+    double? totalPrice,
   }) = _CartItem;
 
-  factory CartItem.fromJson(Map<String, dynamic> json) => _$CartItemFromJson(json);
+  factory CartItem.fromJson(Map<String, dynamic> json) =>
+      _$CartItemFromJson(json);
 }

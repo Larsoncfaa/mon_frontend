@@ -4,13 +4,14 @@ part 'patched_tracking_info.freezed.dart';
 part 'patched_tracking_info.g.dart';
 
 @freezed
-class PatchedTrackingInfo with _$PatchedTrackingInfo {
+abstract class PatchedTrackingInfo with _$PatchedTrackingInfo {
   const factory PatchedTrackingInfo({
     int? id,
     int? delivery,
-    @JsonKey(name: 'tracking_status') String? trackingStatus,
+    double? latitude,
+    double? longitude,
     String? location,
-    DateTime? timestamp,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _PatchedTrackingInfo;
 
   factory PatchedTrackingInfo.fromJson(Map<String, dynamic> json) =>

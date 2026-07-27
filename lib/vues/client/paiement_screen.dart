@@ -91,7 +91,7 @@ class _PaiementScreenState extends ConsumerState<PaiementScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              payment.paymentStatus?.name ?? "Inconnu",
+              payment.paymentStatus.name,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             if (payment.paidAt != null)
@@ -170,7 +170,7 @@ class _PaiementScreenState extends ConsumerState<PaiementScreen> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(log.paymentStatus),
+                          Text(log.status),
                           Text(
                             DateFormat('dd/MM/yyyy HH:mm')
                                 .format(log.attemptTime),
@@ -189,7 +189,7 @@ class _PaiementScreenState extends ConsumerState<PaiementScreen> {
                   try {
                     await ref
                         .read(paymentLogNotifierProvider.notifier)
-                        .loadMore();
+                        ..fetchAll(); // Changé loadMore par fetchPaymentLogs ou similaire
                   } catch (e) {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -219,10 +219,7 @@ class _PaiementScreenState extends ConsumerState<PaiementScreen> {
 
     await notifier.payerCommande(orderId: orderId, amount: amount, method: method);
 
-    final payment = ref.read(paymentNotifierProvider).maybeWhen(
-      data: (p) => p,
-      orElse: () => null,
-    );
+    final payment = ref.read(paymentNotifierProvider).value;
 
     if (context.mounted && payment != null) {
       Navigator.of(context).pushNamed(

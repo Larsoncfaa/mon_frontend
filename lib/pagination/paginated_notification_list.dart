@@ -1,12 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../models/notification.dart';
 
-
 part 'paginated_notification_list.freezed.dart';
 part 'paginated_notification_list.g.dart';
 
 @freezed
-class PaginatedNotificationList with _$PaginatedNotificationList {
+abstract class PaginatedNotificationList with _$PaginatedNotificationList {
   const factory PaginatedNotificationList({
     required int count,
     String? next,

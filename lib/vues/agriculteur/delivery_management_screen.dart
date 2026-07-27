@@ -209,7 +209,7 @@ class DeliveryManagementScreen extends ConsumerWidget {
               isExpanded: true,
               items: deliveryPersons.map((dp) {
                 return DropdownMenuItem(
-                  value: dp.user,
+                  value: dp.agriculteur,
                   child: Text('Livreur #${dp.id} • ${dp.phone}'),
                 );
               }).toList(),

@@ -1,29 +1,52 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../models/delivery_predict.dart';
-import '../../services/delivery_predict_service.dart';
 
 import '../../core/network/dio_provider.dart';
-import '../notifications/delivery_predict_notifier.dart';
+import '../../models/delivery_predict.dart';
+import '../../services/delivery_predict_service.dart';
 import '../repositories/delivery_predict_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// Provider pour le Service
 final deliveryPredictServiceProvider = Provider<DeliveryPredictService>((ref) {
-  debugPrint("Provider: Creating DeliveryPredictService");
-  return DeliveryPredictService(ref.watch(dioProvider)); // Injection du dioProvider
+  return DeliveryPredictService(ref.watch(dioProvider));
 });
 
+/// Provider pour le Repository
 final deliveryPredictRepositoryProvider = Provider<DeliveryPredictRepository>((ref) {
-  debugPrint("Provider: Creating DeliveryPredictRepository");
-  return DeliveryPredictRepository(ref.watch(deliveryPredictServiceProvider)); // Repository qui utilise le service
+  return DeliveryPredictRepository(ref.watch(deliveryPredictServiceProvider));
 });
 
-final deliveryPredictNotifierProvider = StateNotifierProvider.autoDispose
-    .family<DeliveryPredictNotifier, AsyncValue<List<DeliveryPredict>>, int>(
-      (ref, productId) {
-    debugPrint("Provider: Creating DeliveryPredictNotifier for productId: $productId");
+/// Notifier moderne pour Riverpod 3.x (Gestion par Famille)
+class DeliveryPredictNotifier extends Notifier<AsyncValue<List<DeliveryPredict>>> {
+  final int productId;
 
-    final notifier = DeliveryPredictNotifier(ref.watch(deliveryPredictRepositoryProvider));
-    notifier.loadPredictions(productId); // On charge les prédictions au démarrage
-    return notifier;
-  },
+  // En Riverpod 3, les arguments de famille passent par le constructeur
+  DeliveryPredictNotifier(this.productId);
+
+  @override
+  AsyncValue<List<DeliveryPredict>> build() {
+    // On lance le chargement initial
+    Future.microtask(() => loadPredictions());
+    return const AsyncValue.loading();
+  }
+
+  Future<void> loadPredictions() async {
+    // Pas besoin de mettre state = loading ici si on vient du build, 
+    // mais utile pour les rafraîchissements manuels
+    // state = const AsyncValue.loading(); 
+
+    try {
+      final repository = ref.read(deliveryPredictRepositoryProvider);
+      final data = await repository.fetchAll(productId);
+      state = AsyncValue.data(data);
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+  }
+}
+
+/// Provider du Notifier (Famille + AutoDispose)
+final deliveryPredictNotifierProvider = NotifierProvider.autoDispose.family<
+    DeliveryPredictNotifier, AsyncValue<List<DeliveryPredict>>, int>(
+  DeliveryPredictNotifier.new,
 );

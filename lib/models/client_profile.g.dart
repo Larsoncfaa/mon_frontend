@@ -6,20 +6,20 @@ part of 'client_profile.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ClientProfileImpl _$$ClientProfileImplFromJson(Map<String, dynamic> json) =>
-    _$ClientProfileImpl(
+_ClientProfile _$ClientProfileFromJson(Map<String, dynamic> json) =>
+    _ClientProfile(
       id: (json['id'] as num).toInt(),
+      location: json['location'] as String,
+      balance: (json['balance'] as num).toDouble(),
+      loyaltyPoints: (json['loyalty_points'] as num).toInt(),
       user: (json['user'] as num).toInt(),
-      location: json['location'] as String?,
-      balance: const StringToDoubleConverter().fromJson(json['balance']),
-      points: (json['points'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$ClientProfileImplToJson(_$ClientProfileImpl instance) =>
+Map<String, dynamic> _$ClientProfileToJson(_ClientProfile instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'user': instance.user,
       'location': instance.location,
-      'balance': const StringToDoubleConverter().toJson(instance.balance),
-      'points': instance.points,
+      'balance': instance.balance,
+      'loyalty_points': instance.loyaltyPoints,
+      'user': instance.user,
     };

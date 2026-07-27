@@ -118,11 +118,11 @@ class _OrderManagementScreenState extends ConsumerState<OrderManagementScreen> {
                   child: ListTile(
                     title: Text('Commande #${order.id}'),
                     subtitle: Text(
-                      'Client : ${order.client.user}\n'
+                      'Client ID : ${order.client}\n'
                           'Date : ${order.dateOrdered.toLocal().toString().split(" ")[0]}\n'
-                          'Total : ${order.total.toStringAsFixed(2)} FCFA',
+                          'Total : ${order.total} FCFA',
                     ),
-                    trailing: Text(order.orderStatus?.name ?? '—'),
+                    trailing: Text(order.orderStatus.name),
                     onTap: () {
                       // TODO: détails / modification
                     },

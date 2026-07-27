@@ -7,25 +7,25 @@ import '../../services/order_service.dart';
 import '../notifications/order_notifier.dart';
 import '../repositories/order_repository.dart';
 
-/// Service
+/// 1. Service Provider
 final orderServiceProvider = Provider<OrderService>((ref) {
   final dio = ref.watch(dioProvider);
   return OrderService(dio);
 });
 
-/// Repository
+/// 2. Repository Provider
 final orderRepositoryProvider = Provider<OrderRepository>((ref) {
   final service = ref.watch(orderServiceProvider);
   return OrderRepository(service);
 });
 
-/// Notifier
-final orderNotifierProvider = StateNotifierProvider<OrderNotifier, AsyncValue<PaginatedOrderList>>((ref) {
-  final repository = ref.watch(orderRepositoryProvider);
-  return OrderNotifier(repository);
-});
+/// 3. Notifier Provider (Riverpod 3.x)
+final orderNotifierProvider =
+NotifierProvider<OrderNotifier, AsyncValue<PaginatedOrderList>>(
+  OrderNotifier.new,
+);
 
-/// Provider pour accéder à une commande unique
+/// 4. Provider pour accéder à une commande unique par son ID
 final orderByIdProvider = FutureProvider.family<Order, int>((ref, id) async {
   final repository = ref.watch(orderRepositoryProvider);
   return repository.getOrder(id);

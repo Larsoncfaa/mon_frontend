@@ -1,15 +1,29 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/delivery_person.dart';
 import '../../pagination/paginated_delivery_person_list.dart';
 import '../repositories/delivery_person_repository.dart';
 
-class DeliveryPersonNotifier extends StateNotifier<AsyncValue<PaginatedDeliveryPersonList>> {
-  final DeliveryPersonRepository _repository;
+// Provider du repository
+final deliveryPersonRepositoryProvider = Provider<DeliveryPersonRepository>((ref) {
+  throw UnimplementedError('Initialisez votre DeliveryPersonRepository ici');
+});
 
-  DeliveryPersonNotifier(this._repository) : super(const AsyncValue.loading()) {
+/// Notifier moderne pour Riverpod 3.x
+class DeliveryPersonNotifier extends Notifier<AsyncValue<PaginatedDeliveryPersonList>> {
+  late final DeliveryPersonRepository _repository;
+
+  @override
+  AsyncValue<PaginatedDeliveryPersonList> build() {
+    // 1. Récupérer le repository via le provider
+    _repository = ref.watch(deliveryPersonRepositoryProvider);
+
+    // 2. Lancer le chargement initial
     loadPage();
+
+    // 3. État initial pendant le chargement
+    return const AsyncValue.loading();
   }
 
   /// 📥 Charge une page de livreurs (ou URL donnée)
@@ -71,15 +85,17 @@ class DeliveryPersonNotifier extends StateNotifier<AsyncValue<PaginatedDeliveryP
       state = AsyncValue.error(e, st);
     }
   }
+
   Future<void> createDeliveryPerson(Map<String, dynamic> data) async {
     try {
-      await _repository.create(data); // PAS de cast
+      await _repository.create(data);
       await loadPage();
     } catch (e, st) {
       state = AsyncValue.error(e, st);
       rethrow;
     }
   }
+
   /// 🗑️ Supprime un livreur
   Future<void> delete(int id) async {
     try {
@@ -92,3 +108,9 @@ class DeliveryPersonNotifier extends StateNotifier<AsyncValue<PaginatedDeliveryP
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final deliveryPersonNotifierProvider = NotifierProvider<
+    DeliveryPersonNotifier, AsyncValue<PaginatedDeliveryPersonList>>(
+  DeliveryPersonNotifier.new,
+);

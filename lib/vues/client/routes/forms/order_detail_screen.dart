@@ -24,8 +24,8 @@ class OrderDetailScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                title: Text('Client: ${order.client.id}'),
-                subtitle: Text('Total: ${order.total.toStringAsFixed(2)} €'),
+                title: Text('Client ID: ${order.client}'),
+                subtitle: Text('Total: ${order.total} €'),
               ),
               const Divider(),
               const Padding(

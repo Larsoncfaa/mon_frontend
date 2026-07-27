@@ -1,20 +1,30 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../models/refund_request.dart';
 import '../../models/refund_status_enum.dart';
 import '../repositories/refund_request_repository.dart';
 
-class RefundRequestNotifier extends StateNotifier<AsyncValue<List<RefundRequest>>> {
-  final RefundRequestRepository repository;
+// Provider du repository (à adapter selon ton projet)
+final refundRequestRepositoryProvider = Provider<RefundRequestRepository>((ref) {
+  throw UnimplementedError('Initialisez votre RefundRequestRepository ici');
+});
 
-  RefundRequestNotifier(this.repository) : super(const AsyncLoading()) {
+/// Notifier moderne pour Riverpod 3.x
+class RefundRequestNotifier extends Notifier<AsyncValue<List<RefundRequest>>> {
+  late final RefundRequestRepository _repository;
+
+  @override
+  AsyncValue<List<RefundRequest>> build() {
+    _repository = ref.watch(refundRequestRepositoryProvider);
     loadAll();
+    return const AsyncLoading();
   }
 
   Future<void> loadAll() async {
     state = const AsyncLoading();
     try {
-      final data = await repository.fetchAll();
+      final data = await _repository.fetchAll();
       debugPrint('RefundRequestNotifier: chargement réussi');
       state = AsyncData(data);
     } catch (e, st) {
@@ -27,7 +37,7 @@ class RefundRequestNotifier extends StateNotifier<AsyncValue<List<RefundRequest>
 
   Future<void> update(RefundRequest updated) async {
     try {
-      final saved = await repository.update(updated.id, updated);
+      final saved = await _repository.update(updated.id, updated);
       final current = state.value ?? [];
       debugPrint('RefundRequestNotifier: mise à jour id=${updated.id} réussie');
       state = AsyncData(current.map((r) => r.id == saved.id ? saved : r).toList());
@@ -39,7 +49,7 @@ class RefundRequestNotifier extends StateNotifier<AsyncValue<List<RefundRequest>
 
   Future<RefundRequest?> getById(int id) async {
     try {
-      final result = await repository.fetchOne(id);
+      final result = await _repository.fetchOne(id);
       debugPrint('RefundRequestNotifier: récupération id=$id réussie');
       return result;
     } catch (e) {
@@ -50,7 +60,7 @@ class RefundRequestNotifier extends StateNotifier<AsyncValue<List<RefundRequest>
 
   Future<void> create(RefundRequest refundRequest) async {
     try {
-      final created = await repository.create(refundRequest);
+      final created = await _repository.create(refundRequest);
       final current = state.value ?? [];
       debugPrint('RefundRequestNotifier: création réussie id=${created.id}');
       state = AsyncData([...current, created]);
@@ -64,7 +74,7 @@ class RefundRequestNotifier extends StateNotifier<AsyncValue<List<RefundRequest>
     try {
       final current = state.value ?? [];
       final refund = current.firstWhere((r) => r.id == id);
-      final updated = refund.copyWith(refundStatus: RefundStatusEnum.APPROVED);
+      final updated = refund.copyWith(refundStatus: RefundStatusEnum.approved);
       await update(updated);
       debugPrint('RefundRequestNotifier: remboursement approuvé id=$id');
     } catch (e, st) {
@@ -77,7 +87,7 @@ class RefundRequestNotifier extends StateNotifier<AsyncValue<List<RefundRequest>
     try {
       final current = state.value ?? [];
       final refund = current.firstWhere((r) => r.id == id);
-      final updated = refund.copyWith(refundStatus: RefundStatusEnum.REJECTED);
+      final updated = refund.copyWith(refundStatus: RefundStatusEnum.rejected);
       await update(updated);
       debugPrint('RefundRequestNotifier: remboursement rejeté id=$id');
     } catch (e, st) {
@@ -86,3 +96,9 @@ class RefundRequestNotifier extends StateNotifier<AsyncValue<List<RefundRequest>
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final refundRequestNotifierProvider = NotifierProvider<
+    RefundRequestNotifier, AsyncValue<List<RefundRequest>>>(
+  RefundRequestNotifier.new,
+);

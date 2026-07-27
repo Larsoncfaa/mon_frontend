@@ -6,16 +6,14 @@ part of 'patched_warehouse.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedWarehouseImpl _$$PatchedWarehouseImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedWarehouseImpl(
+_PatchedWarehouse _$PatchedWarehouseFromJson(Map<String, dynamic> json) =>
+    _PatchedWarehouse(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       location: json['location'] as String?,
     );
 
-Map<String, dynamic> _$$PatchedWarehouseImplToJson(
-        _$PatchedWarehouseImpl instance) =>
+Map<String, dynamic> _$PatchedWarehouseToJson(_PatchedWarehouse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

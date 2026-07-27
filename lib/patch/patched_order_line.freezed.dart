@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,247 +9,302 @@ part of 'patched_order_line.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PatchedOrderLine _$PatchedOrderLineFromJson(Map<String, dynamic> json) {
-  return _PatchedOrderLine.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PatchedOrderLine {
-  int? get id => throw _privateConstructorUsedError;
-  Product? get product => throw _privateConstructorUsedError;
-  int? get quantity => throw _privateConstructorUsedError;
-  @JsonKey(name: 'unit_price')
-  double? get unitPrice => throw _privateConstructorUsedError;
+
+ int? get id; Product? get product; int? get quantity;@JsonKey(name: 'unit_price') double? get unitPrice;
+/// Create a copy of PatchedOrderLine
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PatchedOrderLineCopyWith<PatchedOrderLine> get copyWith => _$PatchedOrderLineCopyWithImpl<PatchedOrderLine>(this as PatchedOrderLine, _$identity);
 
   /// Serializes this PatchedOrderLine to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of PatchedOrderLine
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PatchedOrderLineCopyWith<PatchedOrderLine> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatchedOrderLine&&(identical(other.id, id) || other.id == id)&&(identical(other.product, product) || other.product == product)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,product,quantity,unitPrice);
+
+@override
+String toString() {
+  return 'PatchedOrderLine(id: $id, product: $product, quantity: $quantity, unitPrice: $unitPrice)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PatchedOrderLineCopyWith<$Res> {
-  factory $PatchedOrderLineCopyWith(
-          PatchedOrderLine value, $Res Function(PatchedOrderLine) then) =
-      _$PatchedOrderLineCopyWithImpl<$Res, PatchedOrderLine>;
-  @useResult
-  $Res call(
-      {int? id,
-      Product? product,
-      int? quantity,
-      @JsonKey(name: 'unit_price') double? unitPrice});
+abstract mixin class $PatchedOrderLineCopyWith<$Res>  {
+  factory $PatchedOrderLineCopyWith(PatchedOrderLine value, $Res Function(PatchedOrderLine) _then) = _$PatchedOrderLineCopyWithImpl;
+@useResult
+$Res call({
+ int? id, Product? product, int? quantity,@JsonKey(name: 'unit_price') double? unitPrice
+});
 
-  $ProductCopyWith<$Res>? get product;
+
+$ProductCopyWith<$Res>? get product;
+
 }
-
 /// @nodoc
-class _$PatchedOrderLineCopyWithImpl<$Res, $Val extends PatchedOrderLine>
+class _$PatchedOrderLineCopyWithImpl<$Res>
     implements $PatchedOrderLineCopyWith<$Res> {
-  _$PatchedOrderLineCopyWithImpl(this._value, this._then);
+  _$PatchedOrderLineCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PatchedOrderLine _self;
+  final $Res Function(PatchedOrderLine) _then;
 
-  /// Create a copy of PatchedOrderLine
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? product = freezed,
-    Object? quantity = freezed,
-    Object? unitPrice = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      product: freezed == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as Product?,
-      quantity: freezed == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int?,
-      unitPrice: freezed == unitPrice
-          ? _value.unitPrice
-          : unitPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ) as $Val);
+/// Create a copy of PatchedOrderLine
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? product = freezed,Object? quantity = freezed,Object? unitPrice = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,product: freezed == product ? _self.product : product // ignore: cast_nullable_to_non_nullable
+as Product?,quantity: freezed == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as int?,unitPrice: freezed == unitPrice ? _self.unitPrice : unitPrice // ignore: cast_nullable_to_non_nullable
+as double?,
+  ));
+}
+/// Create a copy of PatchedOrderLine
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProductCopyWith<$Res>? get product {
+    if (_self.product == null) {
+    return null;
   }
 
-  /// Create a copy of PatchedOrderLine
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ProductCopyWith<$Res>? get product {
-    if (_value.product == null) {
-      return null;
-    }
-
-    return $ProductCopyWith<$Res>(_value.product!, (value) {
-      return _then(_value.copyWith(product: value) as $Val);
-    });
-  }
+  return $ProductCopyWith<$Res>(_self.product!, (value) {
+    return _then(_self.copyWith(product: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$PatchedOrderLineImplCopyWith<$Res>
-    implements $PatchedOrderLineCopyWith<$Res> {
-  factory _$$PatchedOrderLineImplCopyWith(_$PatchedOrderLineImpl value,
-          $Res Function(_$PatchedOrderLineImpl) then) =
-      __$$PatchedOrderLineImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int? id,
-      Product? product,
-      int? quantity,
-      @JsonKey(name: 'unit_price') double? unitPrice});
 
-  @override
-  $ProductCopyWith<$Res>? get product;
+/// Adds pattern-matching-related methods to [PatchedOrderLine].
+extension PatchedOrderLinePatterns on PatchedOrderLine {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PatchedOrderLine value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PatchedOrderLine() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PatchedOrderLine value)  $default,){
+final _that = this;
+switch (_that) {
+case _PatchedOrderLine():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PatchedOrderLine value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PatchedOrderLine() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  Product? product,  int? quantity, @JsonKey(name: 'unit_price')  double? unitPrice)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PatchedOrderLine() when $default != null:
+return $default(_that.id,_that.product,_that.quantity,_that.unitPrice);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  Product? product,  int? quantity, @JsonKey(name: 'unit_price')  double? unitPrice)  $default,) {final _that = this;
+switch (_that) {
+case _PatchedOrderLine():
+return $default(_that.id,_that.product,_that.quantity,_that.unitPrice);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  Product? product,  int? quantity, @JsonKey(name: 'unit_price')  double? unitPrice)?  $default,) {final _that = this;
+switch (_that) {
+case _PatchedOrderLine() when $default != null:
+return $default(_that.id,_that.product,_that.quantity,_that.unitPrice);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$PatchedOrderLineImplCopyWithImpl<$Res>
-    extends _$PatchedOrderLineCopyWithImpl<$Res, _$PatchedOrderLineImpl>
-    implements _$$PatchedOrderLineImplCopyWith<$Res> {
-  __$$PatchedOrderLineImplCopyWithImpl(_$PatchedOrderLineImpl _value,
-      $Res Function(_$PatchedOrderLineImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of PatchedOrderLine
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? product = freezed,
-    Object? quantity = freezed,
-    Object? unitPrice = freezed,
-  }) {
-    return _then(_$PatchedOrderLineImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      product: freezed == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as Product?,
-      quantity: freezed == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int?,
-      unitPrice: freezed == unitPrice
-          ? _value.unitPrice
-          : unitPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PatchedOrderLineImpl implements _PatchedOrderLine {
-  const _$PatchedOrderLineImpl(
-      {this.id,
-      this.product,
-      this.quantity,
-      @JsonKey(name: 'unit_price') this.unitPrice});
 
-  factory _$PatchedOrderLineImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PatchedOrderLineImplFromJson(json);
+class _PatchedOrderLine implements PatchedOrderLine {
+  const _PatchedOrderLine({this.id, this.product, this.quantity, @JsonKey(name: 'unit_price') this.unitPrice});
+  factory _PatchedOrderLine.fromJson(Map<String, dynamic> json) => _$PatchedOrderLineFromJson(json);
 
-  @override
-  final int? id;
-  @override
-  final Product? product;
-  @override
-  final int? quantity;
-  @override
-  @JsonKey(name: 'unit_price')
-  final double? unitPrice;
+@override final  int? id;
+@override final  Product? product;
+@override final  int? quantity;
+@override@JsonKey(name: 'unit_price') final  double? unitPrice;
 
-  @override
-  String toString() {
-    return 'PatchedOrderLine(id: $id, product: $product, quantity: $quantity, unitPrice: $unitPrice)';
-  }
+/// Create a copy of PatchedOrderLine
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PatchedOrderLineCopyWith<_PatchedOrderLine> get copyWith => __$PatchedOrderLineCopyWithImpl<_PatchedOrderLine>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PatchedOrderLineImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.product, product) || other.product == product) &&
-            (identical(other.quantity, quantity) ||
-                other.quantity == quantity) &&
-            (identical(other.unitPrice, unitPrice) ||
-                other.unitPrice == unitPrice));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, product, quantity, unitPrice);
-
-  /// Create a copy of PatchedOrderLine
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PatchedOrderLineImplCopyWith<_$PatchedOrderLineImpl> get copyWith =>
-      __$$PatchedOrderLineImplCopyWithImpl<_$PatchedOrderLineImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PatchedOrderLineImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$PatchedOrderLineToJson(this, );
 }
 
-abstract class _PatchedOrderLine implements PatchedOrderLine {
-  const factory _PatchedOrderLine(
-          {final int? id,
-          final Product? product,
-          final int? quantity,
-          @JsonKey(name: 'unit_price') final double? unitPrice}) =
-      _$PatchedOrderLineImpl;
-
-  factory _PatchedOrderLine.fromJson(Map<String, dynamic> json) =
-      _$PatchedOrderLineImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  Product? get product;
-  @override
-  int? get quantity;
-  @override
-  @JsonKey(name: 'unit_price')
-  double? get unitPrice;
-
-  /// Create a copy of PatchedOrderLine
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PatchedOrderLineImplCopyWith<_$PatchedOrderLineImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatchedOrderLine&&(identical(other.id, id) || other.id == id)&&(identical(other.product, product) || other.product == product)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.unitPrice, unitPrice) || other.unitPrice == unitPrice));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,product,quantity,unitPrice);
+
+@override
+String toString() {
+  return 'PatchedOrderLine(id: $id, product: $product, quantity: $quantity, unitPrice: $unitPrice)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PatchedOrderLineCopyWith<$Res> implements $PatchedOrderLineCopyWith<$Res> {
+  factory _$PatchedOrderLineCopyWith(_PatchedOrderLine value, $Res Function(_PatchedOrderLine) _then) = __$PatchedOrderLineCopyWithImpl;
+@override @useResult
+$Res call({
+ int? id, Product? product, int? quantity,@JsonKey(name: 'unit_price') double? unitPrice
+});
+
+
+@override $ProductCopyWith<$Res>? get product;
+
+}
+/// @nodoc
+class __$PatchedOrderLineCopyWithImpl<$Res>
+    implements _$PatchedOrderLineCopyWith<$Res> {
+  __$PatchedOrderLineCopyWithImpl(this._self, this._then);
+
+  final _PatchedOrderLine _self;
+  final $Res Function(_PatchedOrderLine) _then;
+
+/// Create a copy of PatchedOrderLine
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? product = freezed,Object? quantity = freezed,Object? unitPrice = freezed,}) {
+  return _then(_PatchedOrderLine(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,product: freezed == product ? _self.product : product // ignore: cast_nullable_to_non_nullable
+as Product?,quantity: freezed == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as int?,unitPrice: freezed == unitPrice ? _self.unitPrice : unitPrice // ignore: cast_nullable_to_non_nullable
+as double?,
+  ));
+}
+
+/// Create a copy of PatchedOrderLine
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProductCopyWith<$Res>? get product {
+    if (_self.product == null) {
+    return null;
+  }
+
+  return $ProductCopyWith<$Res>(_self.product!, (value) {
+    return _then(_self.copyWith(product: value));
+  });
+}
+}
+
+// dart format on

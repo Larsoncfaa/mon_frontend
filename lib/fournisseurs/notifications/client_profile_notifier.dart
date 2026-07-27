@@ -5,15 +5,22 @@ import '../../models/client_profile.dart';
 import '../../pagination/paginated_client_profile.dart';
 import '../repositories/client_profile_repository.dart';
 
-/// StateNotifier pour gérer la liste paginée des profils clients.
-class ClientProfileListNotifier extends StateNotifier<AsyncValue<PaginatedClientProfile>> {
-  final ClientProfileRepository _repository;
+// Provider du repository (à adapter selon ton projet)
+final clientProfileRepositoryProvider = Provider<ClientProfileRepository>((ref) {
+  throw UnimplementedError('Initialisez votre ClientProfileRepository ici');
+});
 
-  ClientProfileListNotifier(this._repository) : super(const AsyncLoading()) {
-    fetchClientProfiles();
-  }
-
+/// Notifier pour gérer la liste paginée des profils clients (Riverpod 3.x).
+class ClientProfileListNotifier extends Notifier<AsyncValue<PaginatedClientProfile>> {
+  late final ClientProfileRepository _repository;
   int _currentPage = 1;
+
+  @override
+  AsyncValue<PaginatedClientProfile> build() {
+    _repository = ref.watch(clientProfileRepositoryProvider);
+    fetchClientProfiles();
+    return const AsyncLoading();
+  }
 
   Future<void> fetchClientProfiles({int page = 1}) async {
     state = const AsyncLoading();
@@ -34,11 +41,21 @@ class ClientProfileListNotifier extends StateNotifier<AsyncValue<PaginatedClient
   }
 }
 
-/// StateNotifier pour un seul profil client (utilisé pour affichage, édition, suppression).
-class ClientProfileNotifier extends StateNotifier<AsyncValue<ClientProfile?>> {
-  final ClientProfileRepository _repository;
+/// Provider pour la liste paginée des profils clients
+final clientProfileListNotifierProvider =
+NotifierProvider<ClientProfileListNotifier, AsyncValue<PaginatedClientProfile>>(
+  ClientProfileListNotifier.new,
+);
 
-  ClientProfileNotifier(this._repository) : super(const AsyncValue.data(null));
+/// Notifier pour un seul profil client (Riverpod 3.x).
+class ClientProfileNotifier extends Notifier<AsyncValue<ClientProfile?>> {
+  late final ClientProfileRepository _repository;
+
+  @override
+  AsyncValue<ClientProfile?> build() {
+    _repository = ref.watch(clientProfileRepositoryProvider);
+    return const AsyncValue.data(null);
+  }
 
   Future<void> loadOrCreateProfile(int userId) async {
     state = const AsyncLoading();
@@ -52,11 +69,11 @@ class ClientProfileNotifier extends StateNotifier<AsyncValue<ClientProfile?>> {
       if (e is DioException && e.response?.statusCode == 404) {
         try {
           final newProfile = ClientProfile(
-            id: 0, // sera ignoré par le backend
+            id: 0,
             user: userId,
-            location: null,
+            location: "",
             balance: 0.0,
-            points: 0,
+            loyaltyPoints: 0,
           );
           final created = await _repository.createClientProfile(newProfile);
           state = AsyncData(created);
@@ -109,3 +126,9 @@ class ClientProfileNotifier extends StateNotifier<AsyncValue<ClientProfile?>> {
     }
   }
 }
+
+/// Provider pour un profil client unique
+final clientProfileNotifierProvider =
+NotifierProvider<ClientProfileNotifier, AsyncValue<ClientProfile?>>(
+  ClientProfileNotifier.new,
+);

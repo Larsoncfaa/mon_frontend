@@ -31,11 +31,12 @@ class LeaveReviewButton extends ConsumerWidget {
           ? null
           : () async {
         final review = ProductReview(
-          id: 0, // Ignoré à la création
+          id: 0,
           product: productId,
-          rating: RatingEnum.five, // ou autre choix
+          rating: 5,
           comment: "Super produit !",
           createdAt: DateTime.now(),
+          client: 0, // A adapter avec l'ID réel de l'utilisateur
           verifiedPurchase: true,
         );
 

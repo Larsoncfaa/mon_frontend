@@ -6,19 +6,17 @@ part of 'paginated_order_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaginatedOrderListImpl _$$PaginatedOrderListImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PaginatedOrderListImpl(
-      count: (json['count'] as num?)?.toInt(),
+_PaginatedOrderList _$PaginatedOrderListFromJson(Map<String, dynamic> json) =>
+    _PaginatedOrderList(
+      count: (json['count'] as num).toInt(),
       next: json['next'] as String?,
       previous: json['previous'] as String?,
-      results: (json['results'] as List<dynamic>?)
-          ?.map((e) => Order.fromJson(e as Map<String, dynamic>))
+      results: (json['results'] as List<dynamic>)
+          .map((e) => Order.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$PaginatedOrderListImplToJson(
-        _$PaginatedOrderListImpl instance) =>
+Map<String, dynamic> _$PaginatedOrderListToJson(_PaginatedOrderList instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,

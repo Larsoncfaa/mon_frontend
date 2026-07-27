@@ -1,8 +1,14 @@
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../models/selection.dart';
 import '../repositories/selection_repository.dart';
+
+// Provider du repository (à adapter selon la configuration de ton projet)
+final selectionRepositoryProvider = Provider<SelectionRepository>((ref) {
+  throw UnimplementedError('Initialisez votre SelectionRepository ici');
+});
 
 class SelectionState {
   final List<Selection> selections;
@@ -28,17 +34,22 @@ class SelectionState {
   }
 }
 
-class SelectionNotifier extends StateNotifier<SelectionState> {
-  final SelectionRepository repository;
+/// Notifier moderne pour Riverpod 3.x
+class SelectionNotifier extends Notifier<SelectionState> {
+  late final SelectionRepository _repository;
 
-  SelectionNotifier(this.repository) : super(SelectionState());
+  @override
+  SelectionState build() {
+    _repository = ref.watch(selectionRepositoryProvider);
+    return SelectionState();
+  }
 
   // Méthode pour charger les sélections
   Future<void> loadSelections() async {
     state = state.copyWith(isLoading: true, error: null);
     try {
       debugPrint('Chargement des sélections...');
-      final data = await repository.getSelections();
+      final data = await _repository.getSelections();
       debugPrint('Sélections récupérées : ${data.length} éléments');
       state = state.copyWith(selections: data, isLoading: false);
     } catch (e, stackTrace) {
@@ -51,7 +62,7 @@ class SelectionNotifier extends StateNotifier<SelectionState> {
   Future<void> addSelection(Selection selection) async {
     try {
       debugPrint('Ajout de la sélection : ${selection.toJson()}');
-      final newSelection = await repository.addSelection(selection);
+      final newSelection = await _repository.addSelection(selection);
 
       // Vérifier si la sélection existe déjà pour éviter les doublons
       if (!state.selections.any((s) => s.id == newSelection.id)) {
@@ -71,7 +82,7 @@ class SelectionNotifier extends StateNotifier<SelectionState> {
   Future<void> updateSelection(int id, Selection selection) async {
     try {
       debugPrint('Mise à jour de la sélection ID: $id');
-      final updated = await repository.editSelection(id, selection);
+      final updated = await _repository.editSelection(id, selection);
       debugPrint('Sélection mise à jour : ${updated.toJson()}');
 
       // Vérifier si la sélection a bien été mise à jour
@@ -89,7 +100,7 @@ class SelectionNotifier extends StateNotifier<SelectionState> {
   Future<void> deleteSelection(int id) async {
     try {
       debugPrint('Suppression de la sélection ID: $id');
-      await repository.removeSelection(id);
+      await _repository.removeSelection(id);
       debugPrint('Sélection supprimée ID: $id');
 
       state = state.copyWith(
@@ -102,3 +113,9 @@ class SelectionNotifier extends StateNotifier<SelectionState> {
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final selectionNotifierProvider =
+NotifierProvider<SelectionNotifier, SelectionState>(
+  SelectionNotifier.new,
+);

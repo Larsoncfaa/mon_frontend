@@ -6,26 +6,20 @@ part of 'product_review_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProductReviewWriteImpl _$$ProductReviewWriteImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ProductReviewWriteImpl(
+_ProductReviewWrite _$ProductReviewWriteFromJson(Map<String, dynamic> json) =>
+    _ProductReviewWrite(
       product: (json['product'] as num).toInt(),
-      rating: $enumDecode(_$RatingEnumEnumMap, json['rating']),
+      rating: (json['rating'] as num).toInt(),
       comment: json['comment'] as String?,
+      client: (json['client'] as num).toInt(),
+      verifiedPurchase: json['verifiedPurchase'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$ProductReviewWriteImplToJson(
-        _$ProductReviewWriteImpl instance) =>
+Map<String, dynamic> _$ProductReviewWriteToJson(_ProductReviewWrite instance) =>
     <String, dynamic>{
       'product': instance.product,
-      'rating': _$RatingEnumEnumMap[instance.rating]!,
+      'rating': instance.rating,
       'comment': instance.comment,
+      'client': instance.client,
+      'verifiedPurchase': instance.verifiedPurchase,
     };
-
-const _$RatingEnumEnumMap = {
-  RatingEnum.one: 1,
-  RatingEnum.two: 2,
-  RatingEnum.three: 3,
-  RatingEnum.four: 4,
-  RatingEnum.five: 5,
-};

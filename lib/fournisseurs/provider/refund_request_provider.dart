@@ -6,18 +6,18 @@ import '../../services/refund_request_service.dart';
 import '../notifications/refund_request_notifier.dart';
 import '../repositories/refund_request_repository.dart';
 
-/// Provider du service RefundRequestService
+/// 1. Provider du service RefundRequestService
 final refundRequestServiceProvider = Provider<RefundRequestService>(
       (ref) => RefundRequestService(ref.watch(dioProvider)),
 );
 
-/// Provider du repository RefundRequestRepository
+/// 2. Provider du repository RefundRequestRepository
 final refundRequestRepositoryProvider = Provider<RefundRequestRepository>(
       (ref) => RefundRequestRepository(ref.watch(refundRequestServiceProvider)),
 );
 
-/// Provider du notifier RefundRequestNotifier
-final refundRequestNotifierProvider = StateNotifierProvider<
-    RefundRequestNotifier, AsyncValue<List<RefundRequest>>>(
-      (ref) => RefundRequestNotifier(ref.watch(refundRequestRepositoryProvider)),
+/// 3. Provider du notifier RefundRequestNotifier (Riverpod 3.x)
+final refundRequestNotifierProvider =
+NotifierProvider<RefundRequestNotifier, AsyncValue<List<RefundRequest>>>(
+  RefundRequestNotifier.new,
 );

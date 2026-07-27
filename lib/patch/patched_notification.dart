@@ -4,14 +4,14 @@ part 'patched_notification.freezed.dart';
 part 'patched_notification.g.dart';
 
 @freezed
-class PatchedNotification with _$PatchedNotification {
+abstract class PatchedNotification with _$PatchedNotification {
   const factory PatchedNotification({
     int? id,
-    int? user,
+    String? title,
     String? message,
-    String? link,
-    bool? read,
     @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'is_read') bool? isRead,
+    String? link,
   }) = _PatchedNotification;
 
   factory PatchedNotification.fromJson(Map<String, dynamic> json) =>

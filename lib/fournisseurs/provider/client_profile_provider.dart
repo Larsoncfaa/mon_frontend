@@ -5,7 +5,6 @@ import '../../services/client_profile_service.dart';
 import '../notifications/client_profile_notifier.dart';
 import '../repositories/client_profile_repository.dart';
 
-
 /// Fournisseur de service pour interagir avec les profils clients.
 final clientProfileServiceProvider = Provider<ClientProfileService>((ref) {
   final dio = ref.watch(dioProvider);
@@ -18,8 +17,8 @@ final clientProfileRepositoryProvider = Provider<ClientProfileRepository>((ref) 
   return ClientProfileRepository(service);
 });
 
-/// StateNotifierProvider pour gérer un profil client via ClientProfileNotifier.
-final clientProfileNotifierProvider = StateNotifierProvider<ClientProfileNotifier, AsyncValue<ClientProfile?>>((ref) {
-  final repository = ref.watch(clientProfileRepositoryProvider);
-  return ClientProfileNotifier(repository);
-});
+/// NotifierProvider pour gérer un profil client via ClientProfileNotifier (Riverpod 3.x).
+final clientProfileNotifierProvider =
+NotifierProvider<ClientProfileNotifier, AsyncValue<ClientProfile?>>(
+  ClientProfileNotifier.new,
+);

@@ -102,10 +102,10 @@ class _AjouterAvisScreenState extends ConsumerState<AjouterAvisScreen> {
     final newReview = ProductReview(
       id: existingReview?.id ?? 0,
       product: widget.productId,
-      rating: _selectedRating!,
+      rating: _selectedRating!.index + 1,
       comment: _commentController.text.trim(),
       createdAt: existingReview?.createdAt ?? DateTime.now(),
-      verifiedPurchase: true,
+      client: clientId,
     );
 
     try {

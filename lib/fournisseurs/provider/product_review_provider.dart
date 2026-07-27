@@ -16,7 +16,8 @@ final productReviewRepositoryProvider = Provider<ProductReviewRepository>(
       (ref) => ProductReviewRepository(ref.watch(productReviewServiceProvider)),
 );
 
-/// 🧠 Fournit le notifier qui gère l’état des avis produits (AsyncValue)
-final productReviewNotifierProvider = StateNotifierProvider<ProductReviewNotifier, AsyncValue<List<ProductReview>>>(
-      (ref) => ProductReviewNotifier(ref.watch(productReviewRepositoryProvider)),
+/// 🧠 Fournit le notifier qui gère l’état des avis produits (Riverpod 3.x)
+final productReviewNotifierProvider = NotifierProvider<
+    ProductReviewNotifier, AsyncValue<List<ProductReview>>>(
+  ProductReviewNotifier.new,
 );

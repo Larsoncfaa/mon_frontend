@@ -1,21 +1,29 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../models/warehouse.dart';
 import '../../pagination/paginated_warehouse_list.dart';
 import '../repositories/warehouse_repository.dart';
 
+// Provider du repository (à adapter selon la configuration de ton projet)
+final warehouseRepositoryProvider = Provider<WarehouseRepository>((ref) {
+  throw UnimplementedError('Initialisez votre WarehouseRepository ici');
+});
 
 /// Notifier pour gérer l'état des entrepôts (lecture, suppression, rechargement)
-class WarehouseNotifier extends StateNotifier<AsyncValue<PaginatedWarehouseList>> {
-  final WarehouseRepository repository;
+class WarehouseNotifier extends Notifier<AsyncValue<PaginatedWarehouseList>> {
+  late final WarehouseRepository _repository;
 
-  WarehouseNotifier(this.repository) : super(const AsyncLoading()) {
+  @override
+  AsyncValue<PaginatedWarehouseList> build() {
+    _repository = ref.watch(warehouseRepositoryProvider);
     fetchWarehouses();
+    return const AsyncLoading();
   }
 
   Future<void> fetchWarehouses({int page = 1}) async {
     state = const AsyncLoading();
     try {
-      final result = await repository.fetchWarehouses(page: page);
+      final result = await _repository.fetchWarehouses(page: page);
       state = AsyncData(result);
     } catch (e, st) {
       state = AsyncError(e, st);
@@ -24,7 +32,7 @@ class WarehouseNotifier extends StateNotifier<AsyncValue<PaginatedWarehouseList>
 
   Future<void> deleteWarehouse(int id) async {
     try {
-      await repository.deleteWarehouse(id);
+      await _repository.deleteWarehouse(id);
       await fetchWarehouses();
     } catch (e, st) {
       state = AsyncError(e, st);
@@ -34,8 +42,8 @@ class WarehouseNotifier extends StateNotifier<AsyncValue<PaginatedWarehouseList>
   /// Crée un entrepôt
   Future<void> createWarehouse(String name, String location) async {
     try {
-      final warehouse = Warehouse(id: null, name: name, location: location);
-      await repository.createWarehouse(warehouse);
+      final warehouse = Warehouse(id: 0, name: name, location: location);
+      await _repository.createWarehouse(warehouse);
       await fetchWarehouses();
     } catch (e, st) {
       state = AsyncError(e, st);
@@ -46,10 +54,16 @@ class WarehouseNotifier extends StateNotifier<AsyncValue<PaginatedWarehouseList>
   Future<void> updateWarehouse(int id, String name, String location) async {
     try {
       final updated = Warehouse(id: id, name: name, location: location);
-      await repository.updateWarehouse(updated);
+      await _repository.updateWarehouse(updated);
       await fetchWarehouses();
     } catch (e, st) {
       state = AsyncError(e, st);
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final warehouseNotifierProvider = NotifierProvider<
+    WarehouseNotifier, AsyncValue<PaginatedWarehouseList>>(
+  WarehouseNotifier.new,
+);

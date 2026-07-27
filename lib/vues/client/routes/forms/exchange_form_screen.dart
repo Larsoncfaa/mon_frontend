@@ -5,6 +5,7 @@ import '../../../../fournisseurs/provider/exchange_request_provider.dart';
 import '../../../../fournisseurs/provider/product_provider.dart';
 import '../../../../fournisseurs/provider/refund_request_provider.dart';
 import '../../../../models/exchange_request.dart';
+import '../../../../models/exchange_status_enum.dart';
 import '../../../../models/product.dart';
 import '../../../../models/refund_request.dart';
 
@@ -35,11 +36,11 @@ class _ExchangeFormScreenState extends ConsumerState<ExchangeFormScreen> {
       await ref.read(exchangeRequestNotifierProvider.notifier).create(
         ExchangeRequest(
           id: 0,
-          returnRequest: _selectedReturnRequest!.id,
-          replacement: _selectedReplacement!.id,
-          exchangeStatus: null,
-          reason: '',
-          requestedProduct: '',
+          orderId: _selectedReturnRequest!.order,
+          reason: _selectedReturnRequest!.reason,
+          requestedAt: DateTime.now(),
+          exchangeStatus: ExchangeStatusEnum.PENDING,
+          replacement: _selectedReplacement!.name,
         ),
       );
       if (!mounted) return;

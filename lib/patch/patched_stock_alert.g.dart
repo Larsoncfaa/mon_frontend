@@ -6,18 +6,22 @@ part of 'patched_stock_alert.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedStockAlertImpl _$$PatchedStockAlertImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedStockAlertImpl(
+_PatchedStockAlert _$PatchedStockAlertFromJson(Map<String, dynamic> json) =>
+    _PatchedStockAlert(
+      id: (json['id'] as num?)?.toInt(),
       product: (json['product'] as num?)?.toInt(),
-      quantity: (json['quantity'] as num?)?.toInt(),
+      threshold: (json['threshold'] as num?)?.toInt(),
+      isActive: json['is_active'] as bool?,
+      warehouse: (json['warehouse'] as num?)?.toInt(),
       message: json['message'] as String?,
     );
 
-Map<String, dynamic> _$$PatchedStockAlertImplToJson(
-        _$PatchedStockAlertImpl instance) =>
+Map<String, dynamic> _$PatchedStockAlertToJson(_PatchedStockAlert instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'product': instance.product,
-      'quantity': instance.quantity,
+      'threshold': instance.threshold,
+      'is_active': instance.isActive,
+      'warehouse': instance.warehouse,
       'message': instance.message,
     };

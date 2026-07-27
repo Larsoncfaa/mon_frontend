@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,210 +9,278 @@ part of 'proof.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Proof _$ProofFromJson(Map<String, dynamic> json) {
-  return _Proof.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Proof {
-  int get id => throw _privateConstructorUsedError;
-  int get delivery => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
-  DateTime get uploadedAt => throw _privateConstructorUsedError;
+
+ int get id; int get delivery; String get image;@JsonKey(name: 'uploaded_at') DateTime get uploadedAt;
+/// Create a copy of Proof
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ProofCopyWith<Proof> get copyWith => _$ProofCopyWithImpl<Proof>(this as Proof, _$identity);
 
   /// Serializes this Proof to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Proof
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProofCopyWith<Proof> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Proof&&(identical(other.id, id) || other.id == id)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&(identical(other.image, image) || other.image == image)&&(identical(other.uploadedAt, uploadedAt) || other.uploadedAt == uploadedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,delivery,image,uploadedAt);
+
+@override
+String toString() {
+  return 'Proof(id: $id, delivery: $delivery, image: $image, uploadedAt: $uploadedAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $ProofCopyWith<$Res> {
-  factory $ProofCopyWith(Proof value, $Res Function(Proof) then) =
-      _$ProofCopyWithImpl<$Res, Proof>;
-  @useResult
-  $Res call({int id, int delivery, String image, DateTime uploadedAt});
-}
+abstract mixin class $ProofCopyWith<$Res>  {
+  factory $ProofCopyWith(Proof value, $Res Function(Proof) _then) = _$ProofCopyWithImpl;
+@useResult
+$Res call({
+ int id, int delivery, String image,@JsonKey(name: 'uploaded_at') DateTime uploadedAt
+});
 
+
+
+
+}
 /// @nodoc
-class _$ProofCopyWithImpl<$Res, $Val extends Proof>
+class _$ProofCopyWithImpl<$Res>
     implements $ProofCopyWith<$Res> {
-  _$ProofCopyWithImpl(this._value, this._then);
+  _$ProofCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Proof _self;
+  final $Res Function(Proof) _then;
 
-  /// Create a copy of Proof
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? delivery = null,
-    Object? image = null,
-    Object? uploadedAt = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      delivery: null == delivery
-          ? _value.delivery
-          : delivery // ignore: cast_nullable_to_non_nullable
-              as int,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
-      uploadedAt: null == uploadedAt
-          ? _value.uploadedAt
-          : uploadedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
-  }
+/// Create a copy of Proof
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? delivery = null,Object? image = null,Object? uploadedAt = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,delivery: null == delivery ? _self.delivery : delivery // ignore: cast_nullable_to_non_nullable
+as int,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
+as String,uploadedAt: null == uploadedAt ? _self.uploadedAt : uploadedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
 }
 
-/// @nodoc
-abstract class _$$ProofImplCopyWith<$Res> implements $ProofCopyWith<$Res> {
-  factory _$$ProofImplCopyWith(
-          _$ProofImpl value, $Res Function(_$ProofImpl) then) =
-      __$$ProofImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int id, int delivery, String image, DateTime uploadedAt});
 }
 
-/// @nodoc
-class __$$ProofImplCopyWithImpl<$Res>
-    extends _$ProofCopyWithImpl<$Res, _$ProofImpl>
-    implements _$$ProofImplCopyWith<$Res> {
-  __$$ProofImplCopyWithImpl(
-      _$ProofImpl _value, $Res Function(_$ProofImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of Proof
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? delivery = null,
-    Object? image = null,
-    Object? uploadedAt = null,
-  }) {
-    return _then(_$ProofImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      delivery: null == delivery
-          ? _value.delivery
-          : delivery // ignore: cast_nullable_to_non_nullable
-              as int,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
-      uploadedAt: null == uploadedAt
-          ? _value.uploadedAt
-          : uploadedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
-  }
+/// Adds pattern-matching-related methods to [Proof].
+extension ProofPatterns on Proof {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Proof value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _Proof() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Proof value)  $default,){
+final _that = this;
+switch (_that) {
+case _Proof():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Proof value)?  $default,){
+final _that = this;
+switch (_that) {
+case _Proof() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int delivery,  String image, @JsonKey(name: 'uploaded_at')  DateTime uploadedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _Proof() when $default != null:
+return $default(_that.id,_that.delivery,_that.image,_that.uploadedAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int delivery,  String image, @JsonKey(name: 'uploaded_at')  DateTime uploadedAt)  $default,) {final _that = this;
+switch (_that) {
+case _Proof():
+return $default(_that.id,_that.delivery,_that.image,_that.uploadedAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int delivery,  String image, @JsonKey(name: 'uploaded_at')  DateTime uploadedAt)?  $default,) {final _that = this;
+switch (_that) {
+case _Proof() when $default != null:
+return $default(_that.id,_that.delivery,_that.image,_that.uploadedAt);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ProofImpl implements _Proof {
-  const _$ProofImpl(
-      {required this.id,
-      required this.delivery,
-      required this.image,
-      required this.uploadedAt});
 
-  factory _$ProofImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProofImplFromJson(json);
+class _Proof implements Proof {
+  const _Proof({required this.id, required this.delivery, required this.image, @JsonKey(name: 'uploaded_at') required this.uploadedAt});
+  factory _Proof.fromJson(Map<String, dynamic> json) => _$ProofFromJson(json);
 
-  @override
-  final int id;
-  @override
-  final int delivery;
-  @override
-  final String image;
-  @override
-  final DateTime uploadedAt;
+@override final  int id;
+@override final  int delivery;
+@override final  String image;
+@override@JsonKey(name: 'uploaded_at') final  DateTime uploadedAt;
 
-  @override
-  String toString() {
-    return 'Proof(id: $id, delivery: $delivery, image: $image, uploadedAt: $uploadedAt)';
-  }
+/// Create a copy of Proof
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ProofCopyWith<_Proof> get copyWith => __$ProofCopyWithImpl<_Proof>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ProofImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.delivery, delivery) ||
-                other.delivery == delivery) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.uploadedAt, uploadedAt) ||
-                other.uploadedAt == uploadedAt));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, delivery, image, uploadedAt);
-
-  /// Create a copy of Proof
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ProofImplCopyWith<_$ProofImpl> get copyWith =>
-      __$$ProofImplCopyWithImpl<_$ProofImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ProofImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$ProofToJson(this, );
 }
 
-abstract class _Proof implements Proof {
-  const factory _Proof(
-      {required final int id,
-      required final int delivery,
-      required final String image,
-      required final DateTime uploadedAt}) = _$ProofImpl;
-
-  factory _Proof.fromJson(Map<String, dynamic> json) = _$ProofImpl.fromJson;
-
-  @override
-  int get id;
-  @override
-  int get delivery;
-  @override
-  String get image;
-  @override
-  DateTime get uploadedAt;
-
-  /// Create a copy of Proof
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProofImplCopyWith<_$ProofImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Proof&&(identical(other.id, id) || other.id == id)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&(identical(other.image, image) || other.image == image)&&(identical(other.uploadedAt, uploadedAt) || other.uploadedAt == uploadedAt));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,delivery,image,uploadedAt);
+
+@override
+String toString() {
+  return 'Proof(id: $id, delivery: $delivery, image: $image, uploadedAt: $uploadedAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ProofCopyWith<$Res> implements $ProofCopyWith<$Res> {
+  factory _$ProofCopyWith(_Proof value, $Res Function(_Proof) _then) = __$ProofCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, int delivery, String image,@JsonKey(name: 'uploaded_at') DateTime uploadedAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$ProofCopyWithImpl<$Res>
+    implements _$ProofCopyWith<$Res> {
+  __$ProofCopyWithImpl(this._self, this._then);
+
+  final _Proof _self;
+  final $Res Function(_Proof) _then;
+
+/// Create a copy of Proof
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? delivery = null,Object? image = null,Object? uploadedAt = null,}) {
+  return _then(_Proof(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,delivery: null == delivery ? _self.delivery : delivery // ignore: cast_nullable_to_non_nullable
+as int,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
+as String,uploadedAt: null == uploadedAt ? _self.uploadedAt : uploadedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
+}
+
+// dart format on

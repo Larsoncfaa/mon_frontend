@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,247 +9,278 @@ part of 'patched_stock_level.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PatchedStockLevel _$PatchedStockLevelFromJson(Map<String, dynamic> json) {
-  return _PatchedStockLevel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PatchedStockLevel {
-  int? get productId => throw _privateConstructorUsedError;
-  int? get warehouseId => throw _privateConstructorUsedError;
-  double? get quantity => throw _privateConstructorUsedError;
-  double? get threshold => throw _privateConstructorUsedError;
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+
+ int? get id;@JsonKey(name: 'product_id') int? get productId; int? get quantity; int? get threshold;
+/// Create a copy of PatchedStockLevel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PatchedStockLevelCopyWith<PatchedStockLevel> get copyWith => _$PatchedStockLevelCopyWithImpl<PatchedStockLevel>(this as PatchedStockLevel, _$identity);
 
   /// Serializes this PatchedStockLevel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of PatchedStockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PatchedStockLevelCopyWith<PatchedStockLevel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatchedStockLevel&&(identical(other.id, id) || other.id == id)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.threshold, threshold) || other.threshold == threshold));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,productId,quantity,threshold);
+
+@override
+String toString() {
+  return 'PatchedStockLevel(id: $id, productId: $productId, quantity: $quantity, threshold: $threshold)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PatchedStockLevelCopyWith<$Res> {
-  factory $PatchedStockLevelCopyWith(
-          PatchedStockLevel value, $Res Function(PatchedStockLevel) then) =
-      _$PatchedStockLevelCopyWithImpl<$Res, PatchedStockLevel>;
-  @useResult
-  $Res call(
-      {int? productId,
-      int? warehouseId,
-      double? quantity,
-      double? threshold,
-      DateTime? updatedAt});
-}
+abstract mixin class $PatchedStockLevelCopyWith<$Res>  {
+  factory $PatchedStockLevelCopyWith(PatchedStockLevel value, $Res Function(PatchedStockLevel) _then) = _$PatchedStockLevelCopyWithImpl;
+@useResult
+$Res call({
+ int? id,@JsonKey(name: 'product_id') int? productId, int? quantity, int? threshold
+});
 
+
+
+
+}
 /// @nodoc
-class _$PatchedStockLevelCopyWithImpl<$Res, $Val extends PatchedStockLevel>
+class _$PatchedStockLevelCopyWithImpl<$Res>
     implements $PatchedStockLevelCopyWith<$Res> {
-  _$PatchedStockLevelCopyWithImpl(this._value, this._then);
+  _$PatchedStockLevelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PatchedStockLevel _self;
+  final $Res Function(PatchedStockLevel) _then;
 
-  /// Create a copy of PatchedStockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? productId = freezed,
-    Object? warehouseId = freezed,
-    Object? quantity = freezed,
-    Object? threshold = freezed,
-    Object? updatedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      productId: freezed == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      warehouseId: freezed == warehouseId
-          ? _value.warehouseId
-          : warehouseId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      quantity: freezed == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double?,
-      threshold: freezed == threshold
-          ? _value.threshold
-          : threshold // ignore: cast_nullable_to_non_nullable
-              as double?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
-  }
+/// Create a copy of PatchedStockLevel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? productId = freezed,Object? quantity = freezed,Object? threshold = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,productId: freezed == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int?,quantity: freezed == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as int?,threshold: freezed == threshold ? _self.threshold : threshold // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PatchedStockLevelImplCopyWith<$Res>
-    implements $PatchedStockLevelCopyWith<$Res> {
-  factory _$$PatchedStockLevelImplCopyWith(_$PatchedStockLevelImpl value,
-          $Res Function(_$PatchedStockLevelImpl) then) =
-      __$$PatchedStockLevelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int? productId,
-      int? warehouseId,
-      double? quantity,
-      double? threshold,
-      DateTime? updatedAt});
 }
 
-/// @nodoc
-class __$$PatchedStockLevelImplCopyWithImpl<$Res>
-    extends _$PatchedStockLevelCopyWithImpl<$Res, _$PatchedStockLevelImpl>
-    implements _$$PatchedStockLevelImplCopyWith<$Res> {
-  __$$PatchedStockLevelImplCopyWithImpl(_$PatchedStockLevelImpl _value,
-      $Res Function(_$PatchedStockLevelImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of PatchedStockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? productId = freezed,
-    Object? warehouseId = freezed,
-    Object? quantity = freezed,
-    Object? threshold = freezed,
-    Object? updatedAt = freezed,
-  }) {
-    return _then(_$PatchedStockLevelImpl(
-      productId: freezed == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      warehouseId: freezed == warehouseId
-          ? _value.warehouseId
-          : warehouseId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      quantity: freezed == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double?,
-      threshold: freezed == threshold
-          ? _value.threshold
-          : threshold // ignore: cast_nullable_to_non_nullable
-              as double?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [PatchedStockLevel].
+extension PatchedStockLevelPatterns on PatchedStockLevel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PatchedStockLevel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PatchedStockLevel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PatchedStockLevel value)  $default,){
+final _that = this;
+switch (_that) {
+case _PatchedStockLevel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PatchedStockLevel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PatchedStockLevel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'product_id')  int? productId,  int? quantity,  int? threshold)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PatchedStockLevel() when $default != null:
+return $default(_that.id,_that.productId,_that.quantity,_that.threshold);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'product_id')  int? productId,  int? quantity,  int? threshold)  $default,) {final _that = this;
+switch (_that) {
+case _PatchedStockLevel():
+return $default(_that.id,_that.productId,_that.quantity,_that.threshold);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id, @JsonKey(name: 'product_id')  int? productId,  int? quantity,  int? threshold)?  $default,) {final _that = this;
+switch (_that) {
+case _PatchedStockLevel() when $default != null:
+return $default(_that.id,_that.productId,_that.quantity,_that.threshold);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PatchedStockLevelImpl implements _PatchedStockLevel {
-  const _$PatchedStockLevelImpl(
-      {this.productId,
-      this.warehouseId,
-      this.quantity,
-      this.threshold,
-      this.updatedAt});
 
-  factory _$PatchedStockLevelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PatchedStockLevelImplFromJson(json);
+class _PatchedStockLevel implements PatchedStockLevel {
+  const _PatchedStockLevel({this.id, @JsonKey(name: 'product_id') this.productId, this.quantity, this.threshold});
+  factory _PatchedStockLevel.fromJson(Map<String, dynamic> json) => _$PatchedStockLevelFromJson(json);
 
-  @override
-  final int? productId;
-  @override
-  final int? warehouseId;
-  @override
-  final double? quantity;
-  @override
-  final double? threshold;
-  @override
-  final DateTime? updatedAt;
+@override final  int? id;
+@override@JsonKey(name: 'product_id') final  int? productId;
+@override final  int? quantity;
+@override final  int? threshold;
 
-  @override
-  String toString() {
-    return 'PatchedStockLevel(productId: $productId, warehouseId: $warehouseId, quantity: $quantity, threshold: $threshold, updatedAt: $updatedAt)';
-  }
+/// Create a copy of PatchedStockLevel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PatchedStockLevelCopyWith<_PatchedStockLevel> get copyWith => __$PatchedStockLevelCopyWithImpl<_PatchedStockLevel>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PatchedStockLevelImpl &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.warehouseId, warehouseId) ||
-                other.warehouseId == warehouseId) &&
-            (identical(other.quantity, quantity) ||
-                other.quantity == quantity) &&
-            (identical(other.threshold, threshold) ||
-                other.threshold == threshold) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, productId, warehouseId, quantity, threshold, updatedAt);
-
-  /// Create a copy of PatchedStockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PatchedStockLevelImplCopyWith<_$PatchedStockLevelImpl> get copyWith =>
-      __$$PatchedStockLevelImplCopyWithImpl<_$PatchedStockLevelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PatchedStockLevelImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$PatchedStockLevelToJson(this, );
 }
 
-abstract class _PatchedStockLevel implements PatchedStockLevel {
-  const factory _PatchedStockLevel(
-      {final int? productId,
-      final int? warehouseId,
-      final double? quantity,
-      final double? threshold,
-      final DateTime? updatedAt}) = _$PatchedStockLevelImpl;
-
-  factory _PatchedStockLevel.fromJson(Map<String, dynamic> json) =
-      _$PatchedStockLevelImpl.fromJson;
-
-  @override
-  int? get productId;
-  @override
-  int? get warehouseId;
-  @override
-  double? get quantity;
-  @override
-  double? get threshold;
-  @override
-  DateTime? get updatedAt;
-
-  /// Create a copy of PatchedStockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PatchedStockLevelImplCopyWith<_$PatchedStockLevelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatchedStockLevel&&(identical(other.id, id) || other.id == id)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.threshold, threshold) || other.threshold == threshold));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,productId,quantity,threshold);
+
+@override
+String toString() {
+  return 'PatchedStockLevel(id: $id, productId: $productId, quantity: $quantity, threshold: $threshold)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PatchedStockLevelCopyWith<$Res> implements $PatchedStockLevelCopyWith<$Res> {
+  factory _$PatchedStockLevelCopyWith(_PatchedStockLevel value, $Res Function(_PatchedStockLevel) _then) = __$PatchedStockLevelCopyWithImpl;
+@override @useResult
+$Res call({
+ int? id,@JsonKey(name: 'product_id') int? productId, int? quantity, int? threshold
+});
+
+
+
+
+}
+/// @nodoc
+class __$PatchedStockLevelCopyWithImpl<$Res>
+    implements _$PatchedStockLevelCopyWith<$Res> {
+  __$PatchedStockLevelCopyWithImpl(this._self, this._then);
+
+  final _PatchedStockLevel _self;
+  final $Res Function(_PatchedStockLevel) _then;
+
+/// Create a copy of PatchedStockLevel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? productId = freezed,Object? quantity = freezed,Object? threshold = freezed,}) {
+  return _then(_PatchedStockLevel(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,productId: freezed == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int?,quantity: freezed == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as int?,threshold: freezed == threshold ? _self.threshold : threshold // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
+
+// dart format on

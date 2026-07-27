@@ -7,19 +7,21 @@ import '../../models/user_role.dart';
 import '../../services/auth_service.dart';
 import '../repositories/auth_repository.dart';
 
-
 /// Provider pour le AuthRepository
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  final dio = ref.read(dioProvider); // ✅ Corrigé ici
+  final dio = ref.read(dioProvider);
   return AuthRepository(AuthService(dio), const FlutterSecureStorage());
 });
 
-/// StateNotifier pour gérer l’état d’authentification
-class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
-  final AuthRepository _authRepository;
+/// Notifier moderne pour Riverpod 3.x
+class AuthNotifier extends Notifier<AsyncValue<User?>> {
+  late final AuthRepository _authRepository;
 
-  AuthNotifier(this._authRepository) : super(const AsyncValue.loading()) {
+  @override
+  AsyncValue<User?> build() {
+    _authRepository = ref.watch(authRepositoryProvider);
     _loadUser();
+    return const AsyncValue.loading();
   }
 
   Future<void> _loadUser() async {
@@ -61,7 +63,6 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
       state = AsyncValue.error(e, st);
       return false;
     }
-
   }
 
   Future<bool> login({
@@ -97,9 +98,6 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
   }
 }
 
-/// Provider du AuthNotifier
+/// Provider du AuthNotifier (compatible v3)
 final authNotifierProvider =
-StateNotifierProvider<AuthNotifier, AsyncValue<User?>>((ref) {
-  final repository = ref.watch(authRepositoryProvider);
-  return AuthNotifier(repository);
-});
+NotifierProvider<AuthNotifier, AsyncValue<User?>>(AuthNotifier.new);

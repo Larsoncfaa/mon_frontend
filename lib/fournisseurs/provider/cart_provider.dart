@@ -18,9 +18,8 @@ final cartRepositoryProvider = Provider<CartRepository>((ref) {
   return CartRepository(service);
 });
 
-/// Fournisseur de l’état du panier actif
+/// Fournisseur de l’état du panier actif (Riverpod 3.x)
 final cartStateProvider =
-StateNotifierProvider<CartStateNotifier, AsyncValue<Cart?>>((ref) {
-  final repo = ref.watch(cartRepositoryProvider);
-  return CartStateNotifier(repo);
-});
+NotifierProvider<CartNotifier, AsyncValue<Cart?>>(
+  CartNotifier.new,
+);

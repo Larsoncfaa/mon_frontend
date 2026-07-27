@@ -4,14 +4,13 @@ import '../models/cart.dart';
 part 'paginated_cart_list.freezed.dart';
 part 'paginated_cart_list.g.dart';
 
-/// Liste paginée de paniers
 @freezed
-class PaginatedCartList with _$PaginatedCartList {
+abstract class PaginatedCartList with _$PaginatedCartList {
   const factory PaginatedCartList({
-    @JsonKey(defaultValue: 0) required int count, // ✅ Protection contre null
+    required int count,
     String? next,
     String? previous,
-    @Default([]) List<Cart> results, // ✅ Évite le crash si 'results' est null
+    required List<Cart> results,
   }) = _PaginatedCartList;
 
   factory PaginatedCartList.fromJson(Map<String, dynamic> json) =>

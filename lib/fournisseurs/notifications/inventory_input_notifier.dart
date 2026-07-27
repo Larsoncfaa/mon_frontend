@@ -6,40 +6,35 @@ import '../repositories/inventory_input_repository.dart';
 
 /// Provider du repository
 final inventoryInputRepositoryProvider = Provider<InventoryInputRepository>((ref) {
-  // Ici, tu peux injecter Dio par un autre provider si nécessaire.
-  // Exemple : final dio = ref.watch(dioProvider);
-  // return InventoryInputRepository(InventoryInputService(dio));
-  //
-  // Pour l’instant on crée un Dio local, mais tu peux améliorer ça.
   final dio = Dio(BaseOptions(baseUrl: 'https://ton-api.com/api'));
   return InventoryInputRepository(InventoryInputService(dio));
 });
 
-/// Provider de StateNotifier qui gère l'état de la prédiction.
-final inventoryPredictionNotifierProvider = StateNotifierProvider<
-    InventoryPredictionNotifier, AsyncValue<Map<String, dynamic>>>(
-      (ref) {
-    final repository = ref.watch(inventoryInputRepositoryProvider);
-    return InventoryPredictionNotifier(repository);
-  },
-);
-
-/// Notifier qui exécute la prédiction et met à jour l'état.
+/// Notifier qui exécute la prédiction et met à jour l'état (Riverpod 3.x).
 class InventoryPredictionNotifier
-    extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
-  final InventoryInputRepository repository;
+    extends Notifier<AsyncValue<Map<String, dynamic>>> {
+  late final InventoryInputRepository _repository;
 
-  InventoryPredictionNotifier(this.repository)
-      : super(const AsyncValue.data({}));
+  @override
+  AsyncValue<Map<String, dynamic>> build() {
+    _repository = ref.watch(inventoryInputRepositoryProvider);
+    return const AsyncValue.data({});
+  }
 
   /// Appelle la prédiction et met à jour l'état.
   Future<void> predictInventory(InventoryInput input) async {
     state = const AsyncLoading();
     try {
-      final result = await repository.predictInventory(input);
+      final result = await _repository.predictInventory(input);
       state = AsyncValue.data(result as Map<String, dynamic>);
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final inventoryPredictionNotifierProvider = NotifierProvider<
+    InventoryPredictionNotifier, AsyncValue<Map<String, dynamic>>>(
+  InventoryPredictionNotifier.new,
+);

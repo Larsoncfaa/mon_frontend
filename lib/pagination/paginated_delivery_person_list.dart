@@ -5,7 +5,7 @@ part 'paginated_delivery_person_list.freezed.dart';
 part 'paginated_delivery_person_list.g.dart';
 
 @freezed
-class PaginatedDeliveryPersonList with _$PaginatedDeliveryPersonList {
+abstract class PaginatedDeliveryPersonList with _$PaginatedDeliveryPersonList {
   const factory PaginatedDeliveryPersonList({
     required int count,
     String? next,

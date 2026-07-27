@@ -5,8 +5,7 @@ part 'selection_response.freezed.dart';
 part 'selection_response.g.dart';
 
 @freezed
-class SelectionResponse with _$SelectionResponse {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+abstract class SelectionResponse with _$SelectionResponse {
   const factory SelectionResponse({
     required int count,
     String? next,

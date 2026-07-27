@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import 'double_converter.dart'; // ← indispensable ici aussi
+import 'double_converter.dart';
 
 part 'product.freezed.dart';
 part 'product.g.dart';
@@ -39,8 +38,7 @@ UnitEnum unitFromJson(String unit) {
 }
 
 @freezed
-class Product with _$Product {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
+abstract class Product with _$Product {
   const factory Product({
     required int id,
     required String category,
@@ -56,7 +54,6 @@ class Product with _$Product {
 
     @StringToDoubleConverter() required double? purchasePrice,
     @StringToDoubleConverter() required double? sellingPrice,
-
 
     DateTime? expirationDate,
     String? qrCodeImage,

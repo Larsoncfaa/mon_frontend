@@ -3,19 +3,27 @@ import '../../models/product_discount.dart';
 import '../../pagination/paginated_product_discount_list.dart';
 import '../repositories/product_discount_repository.dart';
 
+// Provider du repository (à adapter selon ton projet)
+final productDiscountRepositoryProvider = Provider<ProductDiscountRepository>((ref) {
+  throw UnimplementedError('Initialisez votre ProductDiscountRepository ici');
+});
 
+/// Notifier moderne pour Riverpod 3.x
 class ProductDiscountNotifier
-    extends StateNotifier<AsyncValue<PaginatedProductDiscountList>> {
-  final ProductDiscountRepository repository;
+    extends Notifier<AsyncValue<PaginatedProductDiscountList>> {
+  late final ProductDiscountRepository _repository;
 
-  ProductDiscountNotifier(this.repository) : super(const AsyncLoading()) {
+  @override
+  AsyncValue<PaginatedProductDiscountList> build() {
+    _repository = ref.watch(productDiscountRepositoryProvider);
     load();
+    return const AsyncLoading();
   }
 
   Future<void> load({int page = 1}) async {
     state = const AsyncLoading();
     try {
-      final data = await repository.fetchAll(page: page);
+      final data = await _repository.fetchAll(page: page);
       state = AsyncData(data);
     } catch (e, st) {
       state = AsyncError(e, st);
@@ -26,7 +34,7 @@ class ProductDiscountNotifier
     final previous = state;
     try {
       state = const AsyncLoading();
-      await repository.create(newDiscount);
+      await _repository.create(newDiscount);
       await load(page: 1);
     } catch (e, st) {
       state = previous;
@@ -38,7 +46,7 @@ class ProductDiscountNotifier
     final previous = state;
     try {
       state = const AsyncLoading();
-      await repository.update(id, updatedDiscount);
+      await _repository.update(id, updatedDiscount);
       await load(page: 1);
     } catch (e, st) {
       state = previous;
@@ -50,7 +58,7 @@ class ProductDiscountNotifier
     final previous = state;
     try {
       state = const AsyncLoading();
-      await repository.delete(id);
+      await _repository.delete(id);
       await load(page: 1);
     } catch (e, st) {
       state = previous;
@@ -58,3 +66,9 @@ class ProductDiscountNotifier
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final productDiscountNotifierProvider = NotifierProvider<
+    ProductDiscountNotifier, AsyncValue<PaginatedProductDiscountList>>(
+  ProductDiscountNotifier.new,
+);

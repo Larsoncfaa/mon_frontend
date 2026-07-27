@@ -4,7 +4,7 @@ part 'batch.freezed.dart';
 part 'batch.g.dart';
 
 @freezed
-class Batch with _$Batch {
+abstract class Batch with _$Batch {
   const factory Batch({
     required int id,
 

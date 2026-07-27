@@ -1,23 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../models/delivery_status_enum.dart';
-import '../models/type_enum.dart';
-
-
-
 part 'patched_delivery_patch_dto.freezed.dart';
 part 'patched_delivery_patch_dto.g.dart';
 
-
 @freezed
-class PatchedDeliveryPatchDto with _$PatchedDeliveryPatchDto {
+abstract class PatchedDeliveryPatchDto with _$PatchedDeliveryPatchDto {
   const factory PatchedDeliveryPatchDto({
     int? deliverer,
     int? order,
     int? product,
-    @JsonKey(name: 'type') TypeEnum? type,
-    @JsonKey(name: 'delivery_status') DeliveryStatusEnum? deliveryStatus,
+    String? type,
+    @JsonKey(name: 'delivery_status') String? deliveryStatus,
     String? description,
+    double? latitude,
+    double? longitude,
   }) = _PatchedDeliveryPatchDto;
 
   factory PatchedDeliveryPatchDto.fromJson(Map<String, dynamic> json) =>

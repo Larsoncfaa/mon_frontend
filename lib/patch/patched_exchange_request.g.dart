@@ -6,30 +6,26 @@ part of 'patched_exchange_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedExchangeRequestImpl _$$PatchedExchangeRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedExchangeRequestImpl(
-      id: (json['id'] as num?)?.toInt(),
-      returnRequest: (json['return_request'] as num?)?.toInt(),
-      replacement: (json['replacement'] as num?)?.toInt(),
-      exchangeStatus: $enumDecodeNullable(
-          _$ExchangeStatusEnumEnumMap, json['exchange_status']),
-    );
+_PatchedExchangeRequest _$PatchedExchangeRequestFromJson(
+  Map<String, dynamic> json,
+) => _PatchedExchangeRequest(
+  id: (json['id'] as num?)?.toInt(),
+  orderId: (json['order_id'] as num?)?.toInt(),
+  reason: json['reason'] as String?,
+  requestedAt: json['requested_at'] == null
+      ? null
+      : DateTime.parse(json['requested_at'] as String),
+  exchangeStatus: json['exchange_status'] as String?,
+  replacement: json['replacement'] as String?,
+);
 
-Map<String, dynamic> _$$PatchedExchangeRequestImplToJson(
-        _$PatchedExchangeRequestImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'return_request': instance.returnRequest,
-      'replacement': instance.replacement,
-      'exchange_status': _$ExchangeStatusEnumEnumMap[instance.exchangeStatus],
-    };
-
-const _$ExchangeStatusEnumEnumMap = {
-  ExchangeStatusEnum.pending: 'PENDING',
-  ExchangeStatusEnum.completed: 'COMPLETED',
-  ExchangeStatusEnum.COMPLETED: 'COMPLETED',
-  ExchangeStatusEnum.PENDING: 'PENDING',
-  ExchangeStatusEnum.ACCEPTED: 'ACCEPTED',
-  ExchangeStatusEnum.REJECTED: 'REJECTED',
+Map<String, dynamic> _$PatchedExchangeRequestToJson(
+  _PatchedExchangeRequest instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'order_id': instance.orderId,
+  'reason': instance.reason,
+  'requested_at': instance.requestedAt?.toIso8601String(),
+  'exchange_status': instance.exchangeStatus,
+  'replacement': instance.replacement,
 };

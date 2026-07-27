@@ -24,7 +24,7 @@ class SuiviLogistiqueAgriculteurScreen extends ConsumerWidget {
     buffer.writeln('Statut,Montant,Date');
     for (final p in payments) {
       buffer.writeln(
-          '${p.paymentStatus},${p.amount},${DateFormat('yyyy-MM-dd').format(p.attemptTime)}');
+          '${p.status},${p.amount},${DateFormat('yyyy-MM-dd').format(p.attemptTime)}');
     }
     buffer.writeln();
     buffer.writeln('Preuves');
@@ -38,7 +38,7 @@ class SuiviLogistiqueAgriculteurScreen extends ConsumerWidget {
     buffer.writeln('Statut,Localisation,Date');
     for (final t in trackings) {
       buffer.writeln(
-          '${t.trackingStatus},${t.location},${DateFormat('yyyy-MM-dd').format(t.timestamp)}');
+          '${t.status},${t.location},${DateFormat('yyyy-MM-dd').format(t.updatedAt)}');
     }
 
     final dir = await getApplicationDocumentsDirectory();
@@ -61,7 +61,7 @@ class SuiviLogistiqueAgriculteurScreen extends ConsumerWidget {
     buffer.writeln('Paiements');
     for (final p in payments) {
       buffer.writeln(
-          '- ${p.paymentStatus} : ${p.amount}€ (${DateFormat('yyyy-MM-dd').format(p.attemptTime)})');
+          '- ${p.status} : ${p.amount}€ (${DateFormat('yyyy-MM-dd').format(p.attemptTime)})');
     }
     buffer.writeln();
     buffer.writeln('Preuves');
@@ -73,7 +73,7 @@ class SuiviLogistiqueAgriculteurScreen extends ConsumerWidget {
     buffer.writeln('Suivi');
     for (final t in trackings) {
       buffer.writeln(
-          '- ${t.trackingStatus} @${t.location} (${DateFormat('yyyy-MM-dd').format(t.timestamp)})');
+          '- ${t.status} @${t.location} (${DateFormat('yyyy-MM-dd').format(t.updatedAt)})');
     }
 
     final dir = await getApplicationDocumentsDirectory();
@@ -148,7 +148,7 @@ class SuiviLogistiqueAgriculteurScreen extends ConsumerWidget {
             paymentLogState.when(
               data: (paginated) {
                 final filtered = paginated.results.where((log) {
-                  final matchesSearch = log.paymentStatus.toLowerCase().contains(searchQuery);
+                  final matchesSearch = log.status.toLowerCase().contains(searchQuery);
                   final matchesDate = selectedDate == null ||
                       DateUtils.isSameDay(log.attemptTime, selectedDate);
                   return matchesSearch && matchesDate;
@@ -202,9 +202,9 @@ class SuiviLogistiqueAgriculteurScreen extends ConsumerWidget {
             trackingState.when(
               data: (paginated) {
                 final filtered = paginated.results.where((track) {
-                  final matchesSearch = track.trackingStatus.toLowerCase().contains(searchQuery);
+                  final matchesSearch = track.status.toLowerCase().contains(searchQuery);
                   final matchesDate = selectedDate == null ||
-                      DateUtils.isSameDay(track.timestamp, selectedDate);
+                      DateUtils.isSameDay(track.updatedAt, selectedDate);
                   return matchesSearch && matchesDate;
                 }).toList();
 
@@ -239,7 +239,7 @@ class _PaymentLogTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("${log.paymentStatus} – ${log.amount}€"),
+      title: Text("${log.status} – ${log.amount}€"),
       subtitle: Text("Le ${DateFormat('yyyy-MM-dd – HH:mm').format(log.attemptTime)}"),
       leading: const Icon(Icons.payment),
       trailing: IconButton(
@@ -316,8 +316,8 @@ class _TrackingInfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(trackingInfo.trackingStatus),
-      subtitle: Text("Mis à jour le ${DateFormat('yyyy-MM-dd – HH:mm').format(trackingInfo.timestamp)}"),
+      title: Text(trackingInfo.status),
+      subtitle: Text("Mis à jour le ${DateFormat('yyyy-MM-dd – HH:mm').format(trackingInfo.updatedAt)}"),
       leading: const Icon(Icons.local_shipping),
       trailing: IconButton(
         icon: const Icon(Icons.delete, color: Colors.red),

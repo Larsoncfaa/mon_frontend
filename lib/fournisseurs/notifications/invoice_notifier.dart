@@ -3,17 +3,26 @@ import '../../models/invoice.dart';
 import '../../pagination/paginated_invoice_list.dart';
 import '../repositories/invoice_repository.dart';
 
-class InvoiceNotifier extends StateNotifier<AsyncValue<PaginatedInvoiceList>> {
-  final InvoiceRepository repository;
+// Provider du repository (à adapter selon la configuration de ton projet)
+final invoiceRepositoryProvider = Provider<InvoiceRepository>((ref) {
+  throw UnimplementedError('Initialisez votre InvoiceRepository ici');
+});
 
-  InvoiceNotifier(this.repository) : super(const AsyncLoading()) {
+/// Notifier moderne pour Riverpod 3.x
+class InvoiceNotifier extends Notifier<AsyncValue<PaginatedInvoiceList>> {
+  late final InvoiceRepository _repository;
+
+  @override
+  AsyncValue<PaginatedInvoiceList> build() {
+    _repository = ref.watch(invoiceRepositoryProvider);
     fetchInvoices();
+    return const AsyncValue.loading();
   }
 
   Future<void> fetchInvoices({int page = 1}) async {
     state = const AsyncLoading();
     try {
-      final invoices = await repository.fetchInvoices(page: page);
+      final invoices = await _repository.fetchInvoices(page: page);
       state = AsyncData(invoices);
     } catch (e, st) {
       state = AsyncError(e, st);
@@ -26,7 +35,7 @@ class InvoiceNotifier extends StateNotifier<AsyncValue<PaginatedInvoiceList>> {
 
   Future<void> createInvoice(Invoice newInvoice) async {
     try {
-      final created = await repository.createInvoice(newInvoice);
+      final created = await _repository.createInvoice(newInvoice);
       final previous = state.value;
       if (previous != null) {
         final updatedResults = [...previous.results, created];
@@ -39,3 +48,9 @@ class InvoiceNotifier extends StateNotifier<AsyncValue<PaginatedInvoiceList>> {
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final invoiceNotifierProvider = NotifierProvider<
+    InvoiceNotifier, AsyncValue<PaginatedInvoiceList>>(
+  InvoiceNotifier.new,
+);

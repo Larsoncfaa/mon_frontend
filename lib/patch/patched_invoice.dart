@@ -4,13 +4,14 @@ part 'patched_invoice.freezed.dart';
 part 'patched_invoice.g.dart';
 
 @freezed
-class PatchedInvoice with _$PatchedInvoice {
+abstract class PatchedInvoice with _$PatchedInvoice {
   const factory PatchedInvoice({
     int? id,
     int? order,
-    String? pdf,
     @JsonKey(name: 'issued_at') DateTime? issuedAt,
+    @JsonKey(name: 'pdf_file') String? pdfFile,
   }) = _PatchedInvoice;
 
-  factory PatchedInvoice.fromJson(Map<String, dynamic> json) => _$PatchedInvoiceFromJson(json);
+  factory PatchedInvoice.fromJson(Map<String, dynamic> json) =>
+      _$PatchedInvoiceFromJson(json);
 }

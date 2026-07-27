@@ -4,11 +4,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/order_line.dart';
 import '../repositories/order_line_repository.dart';
 
-class OrderLineNotifier extends StateNotifier<AsyncValue<List<OrderLine>>> {
-  final OrderLineRepository _repository;
+// Provider du repository (à adapter selon ton projet)
+final orderLineRepositoryProvider = Provider<OrderLineRepository>((ref) {
+  throw UnimplementedError('Initialisez votre OrderLineRepository ici');
+});
 
-  OrderLineNotifier(this._repository) : super(const AsyncValue.loading()) {
+/// Notifier moderne pour Riverpod 3.x
+class OrderLineNotifier extends Notifier<AsyncValue<List<OrderLine>>> {
+  late final OrderLineRepository _repository;
+
+  @override
+  AsyncValue<List<OrderLine>> build() {
+    _repository = ref.watch(orderLineRepositoryProvider);
     load();
+    return const AsyncValue.loading();
   }
 
   Future<void> load({int page = 1}) async {
@@ -26,3 +35,9 @@ class OrderLineNotifier extends StateNotifier<AsyncValue<List<OrderLine>>> {
     await load();
   }
 }
+
+/// Provider pour Riverpod 3.x
+final orderLineNotifierProvider = NotifierProvider<
+    OrderLineNotifier, AsyncValue<List<OrderLine>>>(
+  OrderLineNotifier.new,
+);

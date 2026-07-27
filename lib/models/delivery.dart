@@ -38,7 +38,7 @@ DeliveryStatusEnum? _deliveryStatusEnumFromJson(String? value) {
 }
 
 @freezed
-class Delivery with _$Delivery {
+abstract class Delivery with _$Delivery {
   const factory Delivery({
     required int id,
     int? deliverer,

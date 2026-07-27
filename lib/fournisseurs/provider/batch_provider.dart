@@ -15,24 +15,21 @@ final batchServiceProvider = Provider<BatchService>((ref) {
 /// Fournisseur du repository, dépend du service
 final batchRepositoryProvider = Provider<BatchRepository>((ref) {
   final service = ref.watch(batchServiceProvider);
-  return BatchRepository(service); // ✅ correction ici
+  return BatchRepository(service);
 });
 
-
-/// Fournisseur du notifier (StateNotifier)
+/// Fournisseur du notifier (Riverpod 3.x)
 final batchNotifierProvider =
-StateNotifierProvider<BatchNotifier, AsyncValue<List<Batch>>>((ref) {
-  final repository = ref.watch(batchRepositoryProvider);
-  return BatchNotifier(repository);
-});
-final selectedBatchProvider = FutureProvider.family<Batch, int>((ref, id) async {
+NotifierProvider<BatchNotifier, AsyncValue<List<Batch>>>(
+  BatchNotifier.new,
+);
+
+/// Alias pour compatibilité si 'batchProvider' est utilisé ailleurs dans le code
+final batchProvider = batchNotifierProvider;
+
+/// Fournisseur pour récupérer un lot spécifique par son ID
+final selectedBatchProvider =
+FutureProvider.family<Batch, int>((ref, id) async {
   final service = ref.watch(batchServiceProvider);
   return service.getBatch(id);
 });
-
-final batchProvider = StateNotifierProvider<BatchNotifier, AsyncValue<List<Batch>>>(
-      (ref) {
-    final repository = ref.read(batchRepositoryProvider);
-    return BatchNotifier(repository);
-  },
-);

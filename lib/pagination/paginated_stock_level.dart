@@ -1,12 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../models/stock_level.dart';
 
-
 part 'paginated_stock_level.freezed.dart';
 part 'paginated_stock_level.g.dart';
 
 @freezed
-class PaginatedStockLevel with _$PaginatedStockLevel {
+abstract class PaginatedStockLevel with _$PaginatedStockLevel {
   const factory PaginatedStockLevel({
     required int count,
     String? next,

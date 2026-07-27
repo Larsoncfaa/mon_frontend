@@ -4,7 +4,7 @@ part 'patched_warehouse.freezed.dart';
 part 'patched_warehouse.g.dart';
 
 @freezed
-class PatchedWarehouse with _$PatchedWarehouse {
+abstract class PatchedWarehouse with _$PatchedWarehouse {
   const factory PatchedWarehouse({
     int? id,
     String? name,

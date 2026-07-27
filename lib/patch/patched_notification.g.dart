@@ -6,26 +6,25 @@ part of 'patched_notification.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedNotificationImpl _$$PatchedNotificationImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedNotificationImpl(
+_PatchedNotification _$PatchedNotificationFromJson(Map<String, dynamic> json) =>
+    _PatchedNotification(
       id: (json['id'] as num?)?.toInt(),
-      user: (json['user'] as num?)?.toInt(),
+      title: json['title'] as String?,
       message: json['message'] as String?,
-      link: json['link'] as String?,
-      read: json['read'] as bool?,
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
+      isRead: json['is_read'] as bool?,
+      link: json['link'] as String?,
     );
 
-Map<String, dynamic> _$$PatchedNotificationImplToJson(
-        _$PatchedNotificationImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'user': instance.user,
-      'message': instance.message,
-      'link': instance.link,
-      'read': instance.read,
-      'created_at': instance.createdAt?.toIso8601String(),
-    };
+Map<String, dynamic> _$PatchedNotificationToJson(
+  _PatchedNotification instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'title': instance.title,
+  'message': instance.message,
+  'created_at': instance.createdAt?.toIso8601String(),
+  'is_read': instance.isRead,
+  'link': instance.link,
+};

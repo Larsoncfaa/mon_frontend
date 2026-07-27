@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,221 +9,296 @@ part of 'stock_level.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-StockLevel _$StockLevelFromJson(Map<String, dynamic> json) {
-  return _StockLevel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$StockLevel {
-  int get id => throw _privateConstructorUsedError;
-  int get product => throw _privateConstructorUsedError;
-  int get warehouse => throw _privateConstructorUsedError;
 
-  /// Minimum value: 0, Maximum value: 4294967295
-  int get quantity => throw _privateConstructorUsedError;
+ int get id;@JsonKey(name: 'product_id') int get productId; Product get product; int get quantity;
+/// Create a copy of StockLevel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StockLevelCopyWith<StockLevel> get copyWith => _$StockLevelCopyWithImpl<StockLevel>(this as StockLevel, _$identity);
 
   /// Serializes this StockLevel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of StockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $StockLevelCopyWith<StockLevel> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StockLevel&&(identical(other.id, id) || other.id == id)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.product, product) || other.product == product)&&(identical(other.quantity, quantity) || other.quantity == quantity));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,productId,product,quantity);
+
+@override
+String toString() {
+  return 'StockLevel(id: $id, productId: $productId, product: $product, quantity: $quantity)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $StockLevelCopyWith<$Res> {
-  factory $StockLevelCopyWith(
-          StockLevel value, $Res Function(StockLevel) then) =
-      _$StockLevelCopyWithImpl<$Res, StockLevel>;
-  @useResult
-  $Res call({int id, int product, int warehouse, int quantity});
-}
+abstract mixin class $StockLevelCopyWith<$Res>  {
+  factory $StockLevelCopyWith(StockLevel value, $Res Function(StockLevel) _then) = _$StockLevelCopyWithImpl;
+@useResult
+$Res call({
+ int id,@JsonKey(name: 'product_id') int productId, Product product, int quantity
+});
 
+
+$ProductCopyWith<$Res> get product;
+
+}
 /// @nodoc
-class _$StockLevelCopyWithImpl<$Res, $Val extends StockLevel>
+class _$StockLevelCopyWithImpl<$Res>
     implements $StockLevelCopyWith<$Res> {
-  _$StockLevelCopyWithImpl(this._value, this._then);
+  _$StockLevelCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final StockLevel _self;
+  final $Res Function(StockLevel) _then;
 
-  /// Create a copy of StockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? product = null,
-    Object? warehouse = null,
-    Object? quantity = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      product: null == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as int,
-      warehouse: null == warehouse
-          ? _value.warehouse
-          : warehouse // ignore: cast_nullable_to_non_nullable
-              as int,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
+/// Create a copy of StockLevel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? productId = null,Object? product = null,Object? quantity = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int,product: null == product ? _self.product : product // ignore: cast_nullable_to_non_nullable
+as Product,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+/// Create a copy of StockLevel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProductCopyWith<$Res> get product {
+  
+  return $ProductCopyWith<$Res>(_self.product, (value) {
+    return _then(_self.copyWith(product: value));
+  });
+}
 }
 
-/// @nodoc
-abstract class _$$StockLevelImplCopyWith<$Res>
-    implements $StockLevelCopyWith<$Res> {
-  factory _$$StockLevelImplCopyWith(
-          _$StockLevelImpl value, $Res Function(_$StockLevelImpl) then) =
-      __$$StockLevelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int id, int product, int warehouse, int quantity});
+
+/// Adds pattern-matching-related methods to [StockLevel].
+extension StockLevelPatterns on StockLevel {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _StockLevel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _StockLevel() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _StockLevel value)  $default,){
+final _that = this;
+switch (_that) {
+case _StockLevel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _StockLevel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _StockLevel() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'product_id')  int productId,  Product product,  int quantity)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _StockLevel() when $default != null:
+return $default(_that.id,_that.productId,_that.product,_that.quantity);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'product_id')  int productId,  Product product,  int quantity)  $default,) {final _that = this;
+switch (_that) {
+case _StockLevel():
+return $default(_that.id,_that.productId,_that.product,_that.quantity);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'product_id')  int productId,  Product product,  int quantity)?  $default,) {final _that = this;
+switch (_that) {
+case _StockLevel() when $default != null:
+return $default(_that.id,_that.productId,_that.product,_that.quantity);case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-class __$$StockLevelImplCopyWithImpl<$Res>
-    extends _$StockLevelCopyWithImpl<$Res, _$StockLevelImpl>
-    implements _$$StockLevelImplCopyWith<$Res> {
-  __$$StockLevelImplCopyWithImpl(
-      _$StockLevelImpl _value, $Res Function(_$StockLevelImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of StockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? product = null,
-    Object? warehouse = null,
-    Object? quantity = null,
-  }) {
-    return _then(_$StockLevelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      product: null == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as int,
-      warehouse: null == warehouse
-          ? _value.warehouse
-          : warehouse // ignore: cast_nullable_to_non_nullable
-              as int,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$StockLevelImpl implements _StockLevel {
-  const _$StockLevelImpl(
-      {required this.id,
-      required this.product,
-      required this.warehouse,
-      required this.quantity});
 
-  factory _$StockLevelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$StockLevelImplFromJson(json);
+class _StockLevel implements StockLevel {
+  const _StockLevel({required this.id, @JsonKey(name: 'product_id') required this.productId, required this.product, required this.quantity});
+  factory _StockLevel.fromJson(Map<String, dynamic> json) => _$StockLevelFromJson(json);
 
-  @override
-  final int id;
-  @override
-  final int product;
-  @override
-  final int warehouse;
+@override final  int id;
+@override@JsonKey(name: 'product_id') final  int productId;
+@override final  Product product;
+@override final  int quantity;
 
-  /// Minimum value: 0, Maximum value: 4294967295
-  @override
-  final int quantity;
+/// Create a copy of StockLevel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$StockLevelCopyWith<_StockLevel> get copyWith => __$StockLevelCopyWithImpl<_StockLevel>(this, _$identity);
 
-  @override
-  String toString() {
-    return 'StockLevel(id: $id, product: $product, warehouse: $warehouse, quantity: $quantity)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StockLevelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.product, product) || other.product == product) &&
-            (identical(other.warehouse, warehouse) ||
-                other.warehouse == warehouse) &&
-            (identical(other.quantity, quantity) ||
-                other.quantity == quantity));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, product, warehouse, quantity);
-
-  /// Create a copy of StockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$StockLevelImplCopyWith<_$StockLevelImpl> get copyWith =>
-      __$$StockLevelImplCopyWithImpl<_$StockLevelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$StockLevelImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$StockLevelToJson(this, );
 }
 
-abstract class _StockLevel implements StockLevel {
-  const factory _StockLevel(
-      {required final int id,
-      required final int product,
-      required final int warehouse,
-      required final int quantity}) = _$StockLevelImpl;
-
-  factory _StockLevel.fromJson(Map<String, dynamic> json) =
-      _$StockLevelImpl.fromJson;
-
-  @override
-  int get id;
-  @override
-  int get product;
-  @override
-  int get warehouse;
-
-  /// Minimum value: 0, Maximum value: 4294967295
-  @override
-  int get quantity;
-
-  /// Create a copy of StockLevel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$StockLevelImplCopyWith<_$StockLevelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StockLevel&&(identical(other.id, id) || other.id == id)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.product, product) || other.product == product)&&(identical(other.quantity, quantity) || other.quantity == quantity));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,productId,product,quantity);
+
+@override
+String toString() {
+  return 'StockLevel(id: $id, productId: $productId, product: $product, quantity: $quantity)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$StockLevelCopyWith<$Res> implements $StockLevelCopyWith<$Res> {
+  factory _$StockLevelCopyWith(_StockLevel value, $Res Function(_StockLevel) _then) = __$StockLevelCopyWithImpl;
+@override @useResult
+$Res call({
+ int id,@JsonKey(name: 'product_id') int productId, Product product, int quantity
+});
+
+
+@override $ProductCopyWith<$Res> get product;
+
+}
+/// @nodoc
+class __$StockLevelCopyWithImpl<$Res>
+    implements _$StockLevelCopyWith<$Res> {
+  __$StockLevelCopyWithImpl(this._self, this._then);
+
+  final _StockLevel _self;
+  final $Res Function(_StockLevel) _then;
+
+/// Create a copy of StockLevel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? productId = null,Object? product = null,Object? quantity = null,}) {
+  return _then(_StockLevel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int,product: null == product ? _self.product : product // ignore: cast_nullable_to_non_nullable
+as Product,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+/// Create a copy of StockLevel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$ProductCopyWith<$Res> get product {
+  
+  return $ProductCopyWith<$Res>(_self.product, (value) {
+    return _then(_self.copyWith(product: value));
+  });
+}
+}
+
+// dart format on

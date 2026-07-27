@@ -6,16 +6,11 @@ part of 'patched_category.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedCategoryImpl _$$PatchedCategoryImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedCategoryImpl(
+_PatchedCategory _$PatchedCategoryFromJson(Map<String, dynamic> json) =>
+    _PatchedCategory(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$PatchedCategoryImplToJson(
-        _$PatchedCategoryImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-    };
+Map<String, dynamic> _$PatchedCategoryToJson(_PatchedCategory instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};

@@ -6,22 +6,21 @@ part of 'payment_log.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaymentLogImpl _$$PaymentLogImplFromJson(Map<String, dynamic> json) =>
-    _$PaymentLogImpl(
-      id: (json['id'] as num).toInt(),
-      order: (json['order'] as num).toInt(),
-      attemptTime: DateTime.parse(json['attempt_time'] as String),
-      paymentStatus: json['payment_status'] as String,
-      amount: const StringToDoubleConverter().fromJson(json['amount']),
-      info: json['info'] as Map<String, dynamic>?,
-    );
+_PaymentLog _$PaymentLogFromJson(Map<String, dynamic> json) => _PaymentLog(
+  id: (json['id'] as num).toInt(),
+  order: (json['order'] as num).toInt(),
+  amount: (json['amount'] as num).toDouble(),
+  status: json['status'] as String,
+  attemptTime: DateTime.parse(json['attempt_time'] as String),
+  responseMessage: json['response_message'] as String?,
+);
 
-Map<String, dynamic> _$$PaymentLogImplToJson(_$PaymentLogImpl instance) =>
+Map<String, dynamic> _$PaymentLogToJson(_PaymentLog instance) =>
     <String, dynamic>{
       'id': instance.id,
       'order': instance.order,
+      'amount': instance.amount,
+      'status': instance.status,
       'attempt_time': instance.attemptTime.toIso8601String(),
-      'payment_status': instance.paymentStatus,
-      'amount': const StringToDoubleConverter().toJson(instance.amount),
-      'info': instance.info,
+      'response_message': instance.responseMessage,
     };

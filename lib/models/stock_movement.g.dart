@@ -6,8 +6,8 @@ part of 'stock_movement.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$StockMovementImpl _$$StockMovementImplFromJson(Map<String, dynamic> json) =>
-    _$StockMovementImpl(
+_StockMovement _$StockMovementFromJson(Map<String, dynamic> json) =>
+    _StockMovement(
       id: (json['id'] as num).toInt(),
       product: (json['product'] as num).toInt(),
       warehouse: (json['warehouse'] as num).toInt(),
@@ -21,7 +21,7 @@ _$StockMovementImpl _$$StockMovementImplFromJson(Map<String, dynamic> json) =>
       productName: json['product_name'] as String?,
     );
 
-Map<String, dynamic> _$$StockMovementImplToJson(_$StockMovementImpl instance) =>
+Map<String, dynamic> _$StockMovementToJson(_StockMovement instance) =>
     <String, dynamic>{
       'id': instance.id,
       'product': instance.product,

@@ -6,9 +6,8 @@ part of 'paginated_delivery.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaginatedDeliveryImpl _$$PaginatedDeliveryImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PaginatedDeliveryImpl(
+_PaginatedDelivery _$PaginatedDeliveryFromJson(Map<String, dynamic> json) =>
+    _PaginatedDelivery(
       count: (json['count'] as num).toInt(),
       next: json['next'] as String?,
       previous: json['previous'] as String?,
@@ -17,8 +16,7 @@ _$PaginatedDeliveryImpl _$$PaginatedDeliveryImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$PaginatedDeliveryImplToJson(
-        _$PaginatedDeliveryImpl instance) =>
+Map<String, dynamic> _$PaginatedDeliveryToJson(_PaginatedDelivery instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,

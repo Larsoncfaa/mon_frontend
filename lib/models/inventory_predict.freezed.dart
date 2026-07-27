@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,229 +9,275 @@ part of 'inventory_predict.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-InventoryPredict _$InventoryPredictFromJson(Map<String, dynamic> json) {
-  return _InventoryPredict.fromJson(json);
-}
 
 /// @nodoc
 mixin _$InventoryPredict {
-  /// ID du produit concerné par la prédiction
-  @JsonKey(name: 'product_id')
-  int get productId => throw _privateConstructorUsedError;
 
-  /// Nombre de jours projetés dans la prédiction
-  @JsonKey(name: 'days')
-  int get days => throw _privateConstructorUsedError;
-
-  /// Stock prédit à la fin de la période
-  @JsonKey(name: 'predicted_inventory')
-  int get predictedInventory => throw _privateConstructorUsedError;
+@JsonKey(name: 'product_id') int get productId; int get days;@JsonKey(name: 'predicted_inventory') double get predictedInventory;
+/// Create a copy of InventoryPredict
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InventoryPredictCopyWith<InventoryPredict> get copyWith => _$InventoryPredictCopyWithImpl<InventoryPredict>(this as InventoryPredict, _$identity);
 
   /// Serializes this InventoryPredict to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of InventoryPredict
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $InventoryPredictCopyWith<InventoryPredict> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InventoryPredict&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.days, days) || other.days == days)&&(identical(other.predictedInventory, predictedInventory) || other.predictedInventory == predictedInventory));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,productId,days,predictedInventory);
+
+@override
+String toString() {
+  return 'InventoryPredict(productId: $productId, days: $days, predictedInventory: $predictedInventory)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $InventoryPredictCopyWith<$Res> {
-  factory $InventoryPredictCopyWith(
-          InventoryPredict value, $Res Function(InventoryPredict) then) =
-      _$InventoryPredictCopyWithImpl<$Res, InventoryPredict>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'product_id') int productId,
-      @JsonKey(name: 'days') int days,
-      @JsonKey(name: 'predicted_inventory') int predictedInventory});
-}
+abstract mixin class $InventoryPredictCopyWith<$Res>  {
+  factory $InventoryPredictCopyWith(InventoryPredict value, $Res Function(InventoryPredict) _then) = _$InventoryPredictCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'product_id') int productId, int days,@JsonKey(name: 'predicted_inventory') double predictedInventory
+});
 
+
+
+
+}
 /// @nodoc
-class _$InventoryPredictCopyWithImpl<$Res, $Val extends InventoryPredict>
+class _$InventoryPredictCopyWithImpl<$Res>
     implements $InventoryPredictCopyWith<$Res> {
-  _$InventoryPredictCopyWithImpl(this._value, this._then);
+  _$InventoryPredictCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final InventoryPredict _self;
+  final $Res Function(InventoryPredict) _then;
 
-  /// Create a copy of InventoryPredict
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? productId = null,
-    Object? days = null,
-    Object? predictedInventory = null,
-  }) {
-    return _then(_value.copyWith(
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as int,
-      days: null == days
-          ? _value.days
-          : days // ignore: cast_nullable_to_non_nullable
-              as int,
-      predictedInventory: null == predictedInventory
-          ? _value.predictedInventory
-          : predictedInventory // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
+/// Create a copy of InventoryPredict
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? productId = null,Object? days = null,Object? predictedInventory = null,}) {
+  return _then(_self.copyWith(
+productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int,days: null == days ? _self.days : days // ignore: cast_nullable_to_non_nullable
+as int,predictedInventory: null == predictedInventory ? _self.predictedInventory : predictedInventory // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
 
-/// @nodoc
-abstract class _$$InventoryPredictImplCopyWith<$Res>
-    implements $InventoryPredictCopyWith<$Res> {
-  factory _$$InventoryPredictImplCopyWith(_$InventoryPredictImpl value,
-          $Res Function(_$InventoryPredictImpl) then) =
-      __$$InventoryPredictImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'product_id') int productId,
-      @JsonKey(name: 'days') int days,
-      @JsonKey(name: 'predicted_inventory') int predictedInventory});
 }
 
-/// @nodoc
-class __$$InventoryPredictImplCopyWithImpl<$Res>
-    extends _$InventoryPredictCopyWithImpl<$Res, _$InventoryPredictImpl>
-    implements _$$InventoryPredictImplCopyWith<$Res> {
-  __$$InventoryPredictImplCopyWithImpl(_$InventoryPredictImpl _value,
-      $Res Function(_$InventoryPredictImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of InventoryPredict
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? productId = null,
-    Object? days = null,
-    Object? predictedInventory = null,
-  }) {
-    return _then(_$InventoryPredictImpl(
-      productId: null == productId
-          ? _value.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as int,
-      days: null == days
-          ? _value.days
-          : days // ignore: cast_nullable_to_non_nullable
-              as int,
-      predictedInventory: null == predictedInventory
-          ? _value.predictedInventory
-          : predictedInventory // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
+/// Adds pattern-matching-related methods to [InventoryPredict].
+extension InventoryPredictPatterns on InventoryPredict {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _InventoryPredict value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _InventoryPredict() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _InventoryPredict value)  $default,){
+final _that = this;
+switch (_that) {
+case _InventoryPredict():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _InventoryPredict value)?  $default,){
+final _that = this;
+switch (_that) {
+case _InventoryPredict() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'product_id')  int productId,  int days, @JsonKey(name: 'predicted_inventory')  double predictedInventory)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _InventoryPredict() when $default != null:
+return $default(_that.productId,_that.days,_that.predictedInventory);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'product_id')  int productId,  int days, @JsonKey(name: 'predicted_inventory')  double predictedInventory)  $default,) {final _that = this;
+switch (_that) {
+case _InventoryPredict():
+return $default(_that.productId,_that.days,_that.predictedInventory);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'product_id')  int productId,  int days, @JsonKey(name: 'predicted_inventory')  double predictedInventory)?  $default,) {final _that = this;
+switch (_that) {
+case _InventoryPredict() when $default != null:
+return $default(_that.productId,_that.days,_that.predictedInventory);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$InventoryPredictImpl implements _InventoryPredict {
-  const _$InventoryPredictImpl(
-      {@JsonKey(name: 'product_id') required this.productId,
-      @JsonKey(name: 'days') required this.days,
-      @JsonKey(name: 'predicted_inventory') required this.predictedInventory});
 
-  factory _$InventoryPredictImpl.fromJson(Map<String, dynamic> json) =>
-      _$$InventoryPredictImplFromJson(json);
+class _InventoryPredict implements InventoryPredict {
+  const _InventoryPredict({@JsonKey(name: 'product_id') required this.productId, required this.days, @JsonKey(name: 'predicted_inventory') required this.predictedInventory});
+  factory _InventoryPredict.fromJson(Map<String, dynamic> json) => _$InventoryPredictFromJson(json);
 
-  /// ID du produit concerné par la prédiction
-  @override
-  @JsonKey(name: 'product_id')
-  final int productId;
+@override@JsonKey(name: 'product_id') final  int productId;
+@override final  int days;
+@override@JsonKey(name: 'predicted_inventory') final  double predictedInventory;
 
-  /// Nombre de jours projetés dans la prédiction
-  @override
-  @JsonKey(name: 'days')
-  final int days;
+/// Create a copy of InventoryPredict
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$InventoryPredictCopyWith<_InventoryPredict> get copyWith => __$InventoryPredictCopyWithImpl<_InventoryPredict>(this, _$identity);
 
-  /// Stock prédit à la fin de la période
-  @override
-  @JsonKey(name: 'predicted_inventory')
-  final int predictedInventory;
-
-  @override
-  String toString() {
-    return 'InventoryPredict(productId: $productId, days: $days, predictedInventory: $predictedInventory)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$InventoryPredictImpl &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.days, days) || other.days == days) &&
-            (identical(other.predictedInventory, predictedInventory) ||
-                other.predictedInventory == predictedInventory));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, productId, days, predictedInventory);
-
-  /// Create a copy of InventoryPredict
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$InventoryPredictImplCopyWith<_$InventoryPredictImpl> get copyWith =>
-      __$$InventoryPredictImplCopyWithImpl<_$InventoryPredictImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$InventoryPredictImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$InventoryPredictToJson(this, );
 }
 
-abstract class _InventoryPredict implements InventoryPredict {
-  const factory _InventoryPredict(
-      {@JsonKey(name: 'product_id') required final int productId,
-      @JsonKey(name: 'days') required final int days,
-      @JsonKey(name: 'predicted_inventory')
-      required final int predictedInventory}) = _$InventoryPredictImpl;
-
-  factory _InventoryPredict.fromJson(Map<String, dynamic> json) =
-      _$InventoryPredictImpl.fromJson;
-
-  /// ID du produit concerné par la prédiction
-  @override
-  @JsonKey(name: 'product_id')
-  int get productId;
-
-  /// Nombre de jours projetés dans la prédiction
-  @override
-  @JsonKey(name: 'days')
-  int get days;
-
-  /// Stock prédit à la fin de la période
-  @override
-  @JsonKey(name: 'predicted_inventory')
-  int get predictedInventory;
-
-  /// Create a copy of InventoryPredict
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$InventoryPredictImplCopyWith<_$InventoryPredictImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InventoryPredict&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.days, days) || other.days == days)&&(identical(other.predictedInventory, predictedInventory) || other.predictedInventory == predictedInventory));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,productId,days,predictedInventory);
+
+@override
+String toString() {
+  return 'InventoryPredict(productId: $productId, days: $days, predictedInventory: $predictedInventory)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$InventoryPredictCopyWith<$Res> implements $InventoryPredictCopyWith<$Res> {
+  factory _$InventoryPredictCopyWith(_InventoryPredict value, $Res Function(_InventoryPredict) _then) = __$InventoryPredictCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'product_id') int productId, int days,@JsonKey(name: 'predicted_inventory') double predictedInventory
+});
+
+
+
+
+}
+/// @nodoc
+class __$InventoryPredictCopyWithImpl<$Res>
+    implements _$InventoryPredictCopyWith<$Res> {
+  __$InventoryPredictCopyWithImpl(this._self, this._then);
+
+  final _InventoryPredict _self;
+  final $Res Function(_InventoryPredict) _then;
+
+/// Create a copy of InventoryPredict
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? productId = null,Object? days = null,Object? predictedInventory = null,}) {
+  return _then(_InventoryPredict(
+productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int,days: null == days ? _self.days : days // ignore: cast_nullable_to_non_nullable
+as int,predictedInventory: null == predictedInventory ? _self.predictedInventory : predictedInventory // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
+// dart format on

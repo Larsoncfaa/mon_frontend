@@ -6,9 +6,8 @@ part of 'paginated_proof_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaginatedProofListImpl _$$PaginatedProofListImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PaginatedProofListImpl(
+_PaginatedProofList _$PaginatedProofListFromJson(Map<String, dynamic> json) =>
+    _PaginatedProofList(
       count: (json['count'] as num).toInt(),
       next: json['next'] as String?,
       previous: json['previous'] as String?,
@@ -17,8 +16,7 @@ _$PaginatedProofListImpl _$$PaginatedProofListImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$PaginatedProofListImplToJson(
-        _$PaginatedProofListImpl instance) =>
+Map<String, dynamic> _$PaginatedProofListToJson(_PaginatedProofList instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,

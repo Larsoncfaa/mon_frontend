@@ -3,24 +3,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'profile.freezed.dart';
 part 'profile.g.dart';
 
-/// Représente un profil utilisateur, généralement retourné après authentification.
 @freezed
-class Profile with _$Profile {
+abstract class Profile with _$Profile {
   const factory Profile({
     required int id,
-
-    /// Nom d'utilisateur (150 caractères max)
-    required String username,
-
-    /// Adresse e-mail
+    @JsonKey(name: 'first_name') required String firstName,
+    @JsonKey(name: 'last_name') required String lastName,
     required String email,
-
-    /// Prénom (optionnel)
-    String? firstName,
-
-    /// Nom (optionnel)
-    String? lastName,
+    required String role,
   }) = _Profile;
 
-  factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
+  factory Profile.fromJson(Map<String, dynamic> json) =>
+      _$ProfileFromJson(json);
 }

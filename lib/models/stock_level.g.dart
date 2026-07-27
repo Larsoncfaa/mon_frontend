@@ -6,18 +6,17 @@ part of 'stock_level.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$StockLevelImpl _$$StockLevelImplFromJson(Map<String, dynamic> json) =>
-    _$StockLevelImpl(
-      id: (json['id'] as num).toInt(),
-      product: (json['product'] as num).toInt(),
-      warehouse: (json['warehouse'] as num).toInt(),
-      quantity: (json['quantity'] as num).toInt(),
-    );
+_StockLevel _$StockLevelFromJson(Map<String, dynamic> json) => _StockLevel(
+  id: (json['id'] as num).toInt(),
+  productId: (json['product_id'] as num).toInt(),
+  product: Product.fromJson(json['product'] as Map<String, dynamic>),
+  quantity: (json['quantity'] as num).toInt(),
+);
 
-Map<String, dynamic> _$$StockLevelImplToJson(_$StockLevelImpl instance) =>
+Map<String, dynamic> _$StockLevelToJson(_StockLevel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'product_id': instance.productId,
       'product': instance.product,
-      'warehouse': instance.warehouse,
       'quantity': instance.quantity,
     };

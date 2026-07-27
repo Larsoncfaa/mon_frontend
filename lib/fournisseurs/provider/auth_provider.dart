@@ -1,8 +1,7 @@
-import 'package:dio/src/dio.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:maliag/core/network/dio_provider.dart';
-
 
 import '../../models/user.dart';
 import '../../models/user_role.dart';
@@ -11,7 +10,7 @@ import '../repositories/auth_repository.dart';
 
 /// Fournisseur du service d'authentification
 final authServiceProvider = Provider<AuthService>((ref) {
-  final dio = ref.read(dioProvider); // ✅ lire le Dio correctement
+  final dio = ref.read(dioProvider);
   return AuthService(dio);
 });
 
@@ -21,12 +20,15 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(authService, const FlutterSecureStorage());
 });
 
-/// StateNotifier pour gérer l'état d'authentification
-class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
-  final AuthRepository _authRepository;
+/// Notifier moderne pour gérer l'état d'authentification (Riverpod 3.x)
+class AuthNotifier extends Notifier<AsyncValue<User?>> {
+  late final AuthRepository _authRepository;
 
-  AuthNotifier(this._authRepository) : super(const AsyncValue.loading()) {
+  @override
+  AsyncValue<User?> build() {
+    _authRepository = ref.watch(authRepositoryProvider);
     _loadCurrentUser();
+    return const AsyncValue.loading();
   }
 
   Future<void> _loadCurrentUser() async {
@@ -57,7 +59,8 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
       );
 
       if (user != null) {
-        state = AsyncValue.data(user as User?);
+        final userModel = User.fromJson(user);
+        state = AsyncValue.data(userModel);
         return true;
       }
 
@@ -102,9 +105,8 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
   }
 }
 
-/// Fournisseur global du AuthNotifier
+/// Fournisseur global du AuthNotifier pour Riverpod 3.x
 final authNotifierProvider =
-StateNotifierProvider<AuthNotifier, AsyncValue<User?>>((ref) {
-  final repository = ref.watch(authRepositoryProvider);
-  return AuthNotifier(repository);
-});
+NotifierProvider<AuthNotifier, AsyncValue<User?>>(
+  AuthNotifier.new,
+);

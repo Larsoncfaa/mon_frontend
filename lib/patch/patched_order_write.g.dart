@@ -6,22 +6,18 @@ part of 'patched_order_write.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedOrderWriteImpl _$$PatchedOrderWriteImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedOrderWriteImpl(
-      product: (json['product'] as num?)?.toInt(),
-      quantity: (json['quantity'] as num?)?.toInt(),
-      price: (json['price'] as num?)?.toDouble(),
-      customer: (json['customer'] as num?)?.toInt(),
-      status: json['status'] as String?,
+_PatchedOrderWrite _$PatchedOrderWriteFromJson(Map<String, dynamic> json) =>
+    _PatchedOrderWrite(
+      client: (json['client'] as num?)?.toInt(),
+      orderStatus: json['order_status'] as String?,
+      lines: json['lines'] as List<dynamic>?,
+      total: (json['total'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$PatchedOrderWriteImplToJson(
-        _$PatchedOrderWriteImpl instance) =>
+Map<String, dynamic> _$PatchedOrderWriteToJson(_PatchedOrderWrite instance) =>
     <String, dynamic>{
-      'product': instance.product,
-      'quantity': instance.quantity,
-      'price': instance.price,
-      'customer': instance.customer,
-      'status': instance.status,
+      'client': instance.client,
+      'order_status': instance.orderStatus,
+      'lines': instance.lines,
+      'total': instance.total,
     };

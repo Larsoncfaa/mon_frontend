@@ -6,27 +6,27 @@ part of 'exchange_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ExchangeRequestImpl _$$ExchangeRequestImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ExchangeRequestImpl(
+_ExchangeRequest _$ExchangeRequestFromJson(Map<String, dynamic> json) =>
+    _ExchangeRequest(
       id: (json['id'] as num).toInt(),
-      returnRequest: (json['returnRequest'] as num).toInt(),
-      replacement: (json['replacement'] as num).toInt(),
-      requestedProduct: json['requestedProduct'] as String,
+      orderId: (json['order_id'] as num).toInt(),
       reason: json['reason'] as String,
-      exchangeStatus: $enumDecodeNullable(
-          _$ExchangeStatusEnumEnumMap, json['exchangeStatus']),
+      requestedAt: DateTime.parse(json['requested_at'] as String),
+      exchangeStatus: $enumDecode(
+        _$ExchangeStatusEnumEnumMap,
+        json['exchange_status'],
+      ),
+      replacement: json['replacement'] as String?,
     );
 
-Map<String, dynamic> _$$ExchangeRequestImplToJson(
-        _$ExchangeRequestImpl instance) =>
+Map<String, dynamic> _$ExchangeRequestToJson(_ExchangeRequest instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'returnRequest': instance.returnRequest,
-      'replacement': instance.replacement,
-      'requestedProduct': instance.requestedProduct,
+      'order_id': instance.orderId,
       'reason': instance.reason,
-      'exchangeStatus': _$ExchangeStatusEnumEnumMap[instance.exchangeStatus],
+      'requested_at': instance.requestedAt.toIso8601String(),
+      'exchange_status': _$ExchangeStatusEnumEnumMap[instance.exchangeStatus]!,
+      'replacement': instance.replacement,
     };
 
 const _$ExchangeStatusEnumEnumMap = {

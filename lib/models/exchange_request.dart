@@ -5,14 +5,14 @@ part 'exchange_request.freezed.dart';
 part 'exchange_request.g.dart';
 
 @freezed
-class ExchangeRequest with _$ExchangeRequest {
+abstract class ExchangeRequest with _$ExchangeRequest {
   const factory ExchangeRequest({
     required int id,
-    required int returnRequest,
-    required int replacement,
-    required String requestedProduct,
+    @JsonKey(name: 'order_id') required int orderId,
     required String reason,
-    ExchangeStatusEnum? exchangeStatus,
+    @JsonKey(name: 'requested_at') required DateTime requestedAt,
+    @JsonKey(name: 'exchange_status') required ExchangeStatusEnum exchangeStatus,
+    String? replacement,
   }) = _ExchangeRequest;
 
   factory ExchangeRequest.fromJson(Map<String, dynamic> json) =>

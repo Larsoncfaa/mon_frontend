@@ -4,8 +4,7 @@ part 'selection.freezed.dart';
 part 'selection.g.dart';
 
 @freezed
-class Selection with _$Selection {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+abstract class Selection with _$Selection {
   const factory Selection({
     required int id,
     required int product,

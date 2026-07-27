@@ -24,10 +24,9 @@ final cartItemRepositoryProvider = Provider<CartItemRepository>((ref) {
 /// Fournisseur du notifier principal gérant la liste paginée des éléments du panier.
 /// Utilisé dans les vues pour lire/modifier l’état.
 final cartItemNotifierProvider =
-StateNotifierProvider<CartItemNotifier, AsyncValue<PaginatedCartItemList>>((ref) {
-  final repo = ref.watch(cartItemRepositoryProvider);
-  return CartItemNotifier(repo);
-});
+NotifierProvider<CartItemNotifier, AsyncValue<PaginatedCartItemList>>(
+  CartItemNotifier.new,
+);
 
 /// Fournisseur permettant de récupérer un élément du panier par son ID.
 /// Utilisé pour afficher/modifier un seul produit dans le panier.

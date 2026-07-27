@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,226 +9,278 @@ part of 'patched_proof.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PatchedProof _$PatchedProofFromJson(Map<String, dynamic> json) {
-  return _PatchedProof.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PatchedProof {
-  int? get id => throw _privateConstructorUsedError;
-  int? get delivery => throw _privateConstructorUsedError;
-  String? get image => throw _privateConstructorUsedError;
-  @JsonKey(name: 'uploaded_at')
-  DateTime? get uploadedAt => throw _privateConstructorUsedError;
+
+ int? get id; int? get delivery; String? get image;@JsonKey(name: 'uploaded_at') DateTime? get uploadedAt;
+/// Create a copy of PatchedProof
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PatchedProofCopyWith<PatchedProof> get copyWith => _$PatchedProofCopyWithImpl<PatchedProof>(this as PatchedProof, _$identity);
 
   /// Serializes this PatchedProof to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of PatchedProof
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PatchedProofCopyWith<PatchedProof> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatchedProof&&(identical(other.id, id) || other.id == id)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&(identical(other.image, image) || other.image == image)&&(identical(other.uploadedAt, uploadedAt) || other.uploadedAt == uploadedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,delivery,image,uploadedAt);
+
+@override
+String toString() {
+  return 'PatchedProof(id: $id, delivery: $delivery, image: $image, uploadedAt: $uploadedAt)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PatchedProofCopyWith<$Res> {
-  factory $PatchedProofCopyWith(
-          PatchedProof value, $Res Function(PatchedProof) then) =
-      _$PatchedProofCopyWithImpl<$Res, PatchedProof>;
-  @useResult
-  $Res call(
-      {int? id,
-      int? delivery,
-      String? image,
-      @JsonKey(name: 'uploaded_at') DateTime? uploadedAt});
-}
+abstract mixin class $PatchedProofCopyWith<$Res>  {
+  factory $PatchedProofCopyWith(PatchedProof value, $Res Function(PatchedProof) _then) = _$PatchedProofCopyWithImpl;
+@useResult
+$Res call({
+ int? id, int? delivery, String? image,@JsonKey(name: 'uploaded_at') DateTime? uploadedAt
+});
 
+
+
+
+}
 /// @nodoc
-class _$PatchedProofCopyWithImpl<$Res, $Val extends PatchedProof>
+class _$PatchedProofCopyWithImpl<$Res>
     implements $PatchedProofCopyWith<$Res> {
-  _$PatchedProofCopyWithImpl(this._value, this._then);
+  _$PatchedProofCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PatchedProof _self;
+  final $Res Function(PatchedProof) _then;
 
-  /// Create a copy of PatchedProof
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? delivery = freezed,
-    Object? image = freezed,
-    Object? uploadedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      delivery: freezed == delivery
-          ? _value.delivery
-          : delivery // ignore: cast_nullable_to_non_nullable
-              as int?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      uploadedAt: freezed == uploadedAt
-          ? _value.uploadedAt
-          : uploadedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
-  }
+/// Create a copy of PatchedProof
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? delivery = freezed,Object? image = freezed,Object? uploadedAt = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,delivery: freezed == delivery ? _self.delivery : delivery // ignore: cast_nullable_to_non_nullable
+as int?,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
+as String?,uploadedAt: freezed == uploadedAt ? _self.uploadedAt : uploadedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PatchedProofImplCopyWith<$Res>
-    implements $PatchedProofCopyWith<$Res> {
-  factory _$$PatchedProofImplCopyWith(
-          _$PatchedProofImpl value, $Res Function(_$PatchedProofImpl) then) =
-      __$$PatchedProofImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int? id,
-      int? delivery,
-      String? image,
-      @JsonKey(name: 'uploaded_at') DateTime? uploadedAt});
 }
 
-/// @nodoc
-class __$$PatchedProofImplCopyWithImpl<$Res>
-    extends _$PatchedProofCopyWithImpl<$Res, _$PatchedProofImpl>
-    implements _$$PatchedProofImplCopyWith<$Res> {
-  __$$PatchedProofImplCopyWithImpl(
-      _$PatchedProofImpl _value, $Res Function(_$PatchedProofImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of PatchedProof
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? delivery = freezed,
-    Object? image = freezed,
-    Object? uploadedAt = freezed,
-  }) {
-    return _then(_$PatchedProofImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      delivery: freezed == delivery
-          ? _value.delivery
-          : delivery // ignore: cast_nullable_to_non_nullable
-              as int?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      uploadedAt: freezed == uploadedAt
-          ? _value.uploadedAt
-          : uploadedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [PatchedProof].
+extension PatchedProofPatterns on PatchedProof {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PatchedProof value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PatchedProof() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PatchedProof value)  $default,){
+final _that = this;
+switch (_that) {
+case _PatchedProof():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PatchedProof value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PatchedProof() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  int? delivery,  String? image, @JsonKey(name: 'uploaded_at')  DateTime? uploadedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PatchedProof() when $default != null:
+return $default(_that.id,_that.delivery,_that.image,_that.uploadedAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  int? delivery,  String? image, @JsonKey(name: 'uploaded_at')  DateTime? uploadedAt)  $default,) {final _that = this;
+switch (_that) {
+case _PatchedProof():
+return $default(_that.id,_that.delivery,_that.image,_that.uploadedAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  int? delivery,  String? image, @JsonKey(name: 'uploaded_at')  DateTime? uploadedAt)?  $default,) {final _that = this;
+switch (_that) {
+case _PatchedProof() when $default != null:
+return $default(_that.id,_that.delivery,_that.image,_that.uploadedAt);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PatchedProofImpl implements _PatchedProof {
-  const _$PatchedProofImpl(
-      {this.id,
-      this.delivery,
-      this.image,
-      @JsonKey(name: 'uploaded_at') this.uploadedAt});
 
-  factory _$PatchedProofImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PatchedProofImplFromJson(json);
+class _PatchedProof implements PatchedProof {
+  const _PatchedProof({this.id, this.delivery, this.image, @JsonKey(name: 'uploaded_at') this.uploadedAt});
+  factory _PatchedProof.fromJson(Map<String, dynamic> json) => _$PatchedProofFromJson(json);
 
-  @override
-  final int? id;
-  @override
-  final int? delivery;
-  @override
-  final String? image;
-  @override
-  @JsonKey(name: 'uploaded_at')
-  final DateTime? uploadedAt;
+@override final  int? id;
+@override final  int? delivery;
+@override final  String? image;
+@override@JsonKey(name: 'uploaded_at') final  DateTime? uploadedAt;
 
-  @override
-  String toString() {
-    return 'PatchedProof(id: $id, delivery: $delivery, image: $image, uploadedAt: $uploadedAt)';
-  }
+/// Create a copy of PatchedProof
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PatchedProofCopyWith<_PatchedProof> get copyWith => __$PatchedProofCopyWithImpl<_PatchedProof>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PatchedProofImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.delivery, delivery) ||
-                other.delivery == delivery) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.uploadedAt, uploadedAt) ||
-                other.uploadedAt == uploadedAt));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, delivery, image, uploadedAt);
-
-  /// Create a copy of PatchedProof
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PatchedProofImplCopyWith<_$PatchedProofImpl> get copyWith =>
-      __$$PatchedProofImplCopyWithImpl<_$PatchedProofImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PatchedProofImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$PatchedProofToJson(this, );
 }
 
-abstract class _PatchedProof implements PatchedProof {
-  const factory _PatchedProof(
-          {final int? id,
-          final int? delivery,
-          final String? image,
-          @JsonKey(name: 'uploaded_at') final DateTime? uploadedAt}) =
-      _$PatchedProofImpl;
-
-  factory _PatchedProof.fromJson(Map<String, dynamic> json) =
-      _$PatchedProofImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  int? get delivery;
-  @override
-  String? get image;
-  @override
-  @JsonKey(name: 'uploaded_at')
-  DateTime? get uploadedAt;
-
-  /// Create a copy of PatchedProof
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PatchedProofImplCopyWith<_$PatchedProofImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatchedProof&&(identical(other.id, id) || other.id == id)&&(identical(other.delivery, delivery) || other.delivery == delivery)&&(identical(other.image, image) || other.image == image)&&(identical(other.uploadedAt, uploadedAt) || other.uploadedAt == uploadedAt));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,delivery,image,uploadedAt);
+
+@override
+String toString() {
+  return 'PatchedProof(id: $id, delivery: $delivery, image: $image, uploadedAt: $uploadedAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PatchedProofCopyWith<$Res> implements $PatchedProofCopyWith<$Res> {
+  factory _$PatchedProofCopyWith(_PatchedProof value, $Res Function(_PatchedProof) _then) = __$PatchedProofCopyWithImpl;
+@override @useResult
+$Res call({
+ int? id, int? delivery, String? image,@JsonKey(name: 'uploaded_at') DateTime? uploadedAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$PatchedProofCopyWithImpl<$Res>
+    implements _$PatchedProofCopyWith<$Res> {
+  __$PatchedProofCopyWithImpl(this._self, this._then);
+
+  final _PatchedProof _self;
+  final $Res Function(_PatchedProof) _then;
+
+/// Create a copy of PatchedProof
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? delivery = freezed,Object? image = freezed,Object? uploadedAt = freezed,}) {
+  return _then(_PatchedProof(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,delivery: freezed == delivery ? _self.delivery : delivery // ignore: cast_nullable_to_non_nullable
+as int?,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
+as String?,uploadedAt: freezed == uploadedAt ? _self.uploadedAt : uploadedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
+// dart format on

@@ -128,6 +128,8 @@ class _ProductDiscountScreenState extends ConsumerState<ProductDiscountScreen> {
                       id: 0,
                       product: selectedProductId!,
                       discountPercent: percent,
+                      startDate: DateTime.now(),
+                      endDate: DateTime.now().add(const Duration(days: 30)),
                     );
                     await notifier.createDiscount(newDiscount);
                   } else {
@@ -135,6 +137,8 @@ class _ProductDiscountScreenState extends ConsumerState<ProductDiscountScreen> {
                       id: existing.id,
                       product: selectedProductId!,
                       discountPercent: percent,
+                      startDate: existing.startDate,
+                      endDate: existing.endDate,
                     );
                     await notifier.updateDiscount(existing.id, updated);
                   }

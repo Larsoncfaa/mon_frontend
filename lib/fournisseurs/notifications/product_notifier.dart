@@ -1,31 +1,36 @@
 import 'dart:io';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../models/product.dart';
 import '../../pagination/paginated_product_list.dart';
 import '../repositories/product_repository.dart';
-import '../../models/product.dart';
 
-/// Notifier qui gère la liste paginée des produits, avec recherche et filtre.
-class ProductNotifier extends StateNotifier<AsyncValue<PaginatedProductList>> {
-  final ProductRepository repository;
+import '../provider/product_provider.dart';
+
+/// Notifier qui gère la liste paginée des produits, avec recherche et filtre (Riverpod 3.x).
+class ProductNotifier extends Notifier<AsyncValue<PaginatedProductList>> {
+  late final ProductRepository _repository;
 
   bool _isFetchingMore = false;
   final List<Product> _allProducts = [];
 
-  ProductNotifier(this.repository) : super(const AsyncLoading()) {
-    // Au démarrage, on charge la page 1
-    fetchProducts(page: 1);
-  }
-
   bool get isFetchingMore => _isFetchingMore;
+
+  @override
+  AsyncValue<PaginatedProductList> build() {
+    _repository = ref.watch(productRepositoryProvider);
+    // Charge la page 1 au démarrage
+    fetchProducts(page: 1);
+    return const AsyncLoading();
+  }
 
   /// Charge la première page ou une page spécifique
   Future<void> fetchProducts({int page = 1}) async {
     debugPrint('[ProductNotifier] fetchProducts(page: $page)');
     state = const AsyncLoading();
     try {
-      final result = await repository.fetchProducts(page: page);
+      final result = await _repository.fetchProducts(page: page);
       _allProducts.clear();
       _allProducts.addAll(result.results);
       debugPrint('[ProductNotifier] Fetched ${result.results.length} products');
@@ -54,7 +59,7 @@ class ProductNotifier extends StateNotifier<AsyncValue<PaginatedProductList>> {
     try {
       final uri = Uri.parse(current.next!);
       final nextPage = int.tryParse(uri.queryParameters['page'] ?? '1') ?? 1;
-      final nextPageResult = await repository.fetchProducts(page: nextPage);
+      final nextPageResult = await _repository.fetchProducts(page: nextPage);
 
       final newResults = nextPageResult.results.where(
             (product) => !_allProducts.any((p) => p.id == product.id),
@@ -80,7 +85,6 @@ class ProductNotifier extends StateNotifier<AsyncValue<PaginatedProductList>> {
   /// Recharge depuis la première page
   Future<void> refresh() async {
     debugPrint('[ProductNotifier] refresh()');
-    // On appelle fetchProducts(page: 1) pour recharger la page 1
     await fetchProducts(page: 1);
   }
 
@@ -134,9 +138,8 @@ class ProductNotifier extends StateNotifier<AsyncValue<PaginatedProductList>> {
   /// Ajout d’un produit (avec image facultative)
   Future<void> addProduct(Product product, {File? imageFile}) async {
     try {
-      await repository.createProduct(product, imageFile: imageFile);
+      await _repository.createProduct(product, imageFile: imageFile);
       debugPrint('[ProductNotifier] addProduct: ${product.name}');
-      // Recharge immédiatement la page 1 du notifier existant
       await fetchProducts(page: 1);
     } catch (e) {
       debugPrint('[ProductNotifier] Error in addProduct: $e');
@@ -146,9 +149,8 @@ class ProductNotifier extends StateNotifier<AsyncValue<PaginatedProductList>> {
   /// Mise à jour d’un produit (avec image facultative)
   Future<void> updateProduct(Product product, {File? imageFile}) async {
     try {
-      await repository.updateProduct(product, imageFile: imageFile);
+      await _repository.updateProduct(product, imageFile: imageFile);
       debugPrint('[ProductNotifier] updateProduct: ${product.id}');
-      // Recharge immédiatement la page 1
       await fetchProducts(page: 1);
     } catch (e) {
       debugPrint('[ProductNotifier] Error in updateProduct: $e');
@@ -158,20 +160,21 @@ class ProductNotifier extends StateNotifier<AsyncValue<PaginatedProductList>> {
   /// Suppression d’un produit
   Future<void> deleteProduct(int id) async {
     try {
-      await repository.deleteProduct(id);
+      await _repository.deleteProduct(id);
       debugPrint('[ProductNotifier] deleteProduct: $id');
-      // Recharge immédiatement la page 1
       await fetchProducts(page: 1);
     } catch (e) {
       debugPrint('[ProductNotifier] Error in deleteProduct: $e');
     }
   }
+
   Future<bool> checkProductExists(String name, String category, {int? excludeId}) async {
     try {
-      return await repository.checkProductExists(name, category, excludeId: excludeId);
+      return await _repository.checkProductExists(name, category, excludeId: excludeId);
     } catch (e) {
       debugPrint('[ProductNotifier] checkProductExists error: $e');
       return false;
     }
   }
 }
+

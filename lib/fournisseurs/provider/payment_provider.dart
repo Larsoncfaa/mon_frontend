@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/network/dio_provider.dart'; // Fournisseur Dio global
+
+import '../../core/network/dio_provider.dart';
 import '../../models/payment.dart';
 import '../../services/payment_service.dart';
 import '../notifications/payment_notifier.dart';
@@ -15,7 +16,8 @@ final paymentRepositoryProvider = Provider<PaymentRepository>(
       (ref) => PaymentRepository(ref.watch(paymentServiceProvider)),
 );
 
-/// 📡 Fournisseur du notifier PaymentNotifier
-final paymentNotifierProvider = StateNotifierProvider<PaymentNotifier, AsyncValue<Payment?>>(
-      (ref) => PaymentNotifier(ref.watch(paymentRepositoryProvider)),
+/// 📡 Fournisseur du notifier PaymentNotifier (Riverpod 3.x)
+final paymentNotifierProvider =
+NotifierProvider<PaymentNotifier, AsyncValue<Payment?>>(
+  PaymentNotifier.new,
 );

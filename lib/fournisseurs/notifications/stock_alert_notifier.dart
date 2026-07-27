@@ -1,15 +1,25 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/stock_alert.dart';
 import '../../pagination/paginated_stock_alert_list.dart';
 import '../repositories/stock_alert_repository.dart';
 
-class StockAlertNotifier extends StateNotifier<AsyncValue<PaginatedStockAlertList>> {
-  final StockAlertRepository repository;
+// Provider du repository (à adapter selon ton projet)
+final stockAlertRepositoryProvider = Provider<StockAlertRepository>((ref) {
+  throw UnimplementedError('Initialisez votre StockAlertRepository ici');
+});
 
-  StockAlertNotifier(this.repository) : super(const AsyncLoading()) {
+/// Notifier moderne pour Riverpod 3.x
+class StockAlertNotifier
+    extends Notifier<AsyncValue<PaginatedStockAlertList>> {
+  late final StockAlertRepository _repository;
+
+  @override
+  AsyncValue<PaginatedStockAlertList> build() {
+    _repository = ref.watch(stockAlertRepositoryProvider);
     fetchStockAlerts();
+    return const AsyncLoading();
   }
 
   Future<void> fetchStockAlerts({int page = 1}) async {
@@ -18,7 +28,7 @@ class StockAlertNotifier extends StateNotifier<AsyncValue<PaginatedStockAlertLis
       state = const AsyncLoading();
     }
     try {
-      final paginated = await repository.fetchStockAlerts(page: page);
+      final paginated = await _repository.fetchStockAlerts(page: page);
       debugPrint("✅ [Notifier] paginated.results = ${paginated.results}");
       state = AsyncData(paginated);
     } catch (e, st) {
@@ -32,7 +42,7 @@ class StockAlertNotifier extends StateNotifier<AsyncValue<PaginatedStockAlertLis
   Future<void> deleteStockAlert(int id) async {
     debugPrint("🔄 [Notifier] deleteStockAlert(id: $id) démarré");
     try {
-      await repository.deleteStockAlert(id);
+      await _repository.deleteStockAlert(id);
       debugPrint("✅ [Notifier] deleteStockAlert(id: $id) réussi");
       await fetchStockAlerts();
     } catch (e, st) {
@@ -44,7 +54,7 @@ class StockAlertNotifier extends StateNotifier<AsyncValue<PaginatedStockAlertLis
   Future<void> createAlert(StockAlert alert) async {
     debugPrint("🆕 [Notifier] createAlert(alert: $alert) démarré");
     try {
-      await repository.createStockAlert(alert);
+      await _repository.createStockAlert(alert);
       debugPrint("✅ [Notifier] Alerte créée avec succès");
       await fetchStockAlerts();
     } catch (e, st) {
@@ -53,3 +63,9 @@ class StockAlertNotifier extends StateNotifier<AsyncValue<PaginatedStockAlertLis
     }
   }
 }
+
+/// Provider pour Riverpod 3.x
+final stockAlertNotifierProvider = NotifierProvider<
+    StockAlertNotifier, AsyncValue<PaginatedStockAlertList>>(
+  StockAlertNotifier.new,
+);

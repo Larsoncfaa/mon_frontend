@@ -7,14 +7,13 @@ part 'stock_alert.freezed.dart';
 part 'stock_alert.g.dart';
 
 @freezed
-class StockAlert with _$StockAlert {
-  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
+abstract class StockAlert with _$StockAlert {
   const factory StockAlert({
     required int id,
-    required Product product,           // ← Maintenant un objet Product complet
+    required Product product,
     required int threshold,
     @JsonKey(name: 'is_active') bool? isActive,
-    Warehouse? warehouse,               // ← Optionnel mais peut être un objet complet aussi si besoin
+    Warehouse? warehouse,
   }) = _StockAlert;
 
   factory StockAlert.fromJson(Map<String, dynamic> json) =>

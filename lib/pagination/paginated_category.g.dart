@@ -6,9 +6,8 @@ part of 'paginated_category.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PaginatedCategoryImpl _$$PaginatedCategoryImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PaginatedCategoryImpl(
+_PaginatedCategory _$PaginatedCategoryFromJson(Map<String, dynamic> json) =>
+    _PaginatedCategory(
       count: (json['count'] as num).toInt(),
       next: json['next'] as String?,
       previous: json['previous'] as String?,
@@ -17,8 +16,7 @@ _$PaginatedCategoryImpl _$$PaginatedCategoryImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$PaginatedCategoryImplToJson(
-        _$PaginatedCategoryImpl instance) =>
+Map<String, dynamic> _$PaginatedCategoryToJson(_PaginatedCategory instance) =>
     <String, dynamic>{
       'count': instance.count,
       'next': instance.next,

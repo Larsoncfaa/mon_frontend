@@ -2,10 +2,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../models/product.dart';
 
 part 'paginated_product_list.freezed.dart';
-part 'paginated_product_list.g.dart'; // <-- À ajouter
+part 'paginated_product_list.g.dart';
 
 @freezed
-class PaginatedProductList with _$PaginatedProductList {
+abstract class PaginatedProductList with _$PaginatedProductList {
   const factory PaginatedProductList({
     required int count,
     String? next,

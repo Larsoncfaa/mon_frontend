@@ -22,11 +22,8 @@ final deliveryPersonRepositoryProvider = Provider<DeliveryPersonRepository>((ref
   return DeliveryPersonRepository(service);
 });
 
-/// 📢 Notifier paginé
-final deliveryPersonNotifierProvider = StateNotifierProvider<DeliveryPersonNotifier, AsyncValue<PaginatedDeliveryPersonList>>(
-      (ref) {
-    final repository = ref.watch(deliveryPersonRepositoryProvider);
-    debugPrint('🚀 [Provider] Création du DeliveryPersonNotifier');
-    return DeliveryPersonNotifier(repository);
-  },
+/// 📢 Notifier paginé (Riverpod 3.x)
+final deliveryPersonNotifierProvider =
+NotifierProvider<DeliveryPersonNotifier, AsyncValue<PaginatedDeliveryPersonList>>(
+  DeliveryPersonNotifier.new,
 );

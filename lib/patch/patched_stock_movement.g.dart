@@ -6,26 +6,28 @@ part of 'patched_stock_movement.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedStockMovementImpl _$$PatchedStockMovementImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedStockMovementImpl(
-      productId: json['productId'] as String?,
-      movementType: json['movementType'] as String?,
-      quantity: (json['quantity'] as num?)?.toInt(),
-      source: json['source'] as String?,
-      destination: json['destination'] as String?,
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
-    );
+_PatchedStockMovement _$PatchedStockMovementFromJson(
+  Map<String, dynamic> json,
+) => _PatchedStockMovement(
+  id: (json['id'] as num?)?.toInt(),
+  productId: (json['product_id'] as num?)?.toInt(),
+  warehouse: (json['warehouse'] as num?)?.toInt(),
+  movementType: json['movement_type'] as String?,
+  quantity: (json['quantity'] as num?)?.toInt(),
+  timestamp: json['timestamp'] == null
+      ? null
+      : DateTime.parse(json['timestamp'] as String),
+  destination: json['destination'] as String?,
+);
 
-Map<String, dynamic> _$$PatchedStockMovementImplToJson(
-        _$PatchedStockMovementImpl instance) =>
-    <String, dynamic>{
-      'productId': instance.productId,
-      'movementType': instance.movementType,
-      'quantity': instance.quantity,
-      'source': instance.source,
-      'destination': instance.destination,
-      'timestamp': instance.timestamp?.toIso8601String(),
-    };
+Map<String, dynamic> _$PatchedStockMovementToJson(
+  _PatchedStockMovement instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'product_id': instance.productId,
+  'warehouse': instance.warehouse,
+  'movement_type': instance.movementType,
+  'quantity': instance.quantity,
+  'timestamp': instance.timestamp?.toIso8601String(),
+  'destination': instance.destination,
+};

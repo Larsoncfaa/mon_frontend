@@ -6,30 +6,24 @@ part of 'product_review.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProductReviewImpl _$$ProductReviewImplFromJson(Map<String, dynamic> json) =>
-    _$ProductReviewImpl(
+_ProductReview _$ProductReviewFromJson(Map<String, dynamic> json) =>
+    _ProductReview(
       id: (json['id'] as num).toInt(),
       product: (json['product'] as num).toInt(),
-      rating: $enumDecode(_$RatingEnumEnumMap, json['rating']),
+      client: (json['client'] as num).toInt(),
+      rating: (json['rating'] as num).toInt(),
       comment: json['comment'] as String?,
       createdAt: DateTime.parse(json['created_at'] as String),
-      verifiedPurchase: json['verified_purchase'] as bool?,
+      verifiedPurchase: json['verifiedPurchase'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$ProductReviewImplToJson(_$ProductReviewImpl instance) =>
+Map<String, dynamic> _$ProductReviewToJson(_ProductReview instance) =>
     <String, dynamic>{
       'id': instance.id,
       'product': instance.product,
-      'rating': _$RatingEnumEnumMap[instance.rating]!,
+      'client': instance.client,
+      'rating': instance.rating,
       'comment': instance.comment,
       'created_at': instance.createdAt.toIso8601String(),
-      'verified_purchase': instance.verifiedPurchase,
+      'verifiedPurchase': instance.verifiedPurchase,
     };
-
-const _$RatingEnumEnumMap = {
-  RatingEnum.one: 1,
-  RatingEnum.two: 2,
-  RatingEnum.three: 3,
-  RatingEnum.four: 4,
-  RatingEnum.five: 5,
-};

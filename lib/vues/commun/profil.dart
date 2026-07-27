@@ -54,7 +54,7 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                _buildProfileItem('Nom d’utilisateur', user.username),
+                _buildProfileItem('Nom d’utilisateur', user.username ?? "N/A"),
                 const SizedBox(height: 10),
                 _buildProfileItem('Email', user.email),
                 const SizedBox(height: 10),

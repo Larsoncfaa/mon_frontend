@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,267 +9,284 @@ part of 'patched_notification.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-PatchedNotification _$PatchedNotificationFromJson(Map<String, dynamic> json) {
-  return _PatchedNotification.fromJson(json);
-}
 
 /// @nodoc
 mixin _$PatchedNotification {
-  int? get id => throw _privateConstructorUsedError;
-  int? get user => throw _privateConstructorUsedError;
-  String? get message => throw _privateConstructorUsedError;
-  String? get link => throw _privateConstructorUsedError;
-  bool? get read => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+
+ int? get id; String? get title; String? get message;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'is_read') bool? get isRead; String? get link;
+/// Create a copy of PatchedNotification
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PatchedNotificationCopyWith<PatchedNotification> get copyWith => _$PatchedNotificationCopyWithImpl<PatchedNotification>(this as PatchedNotification, _$identity);
 
   /// Serializes this PatchedNotification to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of PatchedNotification
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $PatchedNotificationCopyWith<PatchedNotification> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatchedNotification&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.message, message) || other.message == message)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.isRead, isRead) || other.isRead == isRead)&&(identical(other.link, link) || other.link == link));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,title,message,createdAt,isRead,link);
+
+@override
+String toString() {
+  return 'PatchedNotification(id: $id, title: $title, message: $message, createdAt: $createdAt, isRead: $isRead, link: $link)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $PatchedNotificationCopyWith<$Res> {
-  factory $PatchedNotificationCopyWith(
-          PatchedNotification value, $Res Function(PatchedNotification) then) =
-      _$PatchedNotificationCopyWithImpl<$Res, PatchedNotification>;
-  @useResult
-  $Res call(
-      {int? id,
-      int? user,
-      String? message,
-      String? link,
-      bool? read,
-      @JsonKey(name: 'created_at') DateTime? createdAt});
-}
+abstract mixin class $PatchedNotificationCopyWith<$Res>  {
+  factory $PatchedNotificationCopyWith(PatchedNotification value, $Res Function(PatchedNotification) _then) = _$PatchedNotificationCopyWithImpl;
+@useResult
+$Res call({
+ int? id, String? title, String? message,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'is_read') bool? isRead, String? link
+});
 
+
+
+
+}
 /// @nodoc
-class _$PatchedNotificationCopyWithImpl<$Res, $Val extends PatchedNotification>
+class _$PatchedNotificationCopyWithImpl<$Res>
     implements $PatchedNotificationCopyWith<$Res> {
-  _$PatchedNotificationCopyWithImpl(this._value, this._then);
+  _$PatchedNotificationCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final PatchedNotification _self;
+  final $Res Function(PatchedNotification) _then;
 
-  /// Create a copy of PatchedNotification
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? user = freezed,
-    Object? message = freezed,
-    Object? link = freezed,
-    Object? read = freezed,
-    Object? createdAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as int?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      link: freezed == link
-          ? _value.link
-          : link // ignore: cast_nullable_to_non_nullable
-              as String?,
-      read: freezed == read
-          ? _value.read
-          : read // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
-  }
+/// Create a copy of PatchedNotification
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? title = freezed,Object? message = freezed,Object? createdAt = freezed,Object? isRead = freezed,Object? link = freezed,}) {
+  return _then(_self.copyWith(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,isRead: freezed == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
+as bool?,link: freezed == link ? _self.link : link // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
 }
 
-/// @nodoc
-abstract class _$$PatchedNotificationImplCopyWith<$Res>
-    implements $PatchedNotificationCopyWith<$Res> {
-  factory _$$PatchedNotificationImplCopyWith(_$PatchedNotificationImpl value,
-          $Res Function(_$PatchedNotificationImpl) then) =
-      __$$PatchedNotificationImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int? id,
-      int? user,
-      String? message,
-      String? link,
-      bool? read,
-      @JsonKey(name: 'created_at') DateTime? createdAt});
 }
 
-/// @nodoc
-class __$$PatchedNotificationImplCopyWithImpl<$Res>
-    extends _$PatchedNotificationCopyWithImpl<$Res, _$PatchedNotificationImpl>
-    implements _$$PatchedNotificationImplCopyWith<$Res> {
-  __$$PatchedNotificationImplCopyWithImpl(_$PatchedNotificationImpl _value,
-      $Res Function(_$PatchedNotificationImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of PatchedNotification
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? user = freezed,
-    Object? message = freezed,
-    Object? link = freezed,
-    Object? read = freezed,
-    Object? createdAt = freezed,
-  }) {
-    return _then(_$PatchedNotificationImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as int?,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      link: freezed == link
-          ? _value.link
-          : link // ignore: cast_nullable_to_non_nullable
-              as String?,
-      read: freezed == read
-          ? _value.read
-          : read // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
-  }
+/// Adds pattern-matching-related methods to [PatchedNotification].
+extension PatchedNotificationPatterns on PatchedNotification {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PatchedNotification value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PatchedNotification() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PatchedNotification value)  $default,){
+final _that = this;
+switch (_that) {
+case _PatchedNotification():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PatchedNotification value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PatchedNotification() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String? title,  String? message, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'is_read')  bool? isRead,  String? link)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PatchedNotification() when $default != null:
+return $default(_that.id,_that.title,_that.message,_that.createdAt,_that.isRead,_that.link);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String? title,  String? message, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'is_read')  bool? isRead,  String? link)  $default,) {final _that = this;
+switch (_that) {
+case _PatchedNotification():
+return $default(_that.id,_that.title,_that.message,_that.createdAt,_that.isRead,_that.link);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String? title,  String? message, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'is_read')  bool? isRead,  String? link)?  $default,) {final _that = this;
+switch (_that) {
+case _PatchedNotification() when $default != null:
+return $default(_that.id,_that.title,_that.message,_that.createdAt,_that.isRead,_that.link);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$PatchedNotificationImpl implements _PatchedNotification {
-  const _$PatchedNotificationImpl(
-      {this.id,
-      this.user,
-      this.message,
-      this.link,
-      this.read,
-      @JsonKey(name: 'created_at') this.createdAt});
 
-  factory _$PatchedNotificationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PatchedNotificationImplFromJson(json);
+class _PatchedNotification implements PatchedNotification {
+  const _PatchedNotification({this.id, this.title, this.message, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'is_read') this.isRead, this.link});
+  factory _PatchedNotification.fromJson(Map<String, dynamic> json) => _$PatchedNotificationFromJson(json);
 
-  @override
-  final int? id;
-  @override
-  final int? user;
-  @override
-  final String? message;
-  @override
-  final String? link;
-  @override
-  final bool? read;
-  @override
-  @JsonKey(name: 'created_at')
-  final DateTime? createdAt;
+@override final  int? id;
+@override final  String? title;
+@override final  String? message;
+@override@JsonKey(name: 'created_at') final  DateTime? createdAt;
+@override@JsonKey(name: 'is_read') final  bool? isRead;
+@override final  String? link;
 
-  @override
-  String toString() {
-    return 'PatchedNotification(id: $id, user: $user, message: $message, link: $link, read: $read, createdAt: $createdAt)';
-  }
+/// Create a copy of PatchedNotification
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PatchedNotificationCopyWith<_PatchedNotification> get copyWith => __$PatchedNotificationCopyWithImpl<_PatchedNotification>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$PatchedNotificationImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.link, link) || other.link == link) &&
-            (identical(other.read, read) || other.read == read) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, user, message, link, read, createdAt);
-
-  /// Create a copy of PatchedNotification
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$PatchedNotificationImplCopyWith<_$PatchedNotificationImpl> get copyWith =>
-      __$$PatchedNotificationImplCopyWithImpl<_$PatchedNotificationImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PatchedNotificationImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$PatchedNotificationToJson(this, );
 }
 
-abstract class _PatchedNotification implements PatchedNotification {
-  const factory _PatchedNotification(
-          {final int? id,
-          final int? user,
-          final String? message,
-          final String? link,
-          final bool? read,
-          @JsonKey(name: 'created_at') final DateTime? createdAt}) =
-      _$PatchedNotificationImpl;
-
-  factory _PatchedNotification.fromJson(Map<String, dynamic> json) =
-      _$PatchedNotificationImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  int? get user;
-  @override
-  String? get message;
-  @override
-  String? get link;
-  @override
-  bool? get read;
-  @override
-  @JsonKey(name: 'created_at')
-  DateTime? get createdAt;
-
-  /// Create a copy of PatchedNotification
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PatchedNotificationImplCopyWith<_$PatchedNotificationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatchedNotification&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.message, message) || other.message == message)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.isRead, isRead) || other.isRead == isRead)&&(identical(other.link, link) || other.link == link));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,title,message,createdAt,isRead,link);
+
+@override
+String toString() {
+  return 'PatchedNotification(id: $id, title: $title, message: $message, createdAt: $createdAt, isRead: $isRead, link: $link)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PatchedNotificationCopyWith<$Res> implements $PatchedNotificationCopyWith<$Res> {
+  factory _$PatchedNotificationCopyWith(_PatchedNotification value, $Res Function(_PatchedNotification) _then) = __$PatchedNotificationCopyWithImpl;
+@override @useResult
+$Res call({
+ int? id, String? title, String? message,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'is_read') bool? isRead, String? link
+});
+
+
+
+
+}
+/// @nodoc
+class __$PatchedNotificationCopyWithImpl<$Res>
+    implements _$PatchedNotificationCopyWith<$Res> {
+  __$PatchedNotificationCopyWithImpl(this._self, this._then);
+
+  final _PatchedNotification _self;
+  final $Res Function(_PatchedNotification) _then;
+
+/// Create a copy of PatchedNotification
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? title = freezed,Object? message = freezed,Object? createdAt = freezed,Object? isRead = freezed,Object? link = freezed,}) {
+  return _then(_PatchedNotification(
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,isRead: freezed == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
+as bool?,link: freezed == link ? _self.link : link // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+// dart format on

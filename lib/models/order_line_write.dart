@@ -4,7 +4,7 @@ part 'order_line_write.freezed.dart';
 part 'order_line_write.g.dart';
 
 @freezed
-class OrderLineWrite with _$OrderLineWrite {
+abstract class OrderLineWrite with _$OrderLineWrite {
   const factory OrderLineWrite({
     required int product,
     required int quantity,

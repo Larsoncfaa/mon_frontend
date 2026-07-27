@@ -6,38 +6,37 @@ part of 'refund_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RefundRequestImpl _$$RefundRequestImplFromJson(Map<String, dynamic> json) =>
-    _$RefundRequestImpl(
+_RefundRequest _$RefundRequestFromJson(Map<String, dynamic> json) =>
+    _RefundRequest(
       id: (json['id'] as num).toInt(),
-      daysRemaining: (json['daysRemaining'] as num).toInt(),
-      reason: json['reason'] as String,
-      refundStatus:
-          $enumDecodeNullable(_$RefundStatusEnumEnumMap, json['refundStatus']),
-      requestedAt: json['requestedAt'] == null
-          ? null
-          : DateTime.parse(json['requestedAt'] as String),
-      processedAt: json['processedAt'] == null
-          ? null
-          : DateTime.parse(json['processedAt'] as String),
       order: (json['order'] as num).toInt(),
+      reason: json['reason'] as String,
+      requestedAt: json['requested_at'] == null
+          ? null
+          : DateTime.parse(json['requested_at'] as String),
+      refundStatus: $enumDecodeNullable(
+        _$RefundStatusEnumEnumMap,
+        json['refund_status'],
+      ),
+      processedAt: json['processed_at'] == null
+          ? null
+          : DateTime.parse(json['processed_at'] as String),
+      daysRemaining: (json['days_remaining'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$RefundRequestImplToJson(_$RefundRequestImpl instance) =>
+Map<String, dynamic> _$RefundRequestToJson(_RefundRequest instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'daysRemaining': instance.daysRemaining,
-      'reason': instance.reason,
-      'refundStatus': _$RefundStatusEnumEnumMap[instance.refundStatus],
-      'requestedAt': instance.requestedAt?.toIso8601String(),
-      'processedAt': instance.processedAt?.toIso8601String(),
       'order': instance.order,
+      'reason': instance.reason,
+      'requested_at': instance.requestedAt?.toIso8601String(),
+      'refund_status': _$RefundStatusEnumEnumMap[instance.refundStatus],
+      'processed_at': instance.processedAt?.toIso8601String(),
+      'days_remaining': instance.daysRemaining,
     };
 
 const _$RefundStatusEnumEnumMap = {
   RefundStatusEnum.pending: 'PENDING',
   RefundStatusEnum.approved: 'APPROVED',
   RefundStatusEnum.rejected: 'REJECTED',
-  RefundStatusEnum.APPROVED: 'APPROVED',
-  RefundStatusEnum.REJECTED: 'REJECTED',
-  RefundStatusEnum.PENDING: 'PENDING',
 };

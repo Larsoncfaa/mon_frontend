@@ -6,16 +6,14 @@ part of 'patched_delivery.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PatchedDeliveryImpl _$$PatchedDeliveryImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PatchedDeliveryImpl(
+_PatchedDelivery _$PatchedDeliveryFromJson(Map<String, dynamic> json) =>
+    _PatchedDelivery(
       id: (json['id'] as num?)?.toInt(),
       deliverer: (json['deliverer'] as num?)?.toInt(),
       order: (json['order'] as num?)?.toInt(),
       product: (json['product'] as num?)?.toInt(),
-      type: $enumDecodeNullable(_$TypeEnumEnumMap, json['type']),
-      deliveryStatus: $enumDecodeNullable(
-          _$DeliveryStatusEnumEnumMap, json['delivery_status']),
+      type: json['type'] as String?,
+      deliveryStatus: json['delivery_status'] as String?,
       description: json['description'] as String?,
       createdAt: json['created_at'] == null
           ? null
@@ -23,31 +21,21 @@ _$PatchedDeliveryImpl _$$PatchedDeliveryImplFromJson(
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$PatchedDeliveryImplToJson(
-        _$PatchedDeliveryImpl instance) =>
+Map<String, dynamic> _$PatchedDeliveryToJson(_PatchedDelivery instance) =>
     <String, dynamic>{
       'id': instance.id,
       'deliverer': instance.deliverer,
       'order': instance.order,
       'product': instance.product,
-      'type': _$TypeEnumEnumMap[instance.type],
-      'delivery_status': _$DeliveryStatusEnumEnumMap[instance.deliveryStatus],
+      'type': instance.type,
+      'delivery_status': instance.deliveryStatus,
       'description': instance.description,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };
-
-const _$TypeEnumEnumMap = {
-  TypeEnum.LIVRAISON: 'LIVRAISON',
-  TypeEnum.STOCK: 'STOCK',
-  TypeEnum.REMBOURSEMENT: 'REMBOURSEMENT',
-  TypeEnum.AUTRE: 'AUTRE',
-};
-
-const _$DeliveryStatusEnumEnumMap = {
-  DeliveryStatusEnum.EN_ATTENTE: 'EN_ATTENTE',
-  DeliveryStatusEnum.EN_COURS: 'EN_COURS',
-  DeliveryStatusEnum.TERMINEE: 'TERMINEE',
-};

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,169 +9,272 @@ part of 'username_reset_confirm.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-UsernameResetConfirm _$UsernameResetConfirmFromJson(Map<String, dynamic> json) {
-  return _UsernameResetConfirm.fromJson(json);
-}
 
 /// @nodoc
 mixin _$UsernameResetConfirm {
-  /// La nouvelle adresse e-mail à enregistrer pour l'utilisateur
-  @JsonKey(name: 'new_email')
-  String get newEmail => throw _privateConstructorUsedError;
+
+@JsonKey(name: 'new_email') String get newEmail;@JsonKey(name: 're_new_email') String get reNewEmail;
+/// Create a copy of UsernameResetConfirm
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UsernameResetConfirmCopyWith<UsernameResetConfirm> get copyWith => _$UsernameResetConfirmCopyWithImpl<UsernameResetConfirm>(this as UsernameResetConfirm, _$identity);
 
   /// Serializes this UsernameResetConfirm to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of UsernameResetConfirm
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $UsernameResetConfirmCopyWith<UsernameResetConfirm> get copyWith =>
-      throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsernameResetConfirm&&(identical(other.newEmail, newEmail) || other.newEmail == newEmail)&&(identical(other.reNewEmail, reNewEmail) || other.reNewEmail == reNewEmail));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,newEmail,reNewEmail);
+
+@override
+String toString() {
+  return 'UsernameResetConfirm(newEmail: $newEmail, reNewEmail: $reNewEmail)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $UsernameResetConfirmCopyWith<$Res> {
-  factory $UsernameResetConfirmCopyWith(UsernameResetConfirm value,
-          $Res Function(UsernameResetConfirm) then) =
-      _$UsernameResetConfirmCopyWithImpl<$Res, UsernameResetConfirm>;
-  @useResult
-  $Res call({@JsonKey(name: 'new_email') String newEmail});
-}
+abstract mixin class $UsernameResetConfirmCopyWith<$Res>  {
+  factory $UsernameResetConfirmCopyWith(UsernameResetConfirm value, $Res Function(UsernameResetConfirm) _then) = _$UsernameResetConfirmCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'new_email') String newEmail,@JsonKey(name: 're_new_email') String reNewEmail
+});
 
+
+
+
+}
 /// @nodoc
-class _$UsernameResetConfirmCopyWithImpl<$Res,
-        $Val extends UsernameResetConfirm>
+class _$UsernameResetConfirmCopyWithImpl<$Res>
     implements $UsernameResetConfirmCopyWith<$Res> {
-  _$UsernameResetConfirmCopyWithImpl(this._value, this._then);
+  _$UsernameResetConfirmCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final UsernameResetConfirm _self;
+  final $Res Function(UsernameResetConfirm) _then;
 
-  /// Create a copy of UsernameResetConfirm
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newEmail = null,
-  }) {
-    return _then(_value.copyWith(
-      newEmail: null == newEmail
-          ? _value.newEmail
-          : newEmail // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of UsernameResetConfirm
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? newEmail = null,Object? reNewEmail = null,}) {
+  return _then(_self.copyWith(
+newEmail: null == newEmail ? _self.newEmail : newEmail // ignore: cast_nullable_to_non_nullable
+as String,reNewEmail: null == reNewEmail ? _self.reNewEmail : reNewEmail // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$UsernameResetConfirmImplCopyWith<$Res>
-    implements $UsernameResetConfirmCopyWith<$Res> {
-  factory _$$UsernameResetConfirmImplCopyWith(_$UsernameResetConfirmImpl value,
-          $Res Function(_$UsernameResetConfirmImpl) then) =
-      __$$UsernameResetConfirmImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({@JsonKey(name: 'new_email') String newEmail});
 }
 
-/// @nodoc
-class __$$UsernameResetConfirmImplCopyWithImpl<$Res>
-    extends _$UsernameResetConfirmCopyWithImpl<$Res, _$UsernameResetConfirmImpl>
-    implements _$$UsernameResetConfirmImplCopyWith<$Res> {
-  __$$UsernameResetConfirmImplCopyWithImpl(_$UsernameResetConfirmImpl _value,
-      $Res Function(_$UsernameResetConfirmImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of UsernameResetConfirm
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newEmail = null,
-  }) {
-    return _then(_$UsernameResetConfirmImpl(
-      newEmail: null == newEmail
-          ? _value.newEmail
-          : newEmail // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+/// Adds pattern-matching-related methods to [UsernameResetConfirm].
+extension UsernameResetConfirmPatterns on UsernameResetConfirm {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UsernameResetConfirm value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UsernameResetConfirm() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UsernameResetConfirm value)  $default,){
+final _that = this;
+switch (_that) {
+case _UsernameResetConfirm():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UsernameResetConfirm value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UsernameResetConfirm() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'new_email')  String newEmail, @JsonKey(name: 're_new_email')  String reNewEmail)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UsernameResetConfirm() when $default != null:
+return $default(_that.newEmail,_that.reNewEmail);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'new_email')  String newEmail, @JsonKey(name: 're_new_email')  String reNewEmail)  $default,) {final _that = this;
+switch (_that) {
+case _UsernameResetConfirm():
+return $default(_that.newEmail,_that.reNewEmail);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'new_email')  String newEmail, @JsonKey(name: 're_new_email')  String reNewEmail)?  $default,) {final _that = this;
+switch (_that) {
+case _UsernameResetConfirm() when $default != null:
+return $default(_that.newEmail,_that.reNewEmail);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UsernameResetConfirmImpl implements _UsernameResetConfirm {
-  const _$UsernameResetConfirmImpl(
-      {@JsonKey(name: 'new_email') required this.newEmail});
 
-  factory _$UsernameResetConfirmImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UsernameResetConfirmImplFromJson(json);
+class _UsernameResetConfirm implements UsernameResetConfirm {
+  const _UsernameResetConfirm({@JsonKey(name: 'new_email') required this.newEmail, @JsonKey(name: 're_new_email') required this.reNewEmail});
+  factory _UsernameResetConfirm.fromJson(Map<String, dynamic> json) => _$UsernameResetConfirmFromJson(json);
 
-  /// La nouvelle adresse e-mail à enregistrer pour l'utilisateur
-  @override
-  @JsonKey(name: 'new_email')
-  final String newEmail;
+@override@JsonKey(name: 'new_email') final  String newEmail;
+@override@JsonKey(name: 're_new_email') final  String reNewEmail;
 
-  @override
-  String toString() {
-    return 'UsernameResetConfirm(newEmail: $newEmail)';
-  }
+/// Create a copy of UsernameResetConfirm
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UsernameResetConfirmCopyWith<_UsernameResetConfirm> get copyWith => __$UsernameResetConfirmCopyWithImpl<_UsernameResetConfirm>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UsernameResetConfirmImpl &&
-            (identical(other.newEmail, newEmail) ||
-                other.newEmail == newEmail));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, newEmail);
-
-  /// Create a copy of UsernameResetConfirm
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UsernameResetConfirmImplCopyWith<_$UsernameResetConfirmImpl>
-      get copyWith =>
-          __$$UsernameResetConfirmImplCopyWithImpl<_$UsernameResetConfirmImpl>(
-              this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UsernameResetConfirmImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$UsernameResetConfirmToJson(this, );
 }
 
-abstract class _UsernameResetConfirm implements UsernameResetConfirm {
-  const factory _UsernameResetConfirm(
-          {@JsonKey(name: 'new_email') required final String newEmail}) =
-      _$UsernameResetConfirmImpl;
-
-  factory _UsernameResetConfirm.fromJson(Map<String, dynamic> json) =
-      _$UsernameResetConfirmImpl.fromJson;
-
-  /// La nouvelle adresse e-mail à enregistrer pour l'utilisateur
-  @override
-  @JsonKey(name: 'new_email')
-  String get newEmail;
-
-  /// Create a copy of UsernameResetConfirm
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UsernameResetConfirmImplCopyWith<_$UsernameResetConfirmImpl>
-      get copyWith => throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsernameResetConfirm&&(identical(other.newEmail, newEmail) || other.newEmail == newEmail)&&(identical(other.reNewEmail, reNewEmail) || other.reNewEmail == reNewEmail));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,newEmail,reNewEmail);
+
+@override
+String toString() {
+  return 'UsernameResetConfirm(newEmail: $newEmail, reNewEmail: $reNewEmail)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UsernameResetConfirmCopyWith<$Res> implements $UsernameResetConfirmCopyWith<$Res> {
+  factory _$UsernameResetConfirmCopyWith(_UsernameResetConfirm value, $Res Function(_UsernameResetConfirm) _then) = __$UsernameResetConfirmCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'new_email') String newEmail,@JsonKey(name: 're_new_email') String reNewEmail
+});
+
+
+
+
+}
+/// @nodoc
+class __$UsernameResetConfirmCopyWithImpl<$Res>
+    implements _$UsernameResetConfirmCopyWith<$Res> {
+  __$UsernameResetConfirmCopyWithImpl(this._self, this._then);
+
+  final _UsernameResetConfirm _self;
+  final $Res Function(_UsernameResetConfirm) _then;
+
+/// Create a copy of UsernameResetConfirm
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? newEmail = null,Object? reNewEmail = null,}) {
+  return _then(_UsernameResetConfirm(
+newEmail: null == newEmail ? _self.newEmail : newEmail // ignore: cast_nullable_to_non_nullable
+as String,reNewEmail: null == reNewEmail ? _self.reNewEmail : reNewEmail // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on
