@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Product {
 
- int get id; String get category; String? get image; String get name; String? get description;@JsonKey(includeIfNull: true) int? get quantityInStock;@JsonKey(fromJson: unitFromJson, toJson: unitToJson) UnitEnum get unit;@StringToDoubleConverter() double? get purchasePrice;@StringToDoubleConverter() double? get sellingPrice; DateTime? get expirationDate; String? get qrCodeImage;
+ int get id; String get category; String? get image; String get name; String? get description;@JsonKey(name: 'quantity_in_stock', includeIfNull: true) int? get quantityInStock;@JsonKey(fromJson: unitFromJson, toJson: unitToJson) UnitEnum get unit;@StringToDoubleConverter() double? get purchasePrice;@StringToDoubleConverter() double? get sellingPrice; DateTime? get expirationDate; String? get qrCodeImage;
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $ProductCopyWith<$Res>  {
   factory $ProductCopyWith(Product value, $Res Function(Product) _then) = _$ProductCopyWithImpl;
 @useResult
 $Res call({
- int id, String category, String? image, String name, String? description,@JsonKey(includeIfNull: true) int? quantityInStock,@JsonKey(fromJson: unitFromJson, toJson: unitToJson) UnitEnum unit,@StringToDoubleConverter() double? purchasePrice,@StringToDoubleConverter() double? sellingPrice, DateTime? expirationDate, String? qrCodeImage
+ int id, String category, String? image, String name, String? description,@JsonKey(name: 'quantity_in_stock', includeIfNull: true) int? quantityInStock,@JsonKey(fromJson: unitFromJson, toJson: unitToJson) UnitEnum unit,@StringToDoubleConverter() double? purchasePrice,@StringToDoubleConverter() double? sellingPrice, DateTime? expirationDate, String? qrCodeImage
 });
 
 
@@ -163,7 +163,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String category,  String? image,  String name,  String? description, @JsonKey(includeIfNull: true)  int? quantityInStock, @JsonKey(fromJson: unitFromJson, toJson: unitToJson)  UnitEnum unit, @StringToDoubleConverter()  double? purchasePrice, @StringToDoubleConverter()  double? sellingPrice,  DateTime? expirationDate,  String? qrCodeImage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String category,  String? image,  String name,  String? description, @JsonKey(name: 'quantity_in_stock', includeIfNull: true)  int? quantityInStock, @JsonKey(fromJson: unitFromJson, toJson: unitToJson)  UnitEnum unit, @StringToDoubleConverter()  double? purchasePrice, @StringToDoubleConverter()  double? sellingPrice,  DateTime? expirationDate,  String? qrCodeImage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Product() when $default != null:
 return $default(_that.id,_that.category,_that.image,_that.name,_that.description,_that.quantityInStock,_that.unit,_that.purchasePrice,_that.sellingPrice,_that.expirationDate,_that.qrCodeImage);case _:
@@ -184,7 +184,7 @@ return $default(_that.id,_that.category,_that.image,_that.name,_that.description
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String category,  String? image,  String name,  String? description, @JsonKey(includeIfNull: true)  int? quantityInStock, @JsonKey(fromJson: unitFromJson, toJson: unitToJson)  UnitEnum unit, @StringToDoubleConverter()  double? purchasePrice, @StringToDoubleConverter()  double? sellingPrice,  DateTime? expirationDate,  String? qrCodeImage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String category,  String? image,  String name,  String? description, @JsonKey(name: 'quantity_in_stock', includeIfNull: true)  int? quantityInStock, @JsonKey(fromJson: unitFromJson, toJson: unitToJson)  UnitEnum unit, @StringToDoubleConverter()  double? purchasePrice, @StringToDoubleConverter()  double? sellingPrice,  DateTime? expirationDate,  String? qrCodeImage)  $default,) {final _that = this;
 switch (_that) {
 case _Product():
 return $default(_that.id,_that.category,_that.image,_that.name,_that.description,_that.quantityInStock,_that.unit,_that.purchasePrice,_that.sellingPrice,_that.expirationDate,_that.qrCodeImage);case _:
@@ -204,7 +204,7 @@ return $default(_that.id,_that.category,_that.image,_that.name,_that.description
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String category,  String? image,  String name,  String? description, @JsonKey(includeIfNull: true)  int? quantityInStock, @JsonKey(fromJson: unitFromJson, toJson: unitToJson)  UnitEnum unit, @StringToDoubleConverter()  double? purchasePrice, @StringToDoubleConverter()  double? sellingPrice,  DateTime? expirationDate,  String? qrCodeImage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String category,  String? image,  String name,  String? description, @JsonKey(name: 'quantity_in_stock', includeIfNull: true)  int? quantityInStock, @JsonKey(fromJson: unitFromJson, toJson: unitToJson)  UnitEnum unit, @StringToDoubleConverter()  double? purchasePrice, @StringToDoubleConverter()  double? sellingPrice,  DateTime? expirationDate,  String? qrCodeImage)?  $default,) {final _that = this;
 switch (_that) {
 case _Product() when $default != null:
 return $default(_that.id,_that.category,_that.image,_that.name,_that.description,_that.quantityInStock,_that.unit,_that.purchasePrice,_that.sellingPrice,_that.expirationDate,_that.qrCodeImage);case _:
@@ -219,7 +219,7 @@ return $default(_that.id,_that.category,_that.image,_that.name,_that.description
 @JsonSerializable()
 
 class _Product implements Product {
-  const _Product({required this.id, required this.category, this.image, required this.name, this.description, @JsonKey(includeIfNull: true) this.quantityInStock, @JsonKey(fromJson: unitFromJson, toJson: unitToJson) required this.unit, @StringToDoubleConverter() required this.purchasePrice, @StringToDoubleConverter() required this.sellingPrice, this.expirationDate, this.qrCodeImage});
+  const _Product({required this.id, required this.category, this.image, required this.name, this.description, @JsonKey(name: 'quantity_in_stock', includeIfNull: true) this.quantityInStock, @JsonKey(fromJson: unitFromJson, toJson: unitToJson) required this.unit, @StringToDoubleConverter() required this.purchasePrice, @StringToDoubleConverter() required this.sellingPrice, this.expirationDate, this.qrCodeImage});
   factory _Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
 @override final  int id;
@@ -227,7 +227,7 @@ class _Product implements Product {
 @override final  String? image;
 @override final  String name;
 @override final  String? description;
-@override@JsonKey(includeIfNull: true) final  int? quantityInStock;
+@override@JsonKey(name: 'quantity_in_stock', includeIfNull: true) final  int? quantityInStock;
 @override@JsonKey(fromJson: unitFromJson, toJson: unitToJson) final  UnitEnum unit;
 @override@StringToDoubleConverter() final  double? purchasePrice;
 @override@StringToDoubleConverter() final  double? sellingPrice;
@@ -267,7 +267,7 @@ abstract mixin class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
   factory _$ProductCopyWith(_Product value, $Res Function(_Product) _then) = __$ProductCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String category, String? image, String name, String? description,@JsonKey(includeIfNull: true) int? quantityInStock,@JsonKey(fromJson: unitFromJson, toJson: unitToJson) UnitEnum unit,@StringToDoubleConverter() double? purchasePrice,@StringToDoubleConverter() double? sellingPrice, DateTime? expirationDate, String? qrCodeImage
+ int id, String category, String? image, String name, String? description,@JsonKey(name: 'quantity_in_stock', includeIfNull: true) int? quantityInStock,@JsonKey(fromJson: unitFromJson, toJson: unitToJson) UnitEnum unit,@StringToDoubleConverter() double? purchasePrice,@StringToDoubleConverter() double? sellingPrice, DateTime? expirationDate, String? qrCodeImage
 });
 
 

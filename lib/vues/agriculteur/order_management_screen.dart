@@ -1,4 +1,3 @@
-// lib/screens/agriculteur/order_management_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -53,8 +52,7 @@ class _OrderManagementScreenState extends ConsumerState<OrderManagementScreen> {
         loading: () => const LoadingWidget(),
         error: (err, _) => ErrorDisplayWidget(error: err.toString()),
         data: (page) {
-          // Extrait la liste dans une variable non-nullable
-          final results = page.results ?? <Order>[];
+          final results = page.results;
           final hasNext = page.next != null;
           final itemCount = results.length + (hasNext ? 1 : 0);
 
@@ -65,7 +63,6 @@ class _OrderManagementScreenState extends ConsumerState<OrderManagementScreen> {
               itemCount: itemCount,
               separatorBuilder: (_, __) => const Divider(height: 1),
               itemBuilder: (ctx, index) {
-                // Loader en dernière position si besoin
                 if (index == results.length && hasNext) {
                   return notifier.isFetchingMore
                       ? const Padding(
@@ -111,7 +108,6 @@ class _OrderManagementScreenState extends ConsumerState<OrderManagementScreen> {
                       await notifier.deleteOrder(order.id);
                       notifier.refresh();
                     } else {
-                      // Réinsère l'élément si l'utilisateur annule la suppression
                       setState(() {});
                     }
                   },
@@ -120,11 +116,11 @@ class _OrderManagementScreenState extends ConsumerState<OrderManagementScreen> {
                     subtitle: Text(
                       'Client ID : ${order.client}\n'
                           'Date : ${order.dateOrdered.toLocal().toString().split(" ")[0]}\n'
-                          'Total : ${order.total} FCFA',
+                          'Total : ${order.total.toStringAsFixed(2)} FCFA',
                     ),
                     trailing: Text(order.orderStatus.name),
                     onTap: () {
-                      // TODO: détails / modification
+                      // TODO: détails
                     },
                   ),
                 );

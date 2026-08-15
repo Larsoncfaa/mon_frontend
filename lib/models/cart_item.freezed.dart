@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CartItem {
 
- int? get id; int? get productId; Product get product; int? get quantity; double? get totalPrice;
+ int? get id;@JsonKey(name: 'product_id') int? get productId; Product get product; int? get quantity;@StringToDoubleConverter() double? get totalPrice;
 /// Create a copy of CartItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CartItemCopyWith<$Res>  {
   factory $CartItemCopyWith(CartItem value, $Res Function(CartItem) _then) = _$CartItemCopyWithImpl;
 @useResult
 $Res call({
- int? id, int? productId, Product product, int? quantity, double? totalPrice
+ int? id,@JsonKey(name: 'product_id') int? productId, Product product, int? quantity,@StringToDoubleConverter() double? totalPrice
 });
 
 
@@ -166,7 +166,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  int? productId,  Product product,  int? quantity,  double? totalPrice)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'product_id')  int? productId,  Product product,  int? quantity, @StringToDoubleConverter()  double? totalPrice)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CartItem() when $default != null:
 return $default(_that.id,_that.productId,_that.product,_that.quantity,_that.totalPrice);case _:
@@ -187,7 +187,7 @@ return $default(_that.id,_that.productId,_that.product,_that.quantity,_that.tota
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  int? productId,  Product product,  int? quantity,  double? totalPrice)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'product_id')  int? productId,  Product product,  int? quantity, @StringToDoubleConverter()  double? totalPrice)  $default,) {final _that = this;
 switch (_that) {
 case _CartItem():
 return $default(_that.id,_that.productId,_that.product,_that.quantity,_that.totalPrice);case _:
@@ -207,7 +207,7 @@ return $default(_that.id,_that.productId,_that.product,_that.quantity,_that.tota
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  int? productId,  Product product,  int? quantity,  double? totalPrice)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id, @JsonKey(name: 'product_id')  int? productId,  Product product,  int? quantity, @StringToDoubleConverter()  double? totalPrice)?  $default,) {final _that = this;
 switch (_that) {
 case _CartItem() when $default != null:
 return $default(_that.id,_that.productId,_that.product,_that.quantity,_that.totalPrice);case _:
@@ -222,14 +222,14 @@ return $default(_that.id,_that.productId,_that.product,_that.quantity,_that.tota
 @JsonSerializable()
 
 class _CartItem implements CartItem {
-  const _CartItem({this.id, this.productId, required this.product, this.quantity, this.totalPrice});
+  const _CartItem({this.id, @JsonKey(name: 'product_id') this.productId, required this.product, this.quantity, @StringToDoubleConverter() this.totalPrice});
   factory _CartItem.fromJson(Map<String, dynamic> json) => _$CartItemFromJson(json);
 
 @override final  int? id;
-@override final  int? productId;
+@override@JsonKey(name: 'product_id') final  int? productId;
 @override final  Product product;
 @override final  int? quantity;
-@override final  double? totalPrice;
+@override@StringToDoubleConverter() final  double? totalPrice;
 
 /// Create a copy of CartItem
 /// with the given fields replaced by the non-null parameter values.
@@ -264,7 +264,7 @@ abstract mixin class _$CartItemCopyWith<$Res> implements $CartItemCopyWith<$Res>
   factory _$CartItemCopyWith(_CartItem value, $Res Function(_CartItem) _then) = __$CartItemCopyWithImpl;
 @override @useResult
 $Res call({
- int? id, int? productId, Product product, int? quantity, double? totalPrice
+ int? id,@JsonKey(name: 'product_id') int? productId, Product product, int? quantity,@StringToDoubleConverter() double? totalPrice
 });
 
 

@@ -15,7 +15,7 @@ import 'package:maliag/vues/commun/deconnexion.dart';
 
 import 'core/utils/logger.dart';
 import 'fournisseurs/provider/auth_provider.dart';
-import 'models/order.dart';
+import 'package:maliag/models/order.dart';
 import 'models/user_role.dart';
 
 import 'package:maliag/vues/agriculteur/agri_management_screen.dart';
@@ -31,8 +31,10 @@ import 'package:maliag/vues/auth/login_screen.dart';
 import 'package:maliag/vues/auth/register_screen.dart';
 import 'package:maliag/vues/client/home_screen.dart';
 import 'package:maliag/vues/livreur/livreur_dashboard_screen.dart';
+import 'package:maliag/core/config.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   FlutterError.onError = (FlutterErrorDetails details) {
     Logger.error('FlutterError', details.exception, details.stack);
   };
@@ -41,6 +43,9 @@ void main() {
     Logger.error('Erreur Dart non Flutter', error, stack);
     return true;
   };
+
+
+  await ApiConfig.initialize();
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -78,7 +83,7 @@ class MyApp extends ConsumerWidget {
       ),
       debugShowCheckedModeBanner: false,
 
-      // ✅ Ajout des localizations pour résoudre l’erreur
+      //  Ajout des localizations pour résoudre l’erreur
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

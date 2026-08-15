@@ -9,6 +9,8 @@ class BatchRepository {
 
   Future<List<Batch>> fetchBatches() => service.getBatches();
 
+  Future<Batch> getBatch(int id) => service.getBatch(id);
+
   Future<Batch> createBatch(Batch batch) => service.createBatch(batch);
 
   Future<Batch> updateBatch(int id, Batch batch) =>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../models/order.dart';
-import '../../models/order_line.dart';
+import 'package:maliag/models/order.dart';
+import 'package:maliag/models/order_line.dart';
 import 'methode_paiement.dart';
 
 class OrderConfirmationScreen extends StatelessWidget {

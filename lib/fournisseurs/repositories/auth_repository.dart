@@ -9,115 +9,170 @@ class AuthRepository {
   final AuthService _service;
   final FlutterSecureStorage _storage;
 
-  AuthRepository(this._service, this._storage);
+  AuthRepository(
+      this._service,
+      this._storage,
+      );
 
-  /// Inscription — retourne directement les données de l’utilisateur
+  /// INSCRIPTION
   Future<Map<String, dynamic>?> register({
     required String firstName,
     required String lastName,
     required String email,
     required String password,
-    required UserRole? role,
+    required UserRole role,
+    String? phone,
+    String? location,
   }) async {
     try {
-      final resp = await _service.register(
+      final response = await _service.register(
         firstName: firstName,
         lastName: lastName,
         email: email.trim().toLowerCase(),
         password: password,
-        role: role!,
+        role: role,
+        phone: phone,
+        location: location,
       );
 
-      if (resp.statusCode == 201) {
-        final data = resp.data as Map<String, dynamic>;
-
-        final access = data['access'] as String?;
-        final refresh = data['refresh'] as String?;
-        final userData = data['user'] as Map<String, dynamic>?;
-
-        if (access != null && refresh != null && userData != null) {
-          // Stocke les tokens localement
-          await _storage.write(key: 'access_token', value: access);
-          await _storage.write(key: 'refresh_token', value: refresh);
-
-          // Retourne toutes les données utiles
-          return {
-            'access': access,
-            'refresh': refresh,
-            'user': userData,
-          };
-        }
+      if (response.statusCode != 201) {
+        return null;
       }
 
-      return null;
+      final data =
+      response.data as Map<String, dynamic>;
+
+      final access = data['access'] as String?;
+      final refresh = data['refresh'] as String?;
+
+      final userData =
+      data['user'] as Map<String, dynamic>?;
+
+      if (access == null ||
+          refresh == null ||
+          userData == null) {
+        return null;
+      }
+
+      await _storage.write(
+        key: 'access_token',
+        value: access,
+      );
+
+      await _storage.write(
+        key: 'refresh_token',
+        value: refresh,
+      );
+
+      return {
+        'access': access,
+        'refresh': refresh,
+        'user': userData,
+      };
     } on DioException catch (e) {
-      print('[AuthRepository] Échec d\'inscription : ${e.response?.data}');
-      return null;
+      print(
+        '[AuthRepository] Erreur inscription: '
+            '${e.response?.data}',
+      );
+
+      rethrow;
+    } catch (e) {
+      print(
+        '[AuthRepository] Erreur inconnue: $e',
+      );
+
+      rethrow;
     }
   }
 
-  /// Connexion
+  /// CONNEXION
   Future<bool> login({
     required String email,
     required String password,
   }) async {
     try {
-      final resp = await _service.login(
+      final response = await _service.login(
         login: email.trim().toLowerCase(),
         password: password,
       );
 
-      if (resp.statusCode == 200) {
-        final data = resp.data as Map<String, dynamic>;
-        final access = data['access'] as String?;
-        final refresh = data['refresh'] as String?;
-
-        if (access != null && refresh != null) {
-          await _storage.write(key: 'access_token', value: access);
-          await _storage.write(key: 'refresh_token', value: refresh);
-          return true;
-        }
+      if (response.statusCode != 200) {
+        return false;
       }
 
-      return false;
+      final data =
+      response.data as Map<String, dynamic>;
+
+      final access = data['access'] as String?;
+      final refresh = data['refresh'] as String?;
+
+      if (access == null || refresh == null) {
+        return false;
+      }
+
+      await _storage.write(
+        key: 'access_token',
+        value: access,
+      );
+
+      await _storage.write(
+        key: 'refresh_token',
+        value: refresh,
+      );
+
+      return true;
     } on DioException catch (e) {
-      print('[AuthRepository] Échec de connexion : ${e.response?.data}');
-      return false;
-    } catch (e) {
-      print('[AuthRepository] Erreur inconnue : $e');
-      return false;
+      print(
+        '[AuthRepository] Erreur connexion: '
+            '${e.response?.data}',
+      );
+
+      rethrow;
     }
   }
 
-  /// Déconnexion
+  /// DÉCONNEXION
   Future<void> logout() async {
     try {
-      final refresh = await _storage.read(key: 'refresh_token');
+      final refresh =
+      await _storage.read(
+        key: 'refresh_token',
+      );
 
-      await _storage.delete(key: 'access_token');
-      await _storage.delete(key: 'refresh_token');
+      await _storage.delete(
+        key: 'access_token',
+      );
+
+      await _storage.delete(
+        key: 'refresh_token',
+      );
 
       if (refresh != null) {
-        await _service.logout(refreshToken: refresh);
+        await _service.logout(
+          refreshToken: refresh,
+        );
       }
     } catch (e) {
-      print('[AuthRepository] Erreur pendant la déconnexion : $e');
+      print(
+        '[AuthRepository] Erreur logout: $e',
+      );
     }
   }
 
-  /// Vérifie la validité d’un JWT
-  Future<bool> verifyToken(String token) async {
-    try {
-      final resp = await _service.verifyToken(token);
-      return resp.statusCode == 200;
-    } on DioException catch (e) {
-      print('[AuthRepository] Token invalide : ${e.response?.data}');
-      return false;
-    }
-  }
-
-  /// Récupère le profil utilisateur connecté
+  /// PROFIL
   Future<User> getCurrentUser() {
     return _service.getCurrentUser();
+  }
+
+  /// VÉRIFICATION TOKEN
+  Future<bool> verifyToken(String token) async {
+    try {
+      final response =
+      await _service.verifyToken(token);
+
+      return response.statusCode == 200;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -1,23 +1,48 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/network/dio_provider.dart';
 import '../../models/order_line.dart';
 import '../../pagination/paginated_order_line_list.dart';
 import '../../services/order_line_service.dart';
-import '../notifications/order_line_notifier.dart';
 import '../repositories/order_line_repository.dart';
 
 /// 1. Service Provider
-final orderLineServiceProvider = Provider<OrderLineService>(
-      (ref) => OrderLineService(ref.watch(dioProvider)),
-);
+final orderLineServiceProvider = Provider<OrderLineService>((ref) {
+  return OrderLineService(ref.watch(dioProvider));
+});
 
 /// 2. Repository Provider
-final orderLineRepositoryProvider = Provider<OrderLineRepository>(
-      (ref) => OrderLineRepository(ref.watch(orderLineServiceProvider)),
-);
+final orderLineRepositoryProvider = Provider<OrderLineRepository>((ref) {
+  return OrderLineRepository(ref.watch(orderLineServiceProvider));
+});
 
-/// 3. Notifier Provider (Riverpod 3.x)
+/// Notifier moderne pour Riverpod 3.x
+class OrderLineNotifier extends Notifier<AsyncValue<List<OrderLine>>> {
+  @override
+  AsyncValue<List<OrderLine>> build() {
+    Future.microtask(() => load());
+    return const AsyncValue.loading();
+  }
+
+  Future<void> load({int page = 1}) async {
+    state = const AsyncLoading();
+    try {
+      final repository = ref.read(orderLineRepositoryProvider);
+      final result = await repository.getAll(page: page);
+      state = AsyncData(result.results);
+    } catch (e, st) {
+      debugPrint('Erreur lors du chargement des order lines : $e');
+      state = AsyncError(e, st);
+    }
+  }
+
+  Future<void> refresh() async {
+    await load();
+  }
+}
+
+/// 3. Notifier Provider principal
 final orderLineNotifierProvider = NotifierProvider<
     OrderLineNotifier, AsyncValue<List<OrderLine>>>(
   OrderLineNotifier.new,

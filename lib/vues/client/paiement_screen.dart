@@ -6,6 +6,7 @@ import '../../fournisseurs/provider/payment_log_provider.dart';
 import '../../fournisseurs/provider/payment_provider.dart';
 import '../../models/method_enum.dart';
 import '../../models/payment.dart';
+import '../../pagination/paginated_payment_log_list.dart';
 
 class PaiementScreen extends ConsumerStatefulWidget {
   const PaiementScreen({super.key});
@@ -41,7 +42,7 @@ class _PaiementScreenState extends ConsumerState<PaiementScreen> {
             // 🧾 Paiement actuel
             paymentState.when(
               data: (payment) => _buildLastPaymentCard(payment),
-              loading: () => const CircularProgressIndicator(),
+              loading: () => const Center(child: CircularProgressIndicator()),
               error: (e, _) => Text('Erreur paiement : $e'),
             ),
             const SizedBox(height: 24),
@@ -147,7 +148,7 @@ class _PaiementScreenState extends ConsumerState<PaiementScreen> {
     );
   }
 
-  Widget _buildPaymentLogs(AsyncValue logsState) {
+  Widget _buildPaymentLogs(AsyncValue<PaginatedPaymentLogList> logsState) {
     return logsState.when(
       data: (paginated) {
         final logs = paginated.results;
@@ -189,7 +190,7 @@ class _PaiementScreenState extends ConsumerState<PaiementScreen> {
                   try {
                     await ref
                         .read(paymentLogNotifierProvider.notifier)
-                        ..fetchAll(); // Changé loadMore par fetchPaymentLogs ou similaire
+                        .loadMore();
                   } catch (e) {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -203,7 +204,7 @@ class _PaiementScreenState extends ConsumerState<PaiementScreen> {
           ],
         );
       },
-      loading: () => const CircularProgressIndicator(),
+      loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, _) => Text("Erreur logs : $e"),
     );
   }

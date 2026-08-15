@@ -14,7 +14,7 @@ _Order _$OrderFromJson(Map<String, dynamic> json) => _Order(
   lines: (json['lines'] as List<dynamic>)
       .map((e) => OrderLine.fromJson(e as Map<String, dynamic>))
       .toList(),
-  total: json['total'],
+  total: const StringToDoubleConverter().fromJson(json['total']),
 );
 
 Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
@@ -23,7 +23,7 @@ Map<String, dynamic> _$OrderToJson(_Order instance) => <String, dynamic>{
   'date_ordered': instance.dateOrdered.toIso8601String(),
   'order_status': _$OrderStatusEnumEnumMap[instance.orderStatus]!,
   'lines': instance.lines,
-  'total': instance.total,
+  'total': const StringToDoubleConverter().toJson(instance.total),
 };
 
 const _$OrderStatusEnumEnumMap = {

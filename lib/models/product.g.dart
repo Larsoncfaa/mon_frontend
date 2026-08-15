@@ -12,7 +12,7 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
   image: json['image'] as String?,
   name: json['name'] as String,
   description: json['description'] as String?,
-  quantityInStock: (json['quantityInStock'] as num?)?.toInt(),
+  quantityInStock: (json['quantity_in_stock'] as num?)?.toInt(),
   unit: unitFromJson(json['unit'] as String),
   purchasePrice: const StringToDoubleConverter().fromJson(
     json['purchasePrice'],
@@ -30,7 +30,7 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'image': instance.image,
   'name': instance.name,
   'description': instance.description,
-  'quantityInStock': instance.quantityInStock,
+  'quantity_in_stock': instance.quantityInStock,
   'unit': unitToJson(instance.unit),
   'purchasePrice': _$JsonConverterToJson<dynamic, double>(
     instance.purchasePrice,

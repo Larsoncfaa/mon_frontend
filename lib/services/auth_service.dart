@@ -7,27 +7,36 @@ import '../models/user_role.dart';
 
 class AuthService {
   final Dio _dio;
+
   AuthService(this._dio);
 
-  /// Inscription
+  /// INSCRIPTION
   Future<Response> register({
     required String firstName,
     required String lastName,
     required String email,
     required String password,
     required UserRole role,
+    String? phone,
+    String? location,
   }) {
-    debugPrint('[AuthService] Registering user: $email, Role: ${role.name}');
-
     final data = {
       'first_name': firstName,
       'last_name': lastName,
-      'email': email.toLowerCase().trim(),
+      'email': email.trim().toLowerCase(),
       'password': password,
       'role': role.name,
+      'phone': phone,
+      'location': location,
     };
 
-    debugPrint('[AuthService] Data sent to API: $data');
+    debugPrint(
+      '[AuthService] INSCRIPTION',
+    );
+
+    debugPrint(
+      '[AuthService] Données envoyées: $data',
+    );
 
     return _dio.post(
       '/auth/register/',
@@ -35,12 +44,15 @@ class AuthService {
     );
   }
 
-  /// Connexion
+  /// CONNEXION
   Future<Response> login({
     required String login,
     required String password,
   }) {
-    debugPrint('[AuthService] Attempting login for: $login');
+    debugPrint(
+      '[AuthService] Connexion: $login',
+    );
+
     return _dio.post(
       '/auth/login/',
       data: {
@@ -50,37 +62,51 @@ class AuthService {
     );
   }
 
-  /// Déconnexion
-  Future<Response> logout({required String refreshToken}) async {
-    debugPrint('[AuthService] Logging out with refreshToken: $refreshToken');
+  /// DÉCONNEXION
+  Future<Response> logout({
+    required String refreshToken,
+  }) async {
+    final storage =
+    const FlutterSecureStorage();
 
-    final storage = FlutterSecureStorage();
-    final storedRefreshToken = await storage.read(key: 'refresh_token');
+    final storedToken =
+    await storage.read(
+      key: 'refresh_token',
+    );
 
-    if (storedRefreshToken != null) {
-      return _dio.post(
-        '/auth/logout/',
-        data: {'refresh': storedRefreshToken},
+    if (storedToken == null) {
+      throw Exception(
+        'Refresh token introuvable',
       );
-    } else {
-      debugPrint('[AuthService] No refresh token found in storage.');
-      return Future.error('No refresh token found');
     }
+
+    return _dio.post(
+      '/auth/logout/',
+      data: {
+        'refresh': storedToken,
+      },
+    );
   }
 
-  /// Récupérer le profil courant
+  /// PROFIL UTILISATEUR
   Future<User> getCurrentUser() async {
-    debugPrint('[AuthService] Fetching current user profile');
-    final resp = await _dio.get('/profile/');
-    return User.fromJson(resp.data);
+    final response =
+    await _dio.get('/profile/');
+
+    return User.fromJson(
+      response.data,
+    );
   }
 
-  /// Vérifier un token (JWT)
-  Future<Response> verifyToken(String token) {
-    debugPrint('[AuthService] Verifying token: $token');
+  /// VÉRIFICATION TOKEN
+  Future<Response> verifyToken(
+      String token,
+      ) {
     return _dio.post(
       '/auth/token/verify/',
-      data: {'token': token},
+      data: {
+        'token': token,
+      },
     );
   }
 }

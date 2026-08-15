@@ -1,55 +1,153 @@
-// lib/core/interceptors/auth_interceptor.dart
-
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthInterceptor extends Interceptor {
   final FlutterSecureStorage secureStorage;
+  final Dio dio;
 
-  AuthInterceptor({required this.secureStorage});
+  AuthInterceptor({
+    required this.secureStorage,
+    required this.dio,
+  });
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  Future<void> onRequest(
+      RequestOptions options,
+      RequestInterceptorHandler handler,
+      ) async {
     try {
-      final token = await secureStorage.read(key: 'access_token');
+      final token = await secureStorage.read(
+        key: 'access_token',
+      );
+
       if (token != null && token.isNotEmpty) {
         options.headers['Authorization'] = 'Bearer $token';
+
+        print(
+          '[AuthInterceptor] ✅ Authorization ajouté',
+        );
+      } else {
+        print(
+          '[AuthInterceptor] ⚠️ Aucun access token',
+        );
       }
     } catch (e) {
-      print('[AuthInterceptor] Error reading token: $e');
+      print(
+        '[AuthInterceptor] ❌ Erreur lecture token : $e',
+      );
     }
 
-    return handler.next(options);
+    handler.next(options);
   }
 
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) async {
-    // Si 401, tente de refresh le token
-    if (err.response?.statusCode == 401) {
-      final refresh = await secureStorage.read(key: 'refresh_token');
-      if (refresh != null) {
-        try {
-          final response = await Dio().post(
-            'https://10.0.2.2:8000/api/v1/auth/token/refresh/',
-            data: {'refresh': refresh},
-          );
-
-          final newAccessToken = response.data['access'];
-          await secureStorage.write(key: 'access_token', value: newAccessToken);
-
-          // Réessaie la requête originale avec le nouveau token
-          final requestOptions = err.requestOptions;
-          requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
-
-          final clonedRequest = await Dio().fetch(requestOptions);
-          return handler.resolve(clonedRequest);
-        } catch (e) {
-          print('[AuthInterceptor] Token refresh failed: $e');
-        }
-      }
+  Future<void> onError(
+      DioException err,
+      ErrorInterceptorHandler handler,
+      ) async {
+    // Seulement pour les erreurs 401
+    if (err.response?.statusCode != 401) {
+      handler.next(err);
+      return;
     }
 
-    return handler.next(err);
+    final refreshToken = await secureStorage.read(
+      key: 'refresh_token',
+    );
+
+    if (refreshToken == null || refreshToken.isEmpty) {
+      print(
+        '[AuthInterceptor] ⚠️ Aucun refresh token',
+      );
+
+      handler.next(err);
+      return;
+    }
+
+    try {
+      print(
+        '[AuthInterceptor] 🔄 Tentative de refresh...',
+      );
+
+      /*
+       * IMPORTANT :
+       * On utilise le même Dio mais sans passer
+       * par l'interceptor pour éviter une boucle 401.
+       */
+      final refreshDio = Dio(
+        BaseOptions(
+          baseUrl: dio.options.baseUrl,
+          contentType: 'application/json',
+        ),
+      );
+
+      final response = await refreshDio.post(
+        '/auth/token/refresh/',
+        data: {
+          'refresh': refreshToken,
+        },
+      );
+
+      final newAccessToken = response.data['access'] as String?;
+      final newRefreshToken = response.data['refresh'] as String?;
+
+      if (newAccessToken == null || newAccessToken.isEmpty) {
+        print('[AuthInterceptor] ❌ Nouveau access token absent');
+        handler.next(err);
+        return;
+      }
+
+      await secureStorage.write(
+        key: 'access_token',
+        value: newAccessToken,
+      );
+
+// Important avec ROTATE_REFRESH_TOKENS = True
+      if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
+        await secureStorage.write(
+          key: 'refresh_token',
+          value: newRefreshToken,
+        );
+
+        print(
+          '[AuthInterceptor] ✅ Nouveau refresh token enregistré',
+        );
+      }
+
+      print(
+        '[AuthInterceptor] ✅ Nouveau access token enregistré',
+      );
+
+      // Rejouer la requête originale
+      final requestOptions = err.requestOptions;
+
+      requestOptions.headers['Authorization'] =
+      'Bearer $newAccessToken';
+
+      final retryResponse = await dio.fetch(
+        requestOptions,
+      );
+
+      print(
+        '[AuthInterceptor] ✅ Requête rejouée',
+      );
+
+      handler.resolve(retryResponse);
+    } catch (e) {
+      print(
+        '[AuthInterceptor] ❌ Refresh échoué : $e',
+      );
+
+      // Token probablement expiré/invalide
+      await secureStorage.delete(
+        key: 'access_token',
+      );
+
+      await secureStorage.delete(
+        key: 'refresh_token',
+      );
+
+      handler.next(err);
+    }
   }
 }
-

@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 
 import '../../fournisseurs/provider/cart_item_provider.dart';
 import '../../fournisseurs/provider/cart_provider.dart';
@@ -37,11 +40,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
     final cartAsync = ref.read(cartStateProvider);
 
     if (cartAsync is! AsyncData || cartAsync.value == null) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Chargement du panier en cours...")),
-        );
-      }
+      _showMessage("Chargement du panier en cours...", isError: true);
       return;
     }
 
@@ -52,21 +51,24 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
         productId: product.id,
         quantity: quantity,
       );
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${product.name} ajouté au panier')),
-        );
-      }
+      _showMessage('${product.name} ajouté au panier');
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Erreur lors de l'ajout au panier")),
-        );
-      }
+      _showMessage("Erreur lors de l'ajout au panier", isError: true);
     } finally {
       if (mounted) setState(() => isLoading = false);
     }
+  }
+
+  void _showMessage(String msg, {bool isError = false}) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: isError ? Colors.redAccent : Colors.green,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
   }
 
   @override
@@ -74,148 +76,200 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
     final product = widget.product;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(product.name),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image produit
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: product.image != null
-                  ? Image.network(
-                product.image!,
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
-                  width: double.infinity,
-                  height: 200,
-                  color: Colors.grey[300],
-                  child: const Center(child: Icon(Icons.broken_image)),
-                ),
-              )
-                  : Container(
-                width: double.infinity,
-                height: 200,
-                color: Colors.grey[300],
-                child: const Center(child: Icon(Icons.image_not_supported)),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            Text(
-              product.name,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-
-            Text(
-              '${product.sellingPrice?.toStringAsFixed(2)} FCFA',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: Colors.green[700],
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            if (product.description != null && product.description!.isNotEmpty)
-              Column(
+      backgroundColor: Colors.white,
+      body: CustomScrollView(
+        slivers: [
+          _buildSliverAppBar(product),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Description",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    product.description!,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 16),
+                  _buildTitleSection(product),
+                  const Gap(24),
+                  _buildInfoChips(product),
+                  const Gap(32),
+                  if (product.description != null) ...[
+                    const Text('Description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    const Gap(8),
+                    Text(product.description!, style: TextStyle(color: Colors.grey.shade600, height: 1.6)),
+                    const Gap(32),
+                  ],
+                  _buildQuantitySelector(),
+                  const Gap(100), // Space for bottom bar
                 ],
               ),
-
-            Wrap(
-              runSpacing: 8,
-              spacing: 16,
-              children: [
-                _DetailTile(title: 'Unité', value: product.unit.name.toUpperCase()),
-                if (product.quantityInStock != null)
-                  _DetailTile(title: 'Stock', value: '${product.quantityInStock}'),
-                if (product.expirationDate != null)
-                  _DetailTile(
-                    title: 'Date expiration',
-                    value: _formatDate(product.expirationDate!),
-                  ),
-              ],
             ),
-            const SizedBox(height: 24),
+          ),
+        ],
+      ),
+      bottomSheet: _buildBottomAction(),
+    );
+  }
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text("Quantité :", style: TextStyle(fontSize: 16)),
-                const SizedBox(width: 16),
-                IconButton(
-                  onPressed: _decrementQuantity,
-                  icon: const Icon(Icons.remove_circle),
+  Widget _buildSliverAppBar(Product product) {
+    return SliverAppBar(
+      expandedHeight: 350,
+      pinned: true,
+      backgroundColor: Colors.green,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Stack(
+          fit: StackFit.expand,
+          children: [
+            if (product.image != null)
+              Image.network(product.image!, fit: BoxFit.cover)
+            else
+              Container(color: Colors.grey.shade100, child: const Icon(Iconsax.image, size: 64, color: Colors.grey)),
+            const DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [Colors.black54, Colors.transparent],
                 ),
-                Text('$quantity', style: const TextStyle(fontSize: 16)),
-                IconButton(
-                  onPressed: _incrementQuantity,
-                  icon: const Icon(Icons.add_circle),
-                ),
-              ],
+              ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ElevatedButton.icon(
-            onPressed: isLoading ? null : _addToCart,
-            icon: isLoading
-                ? const SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-            )
-                : const Icon(Icons.add_shopping_cart),
-            label: isLoading ? const Text('Ajout...') : const Text('Ajouter au panier'),
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(50),
-            ),
-          ),
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          child: IconButton(icon: const Icon(Iconsax.arrow_left_2, color: Colors.black), onPressed: () => Navigator.pop(context)),
         ),
       ),
     );
   }
 
-  String _formatDate(DateTime date) {
-    return '${date.day.toString().padLeft(2, '0')}/'
-        '${date.month.toString().padLeft(2, '0')}/'
-        '${date.year}';
+  Widget _buildTitleSection(Product product) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(product.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              const Gap(4),
+              Text('Unité : ${product.unit.label}', style: TextStyle(color: Colors.grey.shade500, fontWeight: FontWeight.w500)),
+            ],
+          ),
+        ),
+        Text(
+          '${product.sellingPrice?.toStringAsFixed(0) ?? "0"} F',
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.green),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfoChips(Product product) {
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: [
+        if (product.quantityInStock != null)
+          _InfoChip(icon: Iconsax.archive_1, label: '${product.quantityInStock} en stock', color: Colors.blue),
+        if (product.expirationDate != null)
+          _InfoChip(icon: Iconsax.calendar_1, label: 'Exp: ${DateFormat('dd/MM/yyyy').format(product.expirationDate!)}', color: Colors.orange),
+      ],
+    );
+  }
+
+  Widget _buildQuantitySelector() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: Colors.grey.shade50, borderRadius: BorderRadius.circular(20)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Quantité', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Row(
+            children: [
+              _QtyBtn(icon: Iconsax.minus, onTap: _decrementQuantity),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text('$quantity', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ),
+              _QtyBtn(icon: Iconsax.add, onTap: _incrementQuantity),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBottomAction() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 20, offset: const Offset(0, -5))],
+      ),
+      child: ElevatedButton(
+        onPressed: isLoading ? null : _addToCart,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.white,
+          minimumSize: const Size.fromHeight(56),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          elevation: 0,
+        ),
+        child: isLoading
+            ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3))
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Iconsax.shopping_cart),
+                  const Gap(12),
+                  Text('Ajouter au panier • ${(widget.product.sellingPrice! * quantity).toStringAsFixed(0)} F', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                ],
+              ),
+      ),
+    );
   }
 }
 
-class _DetailTile extends StatelessWidget {
-  final String title;
-  final String value;
-
-  const _DetailTile({required this.title, required this.value});
+class _InfoChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  const _InfoChip({required this.icon, required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      label: Text('$title: $value'),
-      backgroundColor: Colors.grey[200],
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 16, color: color),
+          const Gap(6),
+          Text(label, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12)),
+        ],
+      ),
+    );
+  }
+}
+
+class _QtyBtn extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+  const _QtyBtn({required this.icon, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: Colors.grey.shade200)),
+        child: Icon(icon, size: 18),
+      ),
     );
   }
 }

@@ -4,22 +4,60 @@ import '../../core/network/dio_provider.dart';
 import '../../models/tracking_info.dart';
 import '../../pagination/paginated_tracking_info_list.dart';
 import '../../services/tracking_info_service.dart';
-import '../notifications/tracking_info_notifier.dart';
 import '../repositories/tracking_info_repository.dart';
 
-/// 1. Fournisseur du service
+/// 1. Service Provider
 final trackingInfoServiceProvider = Provider<TrackingInfoService>((ref) {
-  final dio = ref.watch(dioProvider);
-  return TrackingInfoService(dio);
+  return TrackingInfoService(ref.watch(dioProvider));
 });
 
-/// 2. Fournisseur du repository
+/// 2. Repository Provider
 final trackingInfoRepositoryProvider = Provider<TrackingInfoRepository>((ref) {
-  final service = ref.watch(trackingInfoServiceProvider);
-  return TrackingInfoRepository(service);
+  return TrackingInfoRepository(ref.watch(trackingInfoServiceProvider));
 });
 
-/// 3. Fournisseur du notifier principal (Riverpod 3.x)
+/// Notifier moderne pour Riverpod 3.x
+class TrackingInfoNotifier
+    extends Notifier<AsyncValue<PaginatedTrackingInfoList>> {
+  int _currentPage = 1;
+
+  @override
+  AsyncValue<PaginatedTrackingInfoList> build() {
+    Future.microtask(() => fetchTrackingInfos());
+    return const AsyncLoading();
+  }
+
+  /// Charge les informations de suivi
+  Future<void> fetchTrackingInfos({int page = 1}) async {
+    state = const AsyncLoading();
+    try {
+      final repository = ref.read(trackingInfoRepositoryProvider);
+      final result = await repository.fetchTrackingInfos(page: page);
+      _currentPage = page;
+      state = AsyncData(result);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  /// Rafraîchit les données à la page actuelle
+  Future<void> refresh() async {
+    await fetchTrackingInfos(page: _currentPage);
+  }
+
+  /// Supprime une entrée et recharge les données
+  Future<void> delete(int id) async {
+    try {
+      final repository = ref.read(trackingInfoRepositoryProvider);
+      await repository.deleteTrackingInfo(id);
+      await fetchTrackingInfos(page: _currentPage);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+}
+
+/// 3. Notifier Provider principal
 final trackingInfoNotifierProvider = NotifierProvider<
     TrackingInfoNotifier, AsyncValue<PaginatedTrackingInfoList>>(
   TrackingInfoNotifier.new,

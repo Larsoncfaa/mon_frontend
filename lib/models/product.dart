@@ -46,7 +46,10 @@ abstract class Product with _$Product {
     required String name,
     String? description,
 
-    @JsonKey(includeIfNull: true)
+    @JsonKey(
+      name: 'quantity_in_stock',
+      includeIfNull: true,
+    )
     int? quantityInStock,
 
     @JsonKey(fromJson: unitFromJson, toJson: unitToJson)

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Order {
 
- int get id; int get client;@JsonKey(name: 'date_ordered') DateTime get dateOrdered;@JsonKey(name: 'order_status') OrderStatusEnum get orderStatus; List<OrderLine> get lines; dynamic get total;
+ int get id; int get client;@JsonKey(name: 'date_ordered') DateTime get dateOrdered;@JsonKey(name: 'order_status') OrderStatusEnum get orderStatus; List<OrderLine> get lines;@StringToDoubleConverter() double get total;
 /// Create a copy of Order
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,12 +28,12 @@ $OrderCopyWith<Order> get copyWith => _$OrderCopyWithImpl<Order>(this as Order, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Order&&(identical(other.id, id) || other.id == id)&&(identical(other.client, client) || other.client == client)&&(identical(other.dateOrdered, dateOrdered) || other.dateOrdered == dateOrdered)&&(identical(other.orderStatus, orderStatus) || other.orderStatus == orderStatus)&&const DeepCollectionEquality().equals(other.lines, lines)&&const DeepCollectionEquality().equals(other.total, total));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Order&&(identical(other.id, id) || other.id == id)&&(identical(other.client, client) || other.client == client)&&(identical(other.dateOrdered, dateOrdered) || other.dateOrdered == dateOrdered)&&(identical(other.orderStatus, orderStatus) || other.orderStatus == orderStatus)&&const DeepCollectionEquality().equals(other.lines, lines)&&(identical(other.total, total) || other.total == total));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,client,dateOrdered,orderStatus,const DeepCollectionEquality().hash(lines),const DeepCollectionEquality().hash(total));
+int get hashCode => Object.hash(runtimeType,id,client,dateOrdered,orderStatus,const DeepCollectionEquality().hash(lines),total);
 
 @override
 String toString() {
@@ -48,7 +48,7 @@ abstract mixin class $OrderCopyWith<$Res>  {
   factory $OrderCopyWith(Order value, $Res Function(Order) _then) = _$OrderCopyWithImpl;
 @useResult
 $Res call({
- int id, int client,@JsonKey(name: 'date_ordered') DateTime dateOrdered,@JsonKey(name: 'order_status') OrderStatusEnum orderStatus, List<OrderLine> lines, dynamic total
+ int id, int client,@JsonKey(name: 'date_ordered') DateTime dateOrdered,@JsonKey(name: 'order_status') OrderStatusEnum orderStatus, List<OrderLine> lines,@StringToDoubleConverter() double total
 });
 
 
@@ -65,15 +65,15 @@ class _$OrderCopyWithImpl<$Res>
 
 /// Create a copy of Order
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? client = null,Object? dateOrdered = null,Object? orderStatus = null,Object? lines = null,Object? total = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? client = null,Object? dateOrdered = null,Object? orderStatus = null,Object? lines = null,Object? total = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,client: null == client ? _self.client : client // ignore: cast_nullable_to_non_nullable
 as int,dateOrdered: null == dateOrdered ? _self.dateOrdered : dateOrdered // ignore: cast_nullable_to_non_nullable
 as DateTime,orderStatus: null == orderStatus ? _self.orderStatus : orderStatus // ignore: cast_nullable_to_non_nullable
 as OrderStatusEnum,lines: null == lines ? _self.lines : lines // ignore: cast_nullable_to_non_nullable
-as List<OrderLine>,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as dynamic,
+as List<OrderLine>,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 
@@ -158,7 +158,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int client, @JsonKey(name: 'date_ordered')  DateTime dateOrdered, @JsonKey(name: 'order_status')  OrderStatusEnum orderStatus,  List<OrderLine> lines,  dynamic total)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int client, @JsonKey(name: 'date_ordered')  DateTime dateOrdered, @JsonKey(name: 'order_status')  OrderStatusEnum orderStatus,  List<OrderLine> lines, @StringToDoubleConverter()  double total)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Order() when $default != null:
 return $default(_that.id,_that.client,_that.dateOrdered,_that.orderStatus,_that.lines,_that.total);case _:
@@ -179,7 +179,7 @@ return $default(_that.id,_that.client,_that.dateOrdered,_that.orderStatus,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int client, @JsonKey(name: 'date_ordered')  DateTime dateOrdered, @JsonKey(name: 'order_status')  OrderStatusEnum orderStatus,  List<OrderLine> lines,  dynamic total)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int client, @JsonKey(name: 'date_ordered')  DateTime dateOrdered, @JsonKey(name: 'order_status')  OrderStatusEnum orderStatus,  List<OrderLine> lines, @StringToDoubleConverter()  double total)  $default,) {final _that = this;
 switch (_that) {
 case _Order():
 return $default(_that.id,_that.client,_that.dateOrdered,_that.orderStatus,_that.lines,_that.total);case _:
@@ -199,7 +199,7 @@ return $default(_that.id,_that.client,_that.dateOrdered,_that.orderStatus,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int client, @JsonKey(name: 'date_ordered')  DateTime dateOrdered, @JsonKey(name: 'order_status')  OrderStatusEnum orderStatus,  List<OrderLine> lines,  dynamic total)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int client, @JsonKey(name: 'date_ordered')  DateTime dateOrdered, @JsonKey(name: 'order_status')  OrderStatusEnum orderStatus,  List<OrderLine> lines, @StringToDoubleConverter()  double total)?  $default,) {final _that = this;
 switch (_that) {
 case _Order() when $default != null:
 return $default(_that.id,_that.client,_that.dateOrdered,_that.orderStatus,_that.lines,_that.total);case _:
@@ -214,7 +214,7 @@ return $default(_that.id,_that.client,_that.dateOrdered,_that.orderStatus,_that.
 @JsonSerializable()
 
 class _Order implements Order {
-  const _Order({required this.id, required this.client, @JsonKey(name: 'date_ordered') required this.dateOrdered, @JsonKey(name: 'order_status') required this.orderStatus, required final  List<OrderLine> lines, required this.total}): _lines = lines;
+  const _Order({required this.id, required this.client, @JsonKey(name: 'date_ordered') required this.dateOrdered, @JsonKey(name: 'order_status') required this.orderStatus, required final  List<OrderLine> lines, @StringToDoubleConverter() required this.total}): _lines = lines;
   factory _Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 
 @override final  int id;
@@ -228,7 +228,7 @@ class _Order implements Order {
   return EqualUnmodifiableListView(_lines);
 }
 
-@override final  dynamic total;
+@override@StringToDoubleConverter() final  double total;
 
 /// Create a copy of Order
 /// with the given fields replaced by the non-null parameter values.
@@ -243,12 +243,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Order&&(identical(other.id, id) || other.id == id)&&(identical(other.client, client) || other.client == client)&&(identical(other.dateOrdered, dateOrdered) || other.dateOrdered == dateOrdered)&&(identical(other.orderStatus, orderStatus) || other.orderStatus == orderStatus)&&const DeepCollectionEquality().equals(other._lines, _lines)&&const DeepCollectionEquality().equals(other.total, total));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Order&&(identical(other.id, id) || other.id == id)&&(identical(other.client, client) || other.client == client)&&(identical(other.dateOrdered, dateOrdered) || other.dateOrdered == dateOrdered)&&(identical(other.orderStatus, orderStatus) || other.orderStatus == orderStatus)&&const DeepCollectionEquality().equals(other._lines, _lines)&&(identical(other.total, total) || other.total == total));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,client,dateOrdered,orderStatus,const DeepCollectionEquality().hash(_lines),const DeepCollectionEquality().hash(total));
+int get hashCode => Object.hash(runtimeType,id,client,dateOrdered,orderStatus,const DeepCollectionEquality().hash(_lines),total);
 
 @override
 String toString() {
@@ -263,7 +263,7 @@ abstract mixin class _$OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
   factory _$OrderCopyWith(_Order value, $Res Function(_Order) _then) = __$OrderCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int client,@JsonKey(name: 'date_ordered') DateTime dateOrdered,@JsonKey(name: 'order_status') OrderStatusEnum orderStatus, List<OrderLine> lines, dynamic total
+ int id, int client,@JsonKey(name: 'date_ordered') DateTime dateOrdered,@JsonKey(name: 'order_status') OrderStatusEnum orderStatus, List<OrderLine> lines,@StringToDoubleConverter() double total
 });
 
 
@@ -280,15 +280,15 @@ class __$OrderCopyWithImpl<$Res>
 
 /// Create a copy of Order
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? client = null,Object? dateOrdered = null,Object? orderStatus = null,Object? lines = null,Object? total = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? client = null,Object? dateOrdered = null,Object? orderStatus = null,Object? lines = null,Object? total = null,}) {
   return _then(_Order(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,client: null == client ? _self.client : client // ignore: cast_nullable_to_non_nullable
 as int,dateOrdered: null == dateOrdered ? _self.dateOrdered : dateOrdered // ignore: cast_nullable_to_non_nullable
 as DateTime,orderStatus: null == orderStatus ? _self.orderStatus : orderStatus // ignore: cast_nullable_to_non_nullable
 as OrderStatusEnum,lines: null == lines ? _self._lines : lines // ignore: cast_nullable_to_non_nullable
-as List<OrderLine>,total: freezed == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as dynamic,
+as List<OrderLine>,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as double,
   ));
 }
 

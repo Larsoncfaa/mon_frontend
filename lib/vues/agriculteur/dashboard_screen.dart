@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:gap/gap.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../fournisseurs/provider/order_provider.dart';
 import '../../fournisseurs/provider/stock_alert_provider.dart';
@@ -18,204 +20,266 @@ class DashboardAgriculteurScreen extends ConsumerWidget {
     final productsAsync = ref.watch(productProvider);
     final ordersAsync = ref.watch(orderNotifierProvider);
 
-    Future<void> _refreshAll() {
-      return Future.wait([
+    Future<void> refreshAll() async {
+      await Future.wait([
         ref.read(stockAlertNotifierProvider.notifier).fetchStockAlerts(page: 1),
         ref.read(productProvider.notifier).fetchProducts(),
         ref.read(orderNotifierProvider.notifier).fetchOrders(),
       ]);
     }
 
-    Widget errorWidget(Object error) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Text('Erreur : ${error.toString()}', style: const TextStyle(color: Colors.red)),
-    );
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Tableau de bord Agriculteur'),
-          actions: [
+      backgroundColor: Colors.grey.shade50,
+      appBar: AppBar(
+        title: const Text('Dashboard', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        actions: [
           IconButton(
-          icon: const Icon(Icons.person),
-      tooltip: 'Voir le profil',
-      onPressed: () {
-        Navigator.pushNamed(context, '/profile');
-      },
-    ),
-    ],
+            icon: const Icon(Iconsax.profile_circle),
+            tooltip: 'Profil',
+            onPressed: () => Navigator.pushNamed(context, '/profile'),
+          ),
+          const Gap(8),
+        ],
       ),
       drawer: const AppDrawer(),
       body: RefreshIndicator(
-        onRefresh: _refreshAll,
+        onRefresh: refreshAll,
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ─── Alertes de stock ───────────────────────────────────────────
-              const SectionTitle('🔔 Alertes de stock'),
-              const SizedBox(height: 8),
+              // ─── Welcome Header ───────────────────────────────────────────
+              _buildHeader(context),
+              const Gap(24),
+
+              // ─── Quick Stats Card ──────────────────────────────────────────
+              _buildStatsQuickAccess(context),
+              const Gap(32),
+
+              // ─── Stock Alerts ───────────────────────────────────────────
+              const _SectionHeader(title: 'Alertes de stock', icon: Iconsax.notification_bing),
+              const Gap(12),
               alertsAsync.when(
                 data: (paginated) {
                   final alerts = paginated.results;
                   if (alerts.isEmpty) {
-                    return const Text('Aucune alerte en cours.', style: TextStyle(color: Colors.grey));
+                    return const _EmptyState(message: 'Tout est en ordre.');
                   }
                   return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ...alerts.take(3).map((a) => StockAlertCard(alert: a)),
+                      ...alerts.take(3).map((a) => Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: StockAlertCard(alert: a),
+                      )),
                       if (alerts.length > 3)
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/stock');
-                            },
-                            child: const Text('Voir toutes les alertes'),
-                          ),
-                        ),
+                        _buildViewMore(context, '/stock'),
                     ],
                   );
                 },
-                loading: () => const Center(child: LoadingWidget()),
-                error: (e, _) => errorWidget(e),
+                loading: () => const _ShimmerLoader(height: 100),
+                error: (e, _) => _ErrorState(message: '$e'),
               ),
-              const SizedBox(height: 24),
+              const Gap(32),
 
-              // ─── Niveaux de stock ──────────────────────────────────────────
-              const SectionTitle('📊 Niveaux de stock'),
-              const SizedBox(height: 8),
+              // ─── Stock Bar Chart ──────────────────────────────────────────
+              const _SectionHeader(title: 'Niveaux de stock', icon: Iconsax.chart_2),
+              const Gap(16),
               productsAsync.when(
                 data: (paginated) {
                   final prods = paginated.results;
-                  if (prods.isEmpty) {
-                    return const Text('Aucun produit disponible.', style: TextStyle(color: Colors.grey));
-                  }
-
-                  final chartData = prods.take(5).toList();
-
-                  return SizedBox(
-                    height: 220,
-                    child: BarChart(
-                      BarChartData(
-                        barGroups: chartData.map((p) {
-                          return BarChartGroupData(
-                            x: p.id,
-                            barRods: [
-                              BarChartRodData(
-                                toY: (p.quantityInStock ?? 0).toDouble(),
-                                width: 14,
-                                color: Colors.green,
-                              )
-                            ],
-                            showingTooltipIndicators: [0],
-                          );
-                        }).toList(),
-                        titlesData: FlTitlesData(
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              getTitlesWidget: (value, _) {
-                                final idx = chartData.indexWhere((p) => p.id == value.toInt());
-                                if (idx == -1) return const SizedBox.shrink();
-                                return Text(chartData[idx].name, style: const TextStyle(fontSize: 10));
-                              },
-                            ),
-                          ),
-                          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true)),
-                          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                        ),
-                        borderData: FlBorderData(show: false),
-                        gridData: FlGridData(show: true, drawHorizontalLine: true),
-                      ),
-                    ),
-                  );
+                  if (prods.isEmpty) return const _EmptyState(message: 'Aucun produit.');
+                  return _buildBarChart(context, prods.take(5).toList());
                 },
-                loading: () => const Center(child: LoadingWidget()),
-                error: (e, _) => errorWidget(e),
+                loading: () => const _ShimmerLoader(height: 200),
+                error: (e, _) => _ErrorState(message: '$e'),
               ),
-              const SizedBox(height: 24),
+              const Gap(32),
 
-              // ─── Dernières commandes ───────────────────────────────────────
-              const SectionTitle('🧾 Dernières commandes'),
-              const SizedBox(height: 8),
+              // ─── Recent Orders ───────────────────────────────────────────
+              const _SectionHeader(title: 'Dernières commandes', icon: Iconsax.receipt_2),
+              const Gap(12),
               ordersAsync.when(
                 data: (paginated) {
                   final orders = paginated.results;
-                  if (orders == null || orders.isEmpty) {
-                    return const Text(
-                      'Aucune commande.',
-                      style: TextStyle(color: Colors.grey),
-                    );
-                  }
-
+                  if (orders.isEmpty) return const _EmptyState(message: 'Aucune commande.');
                   return Column(
-                    children: orders.take(3).map((o) {
-                      // Sécurise le total au cas où il serait mal converti
-                      final double? total = (o.total is num)
-                          ? (o.total as num).toDouble()
-                          : double.tryParse(o.total.toString());
-
-                      return Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        margin: const EdgeInsets.symmetric(vertical: 6),
-                        child: ListTile(
-                          leading: const Icon(Icons.receipt_long,
-                              color: Colors.blue, size: 32),
-                          title: Text(
-                            'Commande #${o.id}',
-                            style: const TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                          subtitle: Text(
-                            'Total : ${total?.toStringAsFixed(2) ?? "0.00"} F',
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                    children: orders.take(3).map((o) => _buildOrderTile(context, o)).toList(),
                   );
                 },
-                loading: () => const Center(child: LoadingWidget()),
-                error: (e, _) => errorWidget(e),
+                loading: () => const _ShimmerLoader(height: 150),
+                error: (e, _) => _ErrorState(message: '$e'),
               ),
-              const SizedBox(height: 24),
-
-              // ─── Statistiques de stock ──────────────────────────────────────
-              const SectionTitle('📈 Statistiques de stock'),
-              const SizedBox(height: 8),
-              Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                color: Colors.indigo.shade50,
-                child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  leading: Icon(Icons.bar_chart, size: 40, color: Colors.indigo.shade700),
-                  title: const Text('Voir les statistiques de stock', style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: const Text('Produits les plus sortis, ruptures, évolution...'),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/stock-stats');
-                  },
-                ),
-              ),
+              const Gap(24),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _buildHeader(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Bonjour 👋', style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey)),
+        Text('Prêt pour la récolte ?', style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+      ],
+    );
+  }
+
+  Widget _buildStatsQuickAccess(BuildContext context) {
+    return InkWell(
+      onTap: () => Navigator.pushNamed(context, '/stock-stats'),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.green.shade600, Colors.green.shade400],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(color: Colors.green.withValues(alpha: 0.3), blurRadius: 15, offset: const Offset(0, 8)),
+          ],
+        ),
+        child: Row(
+          children: [
+            const Icon(Iconsax.status_up, color: Colors.white, size: 40),
+            const Gap(16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Rapport de Stock', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('Analysez vos performances de vente', style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 13)),
+                ],
+              ),
+            ),
+            const Icon(Iconsax.arrow_right_3, color: Colors.white),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBarChart(BuildContext context, List prods) {
+    return Container(
+      height: 250,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24)),
+      child: BarChart(
+        BarChartData(
+          gridData: const FlGridData(show: false),
+          titlesData: FlTitlesData(
+            leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                getTitlesWidget: (value, _) {
+                  final idx = prods.indexWhere((p) => p.id == value.toInt());
+                  if (idx == -1) return const SizedBox.shrink();
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(prods[idx].name.substring(0, 3).toUpperCase(), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey)),
+                  );
+                },
+              ),
+            ),
+          ),
+          borderData: FlBorderData(show: false),
+          barGroups: prods.map((p) => BarChartGroupData(
+            x: p.id,
+            barRods: [BarChartRodData(toY: (p.quantityInStock ?? 0).toDouble(), color: Colors.green, width: 20, borderRadius: BorderRadius.circular(4))],
+          )).toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOrderTile(BuildContext context, dynamic o) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+      child: ListTile(
+        leading: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(color: Colors.blue.shade50, shape: BoxShape.circle),
+          child: const Icon(Iconsax.receipt_2, color: Colors.blue, size: 20),
+        ),
+        title: Text('Commande #${o.id}', style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text('Total: ${o.total.toStringAsFixed(0)} F'),
+        trailing: const Icon(Iconsax.arrow_right_3, size: 16, color: Colors.grey),
+        onTap: () {},
+      ),
+    );
+  }
+
+  Widget _buildViewMore(BuildContext context, String route) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: TextButton.icon(
+        onPressed: () => Navigator.pushNamed(context, route),
+        icon: const Text('Voir tout'),
+        label: const Icon(Iconsax.arrow_right_1, size: 16),
+      ),
+    );
+  }
 }
 
-class SectionTitle extends StatelessWidget {
-  final String text;
-  const SectionTitle(this.text, {super.key});
+class _SectionHeader extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  const _SectionHeader({required this.title, required this.icon});
+
   @override
-  Widget build(BuildContext context) => Text(
-    text,
-    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, size: 22, color: Colors.black87),
+        const Gap(10),
+        Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
+      ],
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  final String message;
+  const _EmptyState({required this.message});
+  @override
+  Widget build(BuildContext context) => Center(child: Padding(
+    padding: const EdgeInsets.symmetric(vertical: 20),
+    child: Text(message, style: const TextStyle(color: Colors.grey)),
+  ));
+}
+
+class _ErrorState extends StatelessWidget {
+  final String message;
+  const _ErrorState({required this.message});
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(color: Colors.red.shade50, borderRadius: BorderRadius.circular(12)),
+    child: Text(message, style: const TextStyle(color: Colors.red, fontSize: 12)),
+  );
+}
+
+class _ShimmerLoader extends StatelessWidget {
+  final double height;
+  const _ShimmerLoader({required this.height});
+  @override
+  Widget build(BuildContext context) => Container(
+    height: height,
+    width: double.infinity,
+    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24)),
+    child: const Center(child: CircularProgressIndicator()),
   );
 }

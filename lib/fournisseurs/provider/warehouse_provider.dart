@@ -4,22 +4,73 @@ import '../../core/network/dio_provider.dart';
 import '../../models/warehouse.dart';
 import '../../pagination/paginated_warehouse_list.dart';
 import '../../services/warehouse_service.dart';
-import '../notifications/warehouse_notifier.dart';
 import '../repositories/warehouse_repository.dart';
 
-/// 1. Fournisseur du service d'entrepôts
+/// 1. Service Provider
 final warehouseServiceProvider = Provider<WarehouseService>((ref) {
-  final dio = ref.watch(dioProvider);
-  return WarehouseService(dio);
+  return WarehouseService(ref.watch(dioProvider));
 });
 
-/// 2. Fournisseur du repository d'entrepôts
+/// 2. Repository Provider
 final warehouseRepositoryProvider = Provider<WarehouseRepository>((ref) {
-  final service = ref.watch(warehouseServiceProvider);
-  return WarehouseRepository(service);
+  return WarehouseRepository(ref.watch(warehouseServiceProvider));
 });
 
-/// 3. Fournisseur du notifier d'entrepôts (Riverpod 3.x)
+/// Notifier moderne pour Riverpod 3.x
+class WarehouseNotifier extends Notifier<AsyncValue<PaginatedWarehouseList>> {
+  @override
+  AsyncValue<PaginatedWarehouseList> build() {
+    Future.microtask(() => fetchWarehouses());
+    return const AsyncLoading();
+  }
+
+  Future<void> fetchWarehouses({int page = 1}) async {
+    state = const AsyncLoading();
+    try {
+      final repository = ref.read(warehouseRepositoryProvider);
+      final result = await repository.fetchWarehouses(page: page);
+      state = AsyncData(result);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  Future<void> deleteWarehouse(int id) async {
+    try {
+      final repository = ref.read(warehouseRepositoryProvider);
+      await repository.deleteWarehouse(id);
+      await fetchWarehouses();
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  /// Crée un entrepôt
+  Future<void> createWarehouse(String name, String location) async {
+    try {
+      final repository = ref.read(warehouseRepositoryProvider);
+      final warehouse = Warehouse(id: 0, name: name, location: location);
+      await repository.createWarehouse(warehouse);
+      await fetchWarehouses();
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  /// Met à jour un entrepôt existant
+  Future<void> updateWarehouse(int id, String name, String location) async {
+    try {
+      final repository = ref.read(warehouseRepositoryProvider);
+      final updated = Warehouse(id: id, name: name, location: location);
+      await repository.updateWarehouse(updated);
+      await fetchWarehouses();
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+}
+
+/// 3. Notifier Provider principal
 final warehouseNotifierProvider = NotifierProvider<
     WarehouseNotifier, AsyncValue<PaginatedWarehouseList>>(
   WarehouseNotifier.new,

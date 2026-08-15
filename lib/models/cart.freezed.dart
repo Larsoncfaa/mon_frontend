@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Cart {
 
- int get id; List<CartItem> get items;@JsonKey(name: 'total_price') double get totalPrice;@JsonKey(name: 'item_count') int get itemCount;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt;
+ int get id; List<CartItem> get items;@JsonKey(name: 'total_price')@StringToDoubleConverter() double get totalPrice;@JsonKey(name: 'item_count') int get itemCount;@JsonKey(name: 'created_at') DateTime get createdAt;@JsonKey(name: 'updated_at') DateTime get updatedAt;
 /// Create a copy of Cart
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $CartCopyWith<$Res>  {
   factory $CartCopyWith(Cart value, $Res Function(Cart) _then) = _$CartCopyWithImpl;
 @useResult
 $Res call({
- int id, List<CartItem> items,@JsonKey(name: 'total_price') double totalPrice,@JsonKey(name: 'item_count') int itemCount,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
+ int id, List<CartItem> items,@JsonKey(name: 'total_price')@StringToDoubleConverter() double totalPrice,@JsonKey(name: 'item_count') int itemCount,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
 });
 
 
@@ -158,7 +158,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  List<CartItem> items, @JsonKey(name: 'total_price')  double totalPrice, @JsonKey(name: 'item_count')  int itemCount, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  List<CartItem> items, @JsonKey(name: 'total_price')@StringToDoubleConverter()  double totalPrice, @JsonKey(name: 'item_count')  int itemCount, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Cart() when $default != null:
 return $default(_that.id,_that.items,_that.totalPrice,_that.itemCount,_that.createdAt,_that.updatedAt);case _:
@@ -179,7 +179,7 @@ return $default(_that.id,_that.items,_that.totalPrice,_that.itemCount,_that.crea
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  List<CartItem> items, @JsonKey(name: 'total_price')  double totalPrice, @JsonKey(name: 'item_count')  int itemCount, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  List<CartItem> items, @JsonKey(name: 'total_price')@StringToDoubleConverter()  double totalPrice, @JsonKey(name: 'item_count')  int itemCount, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Cart():
 return $default(_that.id,_that.items,_that.totalPrice,_that.itemCount,_that.createdAt,_that.updatedAt);case _:
@@ -199,7 +199,7 @@ return $default(_that.id,_that.items,_that.totalPrice,_that.itemCount,_that.crea
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  List<CartItem> items, @JsonKey(name: 'total_price')  double totalPrice, @JsonKey(name: 'item_count')  int itemCount, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  List<CartItem> items, @JsonKey(name: 'total_price')@StringToDoubleConverter()  double totalPrice, @JsonKey(name: 'item_count')  int itemCount, @JsonKey(name: 'created_at')  DateTime createdAt, @JsonKey(name: 'updated_at')  DateTime updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Cart() when $default != null:
 return $default(_that.id,_that.items,_that.totalPrice,_that.itemCount,_that.createdAt,_that.updatedAt);case _:
@@ -214,7 +214,7 @@ return $default(_that.id,_that.items,_that.totalPrice,_that.itemCount,_that.crea
 @JsonSerializable()
 
 class _Cart implements Cart {
-  const _Cart({required this.id, required final  List<CartItem> items, @JsonKey(name: 'total_price') required this.totalPrice, @JsonKey(name: 'item_count') required this.itemCount, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt}): _items = items;
+  const _Cart({required this.id, required final  List<CartItem> items, @JsonKey(name: 'total_price')@StringToDoubleConverter() required this.totalPrice, @JsonKey(name: 'item_count') required this.itemCount, @JsonKey(name: 'created_at') required this.createdAt, @JsonKey(name: 'updated_at') required this.updatedAt}): _items = items;
   factory _Cart.fromJson(Map<String, dynamic> json) => _$CartFromJson(json);
 
 @override final  int id;
@@ -225,7 +225,7 @@ class _Cart implements Cart {
   return EqualUnmodifiableListView(_items);
 }
 
-@override@JsonKey(name: 'total_price') final  double totalPrice;
+@override@JsonKey(name: 'total_price')@StringToDoubleConverter() final  double totalPrice;
 @override@JsonKey(name: 'item_count') final  int itemCount;
 @override@JsonKey(name: 'created_at') final  DateTime createdAt;
 @override@JsonKey(name: 'updated_at') final  DateTime updatedAt;
@@ -263,7 +263,7 @@ abstract mixin class _$CartCopyWith<$Res> implements $CartCopyWith<$Res> {
   factory _$CartCopyWith(_Cart value, $Res Function(_Cart) _then) = __$CartCopyWithImpl;
 @override @useResult
 $Res call({
- int id, List<CartItem> items,@JsonKey(name: 'total_price') double totalPrice,@JsonKey(name: 'item_count') int itemCount,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
+ int id, List<CartItem> items,@JsonKey(name: 'total_price')@StringToDoubleConverter() double totalPrice,@JsonKey(name: 'item_count') int itemCount,@JsonKey(name: 'created_at') DateTime createdAt,@JsonKey(name: 'updated_at') DateTime updatedAt
 });
 
 
