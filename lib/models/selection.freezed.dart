@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Selection {
 
- int get id; int get product; String? get image; int get quantity; String get name;@JsonKey(name: 'selling_price') String get sellingPrice; String? get description;@JsonKey(name: 'expiration_date') DateTime? get expirationDate; String get category;@JsonKey(name: 'created_at') DateTime? get createdAt;
+ int get id; int get product;@JsonKey(name: 'product_image') String? get image; int get quantity; String get name;@JsonKey(name: 'selling_price') String get sellingPrice; String? get description;@JsonKey(name: 'expiration_date') DateTime? get expirationDate; String get category;@JsonKey(name: 'created_at') DateTime? get createdAt;
 /// Create a copy of Selection
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $SelectionCopyWith<$Res>  {
   factory $SelectionCopyWith(Selection value, $Res Function(Selection) _then) = _$SelectionCopyWithImpl;
 @useResult
 $Res call({
- int id, int product, String? image, int quantity, String name,@JsonKey(name: 'selling_price') String sellingPrice, String? description,@JsonKey(name: 'expiration_date') DateTime? expirationDate, String category,@JsonKey(name: 'created_at') DateTime? createdAt
+ int id, int product,@JsonKey(name: 'product_image') String? image, int quantity, String name,@JsonKey(name: 'selling_price') String sellingPrice, String? description,@JsonKey(name: 'expiration_date') DateTime? expirationDate, String category,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 
@@ -162,7 +162,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int product,  String? image,  int quantity,  String name, @JsonKey(name: 'selling_price')  String sellingPrice,  String? description, @JsonKey(name: 'expiration_date')  DateTime? expirationDate,  String category, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int product, @JsonKey(name: 'product_image')  String? image,  int quantity,  String name, @JsonKey(name: 'selling_price')  String sellingPrice,  String? description, @JsonKey(name: 'expiration_date')  DateTime? expirationDate,  String category, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Selection() when $default != null:
 return $default(_that.id,_that.product,_that.image,_that.quantity,_that.name,_that.sellingPrice,_that.description,_that.expirationDate,_that.category,_that.createdAt);case _:
@@ -183,7 +183,7 @@ return $default(_that.id,_that.product,_that.image,_that.quantity,_that.name,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int product,  String? image,  int quantity,  String name, @JsonKey(name: 'selling_price')  String sellingPrice,  String? description, @JsonKey(name: 'expiration_date')  DateTime? expirationDate,  String category, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int product, @JsonKey(name: 'product_image')  String? image,  int quantity,  String name, @JsonKey(name: 'selling_price')  String sellingPrice,  String? description, @JsonKey(name: 'expiration_date')  DateTime? expirationDate,  String category, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _Selection():
 return $default(_that.id,_that.product,_that.image,_that.quantity,_that.name,_that.sellingPrice,_that.description,_that.expirationDate,_that.category,_that.createdAt);case _:
@@ -203,7 +203,7 @@ return $default(_that.id,_that.product,_that.image,_that.quantity,_that.name,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int product,  String? image,  int quantity,  String name, @JsonKey(name: 'selling_price')  String sellingPrice,  String? description, @JsonKey(name: 'expiration_date')  DateTime? expirationDate,  String category, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int product, @JsonKey(name: 'product_image')  String? image,  int quantity,  String name, @JsonKey(name: 'selling_price')  String sellingPrice,  String? description, @JsonKey(name: 'expiration_date')  DateTime? expirationDate,  String category, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Selection() when $default != null:
 return $default(_that.id,_that.product,_that.image,_that.quantity,_that.name,_that.sellingPrice,_that.description,_that.expirationDate,_that.category,_that.createdAt);case _:
@@ -218,12 +218,12 @@ return $default(_that.id,_that.product,_that.image,_that.quantity,_that.name,_th
 @JsonSerializable()
 
 class _Selection implements Selection {
-  const _Selection({required this.id, required this.product, this.image, required this.quantity, required this.name, @JsonKey(name: 'selling_price') required this.sellingPrice, this.description, @JsonKey(name: 'expiration_date') this.expirationDate, required this.category, @JsonKey(name: 'created_at') this.createdAt});
+  const _Selection({required this.id, required this.product, @JsonKey(name: 'product_image') this.image, required this.quantity, required this.name, @JsonKey(name: 'selling_price') required this.sellingPrice, this.description, @JsonKey(name: 'expiration_date') this.expirationDate, required this.category, @JsonKey(name: 'created_at') this.createdAt});
   factory _Selection.fromJson(Map<String, dynamic> json) => _$SelectionFromJson(json);
 
 @override final  int id;
 @override final  int product;
-@override final  String? image;
+@override@JsonKey(name: 'product_image') final  String? image;
 @override final  int quantity;
 @override final  String name;
 @override@JsonKey(name: 'selling_price') final  String sellingPrice;
@@ -265,7 +265,7 @@ abstract mixin class _$SelectionCopyWith<$Res> implements $SelectionCopyWith<$Re
   factory _$SelectionCopyWith(_Selection value, $Res Function(_Selection) _then) = __$SelectionCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int product, String? image, int quantity, String name,@JsonKey(name: 'selling_price') String sellingPrice, String? description,@JsonKey(name: 'expiration_date') DateTime? expirationDate, String category,@JsonKey(name: 'created_at') DateTime? createdAt
+ int id, int product,@JsonKey(name: 'product_image') String? image, int quantity, String name,@JsonKey(name: 'selling_price') String sellingPrice, String? description,@JsonKey(name: 'expiration_date') DateTime? expirationDate, String category,@JsonKey(name: 'created_at') DateTime? createdAt
 });
 
 

@@ -4,7 +4,6 @@ import '../../core/network/dio_provider.dart';
 import '../../models/delivery_predict.dart';
 import '../../services/delivery_predict_service.dart';
 import '../repositories/delivery_predict_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Provider pour le Service
 final deliveryPredictServiceProvider = Provider<DeliveryPredictService>((ref) {

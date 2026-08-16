@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:maliag/vues/agriculteur/selection_list_page.dart';
 
 import '../../../models/product.dart';
 import '../../fournisseurs/provider/product_provider.dart';
 import '../../widgets/app_drawer.dart';
+import '../../widgets/loading_widget.dart';
+import '../../widgets/error_widget.dart';
 import 'forme/product_discount_screen.dart';
 import 'forme/product_form.dart';
 
-/// Écran de gestion des produits pour l’agriculteur.
 class ProductManagementScreen extends ConsumerStatefulWidget {
   const ProductManagementScreen({super.key});
 
   @override
-  ConsumerState<ProductManagementScreen> createState() =>
-      _ProductManagementScreenState();
+  ConsumerState<ProductManagementScreen> createState() => _ProductManagementScreenState();
 }
 
-class _ProductManagementScreenState
-    extends ConsumerState<ProductManagementScreen> {
+class _ProductManagementScreenState extends ConsumerState<ProductManagementScreen> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -30,17 +31,11 @@ class _ProductManagementScreenState
   void _onScroll() {
     final notifier = ref.read(productProvider.notifier);
     final state = ref.read(productProvider);
-
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200 &&
-        state is AsyncData &&
-        state.value?.next != null &&
-        !notifier.isFetchingMore) {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200 && state is AsyncData && state.value?.next != null && !notifier.isFetchingMore) {
       notifier.fetchNextPage();
     }
   }
 
-  /// Affiche un formulaire pour créer ou éditer un produit.
   void _showProductForm(BuildContext context, {Product? product}) {
     showDialog(
       context: context,
@@ -53,33 +48,9 @@ class _ProductManagementScreenState
           } else {
             await notifier.updateProduct(newProduct, imageFile: imageFile);
           }
-          // Plus besoin de ref.invalidate => le notifier recharge déjà la page 1
         },
       ),
     );
-  }
-
-  /// Affiche une boîte de dialogue de confirmation avant suppression.
-  Future<bool> _confirmDelete(BuildContext context) async {
-    return await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Confirmer la suppression'),
-        content: const Text('Voulez-vous vraiment supprimer ce produit ?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Annuler'),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Supprimer'),
-          ),
-        ],
-      ),
-    ) ??
-        false;
   }
 
   @override
@@ -88,107 +59,96 @@ class _ProductManagementScreenState
     final notifier = ref.read(productProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Gestion des produits'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.checklist_rtl),
-              tooltip: 'Mes sélections',
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => const SelectionListPage(),
-                  ),
-                );
-              },
-            ),
-          IconButton(
-          icon: const Icon(Icons.local_offer), // ou Icons.percent
-      tooltip: 'Gérer les remises',
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => const ProductDiscountScreen(),
-          ),
-        );
-      },
-    ),
-    ],
+      backgroundColor: Colors.grey.shade50,
+      appBar: AppBar(
+        title: const Text('Catalogue Produits', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(icon: const Icon(Iconsax.task_square, color: Colors.blue), tooltip: 'Sélections', onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SelectionListPage()))),
+          IconButton(icon: const Icon(Iconsax.percentage_square, color: Colors.orange), tooltip: 'Remises', onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ProductDiscountScreen()))),
+          const Gap(8),
+        ],
       ),
       drawer: const AppDrawer(),
       body: asyncPage.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, _) => Center(child: Text('Erreur : $err')),
+        loading: () => const LoadingWidget(),
+        error: (err, _) => ErrorDisplayWidget(error: err.toString()),
         data: (page) => RefreshIndicator(
           onRefresh: () => notifier.refresh(),
           child: ListView.separated(
             controller: _scrollController,
+            padding: const EdgeInsets.all(20),
             itemCount: page.results.length + 1,
-            separatorBuilder: (_, __) => const Divider(height: 1),
+            separatorBuilder: (_, __) => const Gap(16),
             itemBuilder: (context, index) {
               if (index == page.results.length) {
-                return notifier.isFetchingMore
-                    ? const Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Center(child: CircularProgressIndicator()),
-                )
-                    : const SizedBox.shrink();
+                return notifier.isFetchingMore ? const Center(child: Padding(padding: EdgeInsets.all(16), child: CircularProgressIndicator())) : const SizedBox.shrink();
               }
-
-              final product = page.results[index];
-
-              return Dismissible(
-                key: ValueKey(product.id),
-                direction: DismissDirection.endToStart,
-                background: Container(), // pas besoin ici
-                secondaryBackground: const ColoredBox(
-                  color: Colors.red,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Icon(Icons.delete, color: Colors.white),
-                    ),
-                  ),
-                ),
-                confirmDismiss: (_) async {
-                  return await _confirmDelete(context);
-                },
-                onDismissed: (_) async {
-                  await notifier.deleteProduct(product.id);
-                  // Plus besoin de ref.invalidate : deleteProduct() recharge déjà la page 1
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Produit supprimé')),
-                  );
-                },
-                child: ListTile(
-                  leading: product.image != null
-                      ? CircleAvatar(
-                      backgroundImage: NetworkImage(product.image!))
-                      : const CircleAvatar(
-                      child: Icon(Icons.image_not_supported)),
-                  title: Text(product.name),
-                  subtitle: Text(
-                    'Prix vente : ${product.sellingPrice?.toStringAsFixed(2) ?? "N/A"} f\n'
-                        'Stock : ${product.quantityInStock ?? 0} ${product.unit.label.toUpperCase()}',
-                  ),
-                  onTap: () => _showProductForm(context, product: product),
-                ),
-              );
+              return _ProductListTile(product: page.results[index], onEdit: () => _showProductForm(context, product: page.results[index]), onDelete: () => _confirmDelete(context, page.results[index].id));
             },
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showProductForm(context),
-        tooltip: 'Ajouter un produit',
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.green,
+        icon: const Icon(Iconsax.add, color: Colors.white),
+        label: const Text('Ajouter Produit', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
+  void _confirmDelete(BuildContext context, int id) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text('Supprimer ?'),
+        content: const Text('Ce produit sera retiré du catalogue.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Annuler')),
+          ElevatedButton(onPressed: () => Navigator.pop(ctx, true), style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, foregroundColor: Colors.white), child: const Text('Supprimer')),
+        ],
+      ),
+    );
+    if (confirm == true) {
+      await ref.read(productProvider.notifier).deleteProduct(id);
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Produit supprimé')));
+    }
   }
+}
+
+class _ProductListTile extends StatelessWidget {
+  final Product product;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+  const _ProductListTile({required this.product, required this.onEdit, required this.onDelete});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.02), blurRadius: 10, offset: const Offset(0, 4))]),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: product.image != null
+              ? Image.network(product.image!, width: 60, height: 60, fit: BoxFit.cover, errorBuilder: (_, __, ___) => _imgPlaceholder())
+              : _imgPlaceholder(),
+        ),
+        title: Text(product.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text('${product.sellingPrice?.toStringAsFixed(0) ?? "0"} F • Stock: ${product.quantityInStock ?? 0} ${product.unit.label.toUpperCase()}', style: TextStyle(color: Colors.grey.shade600, fontSize: 12)),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(icon: const Icon(Iconsax.edit_2, size: 20, color: Colors.blue), onPressed: onEdit),
+            IconButton(icon: const Icon(Iconsax.trash, size: 20, color: Colors.redAccent), onPressed: onDelete),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _imgPlaceholder() => Container(width: 60, height: 60, color: Colors.grey.shade100, child: const Icon(Iconsax.image, color: Colors.grey));
 }

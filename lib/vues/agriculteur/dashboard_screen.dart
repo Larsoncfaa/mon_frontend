@@ -9,7 +9,7 @@ import '../../fournisseurs/provider/stock_alert_provider.dart';
 import '../../fournisseurs/provider/product_provider.dart';
 import '../../widgets/app_drawer.dart';
 import '../../widgets/loading_widget.dart';
-import '../../widgets/stock_alert_card.dart';
+import 'package:maliag/widgets/stock_alert_card.dart';
 
 class DashboardAgriculteurScreen extends ConsumerWidget {
   const DashboardAgriculteurScreen({super.key});
@@ -169,37 +169,183 @@ class DashboardAgriculteurScreen extends ConsumerWidget {
   }
 
   Widget _buildBarChart(BuildContext context, List prods) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Hauteur adaptée à la taille de l'écran
+    final chartHeight = screenWidth < 600
+        ? 220.0
+        : screenWidth < 1000
+        ? 260.0
+        : 300.0;
+
+    // On limite l'affichage à quelques produits pour garder
+    // le graphe lisible et indicatif.
+    final displayedProducts = prods.take(6).toList();
+
+    if (displayedProducts.isEmpty) {
+      return const _EmptyState(
+        message: 'Aucune donnée de stock disponible.',
+      );
+    }
+
     return Container(
-      height: 250,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24)),
-      child: BarChart(
-        BarChartData(
-          gridData: const FlGridData(show: false),
-          titlesData: FlTitlesData(
-            leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: (value, _) {
-                  final idx = prods.indexWhere((p) => p.id == value.toInt());
-                  if (idx == -1) return const SizedBox.shrink();
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Text(prods[idx].name.substring(0, 3).toUpperCase(), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey)),
+      width: double.infinity,
+      height: chartHeight,
+      padding: EdgeInsets.all(screenWidth < 600 ? 12 : 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Aperçu du stock',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            'Quantité disponible par produit',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          Expanded(
+            child: BarChart(
+              BarChartData(
+                minY: 0,
+
+                gridData: FlGridData(
+                  show: true,
+                  drawVerticalLine: false,
+                  horizontalInterval: 1,
+                  getDrawingHorizontalLine: (value) {
+                    return FlLine(
+                      color: Colors.grey.withValues(alpha: 0.12),
+                      strokeWidth: 1,
+                    );
+                  },
+                ),
+
+                borderData: FlBorderData(show: false),
+
+                barTouchData: BarTouchData(
+                  enabled: true,
+                  touchTooltipData: BarTouchTooltipData(
+                    getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                      final product = displayedProducts[groupIndex];
+
+                      return BarTooltipItem(
+                        '${product.name}\n'
+                            'Stock : ${product.quantityInStock ?? 0} ${product.unit.name}',
+                        const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+
+                titlesData: FlTitlesData(
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: screenWidth >= 500,
+                      reservedSize: 35,
+                      getTitlesWidget: (value, meta) {
+                        return Text(
+                          value.toInt().toString(),
+                          style: const TextStyle(
+                            fontSize: 10,
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: screenWidth < 600 ? 32 : 40,
+                      getTitlesWidget: (value, meta) {
+                        final index = value.toInt();
+
+                        if (index < 0 ||
+                            index >= displayedProducts.length) {
+                          return const SizedBox.shrink();
+                        }
+
+                        final name =
+                        displayedProducts[index].name.toString();
+
+                        final shortName = name.length > 6
+                            ? '${name.substring(0, 6)}...'
+                            : name;
+
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Text(
+                            shortName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: screenWidth < 600 ? 9 : 10,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+
+                barGroups: displayedProducts.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final product = entry.value;
+
+                  final quantity =
+                  (product.quantityInStock ?? 0).toDouble();
+
+                  return BarChartGroupData(
+                    x: index,
+                    barRods: [
+                      BarChartRodData(
+                        toY: quantity,
+                        width: screenWidth < 600 ? 18 : 24,
+                        color: Colors.green,
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(6),
+                        ),
+                      ),
+                    ],
                   );
-                },
+                }).toList(),
               ),
             ),
           ),
-          borderData: FlBorderData(show: false),
-          barGroups: prods.map((p) => BarChartGroupData(
-            x: p.id,
-            barRods: [BarChartRodData(toY: (p.quantityInStock ?? 0).toDouble(), color: Colors.green, width: 20, borderRadius: BorderRadius.circular(4))],
-          )).toList(),
-        ),
+        ],
       ),
     );
   }

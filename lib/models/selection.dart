@@ -8,6 +8,7 @@ abstract class Selection with _$Selection {
   const factory Selection({
     required int id,
     required int product,
+    @JsonKey(name: 'product_image')
     String? image,
     required int quantity,
     required String name,

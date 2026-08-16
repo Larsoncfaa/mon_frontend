@@ -55,7 +55,10 @@ abstract class Product with _$Product {
     @JsonKey(fromJson: unitFromJson, toJson: unitToJson)
     required UnitEnum unit,
 
+    @JsonKey(name: 'purchase_price')
     @StringToDoubleConverter() required double? purchasePrice,
+
+    @JsonKey(name: 'selling_price')
     @StringToDoubleConverter() required double? sellingPrice,
 
     DateTime? expirationDate,

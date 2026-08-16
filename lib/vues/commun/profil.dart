@@ -59,7 +59,7 @@ class ProfileScreen extends ConsumerWidget {
                 _buildProfileItem('Email', user.email),
                 const SizedBox(height: 10),
                 _buildProfileItem('Rôle', user.role.label),
-                const SizedBox(height: 30),
+                 const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

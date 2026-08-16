@@ -9,7 +9,7 @@ part of 'selection.dart';
 _Selection _$SelectionFromJson(Map<String, dynamic> json) => _Selection(
   id: (json['id'] as num).toInt(),
   product: (json['product'] as num).toInt(),
-  image: json['image'] as String?,
+  image: json['product_image'] as String?,
   quantity: (json['quantity'] as num).toInt(),
   name: json['name'] as String,
   sellingPrice: json['selling_price'] as String,
@@ -27,7 +27,7 @@ Map<String, dynamic> _$SelectionToJson(_Selection instance) =>
     <String, dynamic>{
       'id': instance.id,
       'product': instance.product,
-      'image': instance.image,
+      'product_image': instance.image,
       'quantity': instance.quantity,
       'name': instance.name,
       'selling_price': instance.sellingPrice,

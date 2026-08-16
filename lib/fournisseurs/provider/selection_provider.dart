@@ -48,6 +48,7 @@ class SelectionNotifier extends Notifier<SelectionState> {
 
   @override
   SelectionState build() {
+    Future.microtask(() => loadSelections());
     return SelectionState();
   }
 

@@ -15,9 +15,9 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
   quantityInStock: (json['quantity_in_stock'] as num?)?.toInt(),
   unit: unitFromJson(json['unit'] as String),
   purchasePrice: const StringToDoubleConverter().fromJson(
-    json['purchasePrice'],
+    json['purchase_price'],
   ),
-  sellingPrice: const StringToDoubleConverter().fromJson(json['sellingPrice']),
+  sellingPrice: const StringToDoubleConverter().fromJson(json['selling_price']),
   expirationDate: json['expirationDate'] == null
       ? null
       : DateTime.parse(json['expirationDate'] as String),
@@ -32,11 +32,11 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'description': instance.description,
   'quantity_in_stock': instance.quantityInStock,
   'unit': unitToJson(instance.unit),
-  'purchasePrice': _$JsonConverterToJson<dynamic, double>(
+  'purchase_price': _$JsonConverterToJson<dynamic, double>(
     instance.purchasePrice,
     const StringToDoubleConverter().toJson,
   ),
-  'sellingPrice': _$JsonConverterToJson<dynamic, double>(
+  'selling_price': _$JsonConverterToJson<dynamic, double>(
     instance.sellingPrice,
     const StringToDoubleConverter().toJson,
   ),
